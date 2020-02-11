@@ -9,7 +9,7 @@ The game can be played here: [Life of PiBS](https://lifeofpibs.netlify.com)
 
 ### Game Description
 
-TODO
+TODO test
 
 ### Functional Requirements
 
