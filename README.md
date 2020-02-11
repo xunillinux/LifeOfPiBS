@@ -16,5 +16,5 @@ TODO
 TODO
 
 ### Non Functional Requirements
-
+Environment: The game can be played in the browser "Chrome".
 TODO
