@@ -9,7 +9,7 @@ The game can be played here: [Life of PiBS](https://lifeofpibs.netlify.com)
 
 ### Game Description
 
-TODO
+TODO test
 
 ### Functional Requirements
 1) The user can start a new game by clicking on the button "Start Game".
