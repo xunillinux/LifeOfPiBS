@@ -4,12 +4,12 @@
 
 ## What is Life of PiBS
 
-Life of PiBS is a simple jump and run browser game that let's you experience the great journey of a PiBS Student.
+Life of PiBS is a simple jump and run browser game that let's you experience the great journey of a PiBS student.
 The game can be played here: [Life of PiBS](https://lifeofpibs.netlify.com)
 
 ### Game Description
-
-TODO test
+You jump and run through the levels as a PiBS student. In order to finish your level (or year) you have to collect all ECTS-points and then face the boss of the year. If you succeed you get to run through the next level.
+TODO
 
 ### Functional Requirements
 1) The user can start a new game by clicking on the button "Start Game".
@@ -27,9 +27,6 @@ TODO test
 13) When the exit of the level enters the frame and all ECTS of the level have been gathered, the "boss" of the level appears.
 
 
-TODO
-
 ### Non Functional Requirements
 Environment: The game can be played in the browser "Chrome".
 Time: A new game has loaded within 5 seconds.
-TODO
