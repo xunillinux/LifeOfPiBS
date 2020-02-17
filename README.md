@@ -3,7 +3,7 @@
 ## What is Life of PiBS
 
 Life of PiBS is a simple jump and run browser game that let's you experience the great journey of a PiBS student.
-The game can be played here: [Life of PiBS](https://lifeofpibs.netlify.com)
+The game can be played here: [Life of PiBS](https://xunillinux.github.io/LifeOfPiBS/)
 
 ### Game Description
 
