@@ -8,8 +8,13 @@ Life of PiBS is a simple jump and run browser game that let's you experience the
 The game can be played here: [Life of PiBS](https://lifeofpibs.netlify.com)
 
 ### Game Description
-You jump and run through the levels as a PiBS student. In order to finish your level (or year) you have to collect all ECTS-points and then face the boss of the year. If you succeed you get to run through the next level.
-TODO
+
+Life of PiBS is a jump and run game, where the pc (player character) can walk to the left and right, jump onto platforms and shoot projectiles to the left and right. The levels are predesigned and contain monsters that walk around. Once a monster gets within a certain range of the pc it will walk towards him. If the pc touches one of the monsters he will loose a life. Once the pc has no lifes left the game is over.
+
+The goal of the pc in each level is to collect ECTS points by finding them in the map and touching them. Once the pc collected enough ECTS points he can continue to the boss fight of that level. In the boss fights the pc has to shoot the boss a few times without getting touched by it. Once a boss is defeated the pc will be transfered to a new level.
+
+The first few levels will each have a "semester paper" as boss that gets more and more complete whenever it is hit by a projectile.
+The final boss will be the "bachelor thesis".
 
 ### Functional Requirements
 1) The user can start a new game by clicking on the button "Start Game".
