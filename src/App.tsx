@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Life of PiBS</h1>
-        <GameCanvas/>
+        <GameCanvas data-testid="gamecanvastestid"/>
       </header>
     </div>
   );
