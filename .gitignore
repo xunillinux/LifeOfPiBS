@@ -16,6 +16,7 @@ bower_components
 psd
 thumb
 sketch
+build/
 build/*
 
 # End of https://www.gitignore.io/api/react
