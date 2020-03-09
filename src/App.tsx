@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import GameCanvas from './game/Gamecanvas';
+import Controls from './game/Controls';
 
 function App() {
   return (

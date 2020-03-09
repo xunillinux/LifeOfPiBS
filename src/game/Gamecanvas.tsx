@@ -1,6 +1,7 @@
 import React from 'react';
 import './Gamecanvas.css';
-import gamesketchimg from './gamesketchimg.jpg';
+import gamesketchimg from './images/gamesketchimg.jpg';
+import Controls from './Controls';
 
 class Canvas extends React.Component {
 
@@ -11,6 +12,8 @@ class Canvas extends React.Component {
         super(props);
         this.gameCanvasRef = React.createRef();
         this.gameSketchImgRef = React.createRef();
+        let controls = new Controls();
+        controls.registerKeyEvents();
     }
 
     componentDidMount() {
