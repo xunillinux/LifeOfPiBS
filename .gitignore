@@ -21,5 +21,6 @@ build/*
 build
 ./build
 /build
+**/build
 
 # End of https://www.gitignore.io/api/react
