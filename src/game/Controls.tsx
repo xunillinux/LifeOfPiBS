@@ -5,10 +5,7 @@ class Controls {
     static heldRight: boolean = false;
     static heldUp: boolean = false;
     static heldDown: boolean = false;
-
-    constructor() {
-
-    }
+    static Escape: boolean = false;
 
     static registerKeyEvents(){
         window.onkeydown = function (e: any) {
@@ -30,7 +27,7 @@ class Controls {
                     Controls.heldDown = true;
                     break;
                 case 27: // escape
-                    // TODO initGame()
+                    Controls.Escape = true;
                 default:
                     return;
             }

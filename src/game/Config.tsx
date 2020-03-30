@@ -1,4 +1,4 @@
-class Config {
+export class Config {
 
     private tileSizeSource: any;
     private tileSizeTarget: any;
@@ -16,7 +16,4 @@ class Config {
 
     }
 
-
 }
-
-export default Config;
