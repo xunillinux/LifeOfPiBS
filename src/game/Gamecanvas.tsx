@@ -12,8 +12,8 @@ class Canvas extends React.Component {
         super(props);
         this.gameCanvasRef = React.createRef();
         this.gameSketchImgRef = React.createRef();
-        let controls = new Controls();
-        controls.registerKeyEvents();
+        Controls.registerKeyEvents();
+        
     }
 
     componentDidMount() {
