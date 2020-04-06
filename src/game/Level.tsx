@@ -1,4 +1,4 @@
-class Level {
+export default class Level {
 
     private name: string;
     private backgroundColor: string;
@@ -12,7 +12,8 @@ class Level {
 
     }
 
+    getTemplate(): string[]{
+        return this.template;
+    }
 
 }
-
-export default Level;

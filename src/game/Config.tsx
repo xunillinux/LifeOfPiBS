@@ -1,19 +1,11 @@
-export class Config {
+export default class Config {
 
-    private tileSizeSource: any;
-    private tileSizeTarget: any;
-
-    private gravity: number;
-    private fps: number;
-    
-    constructor() {
-
-        this.tileSizeSource = {w:16, h:16};
-        this.tileSizeTarget = {w:32, h:32};
-        
-        this.gravity = 2;
-        this.fps = 30;
-
-    }
+    static tileSizeSource: any = {w:16, h:16};
+    static tileSizeTarget: any = {w:32, h:32};
+    static canvasSize: any = {w:755, h:425};
+    static gravity: number = 2;
+    static fps: number = 30;
+    static gameInterval: any;
+    static gameTileImagePath: "/game/images/gameTileImage.jpg";
 
 }

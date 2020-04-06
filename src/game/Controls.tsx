@@ -9,25 +9,31 @@ class Controls {
 
     static registerKeyEvents(){
         window.onkeydown = function (e: any) {
-            e.preventDefault();
             switch (e.keyCode) {
                 case 37: // left
+                    e.preventDefault();
                     Controls.heldLeft = true;
                     break;
                 case 32: // space
+                    e.preventDefault();
                     Controls.heldUp = true;
                     break;
                 case 38: // up
+                    e.preventDefault();
                     Controls.heldUp = true;
                     break;
                 case 39: // right
+                    e.preventDefault();
                     Controls.heldRight = true;
                     break;
                 case 40: // down
+                    e.preventDefault();
                     Controls.heldDown = true;
                     break;
                 case 27: // escape
+                    e.preventDefault();
                     Controls.Escape = true;
+                    break;
                 default:
                     return;
             }
@@ -35,21 +41,25 @@ class Controls {
         };
     
         window.onkeyup = function (e: any) {
-            e.preventDefault();
             switch (e.keyCode) {
                 case 37: // left
+                    e.preventDefault();
                     Controls.heldLeft = false;
                     break;
                 case 32: // space
+                    e.preventDefault();
                     Controls.heldUp = false;
                     break;
                 case 38: // up
+                    e.preventDefault();
                     Controls.heldUp = false;
                     break;
                 case 39: // right
+                    e.preventDefault();
                     Controls.heldRight = false;
                     break;
                 case 40: // down
+                    e.preventDefault();
                     Controls.heldDown = false;
                     break;
                 default:
