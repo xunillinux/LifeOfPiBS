@@ -1,6 +1,7 @@
 import Level from './Level';
 import Tile from './Tile';
 import { TileType } from './TileType';
+import TilePosition from './TilePosition';
 
 class Levels {
 
@@ -9,16 +10,23 @@ class Levels {
         new Level("1", "grey", [
             "",
             "",
-            ""
-        ]),
+            "",
+        ],
+        [new TilePosition(1, 2)],
+        [new TilePosition(3, 4)]
+        ),
 
         new Level("2", "grey", [
             "",
             "",
             ""
-        ])
+        ],
+        [new TilePosition(1, 2)],
+        [new TilePosition(3, 4)]
+        )
 
     ];
+
 
     static tiles: { [id: string]: Tile } = {
         '#' : new Tile(0,0,true,true,false, TileType.DEFAULT),

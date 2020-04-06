@@ -75,6 +75,16 @@ class Canvas extends React.Component {
         //drawControls();
     }
 
+    initializeLevel(){
+        //current_level.width = current_level.level[0].length * size.tile.target.w;
+        //items = []
+        //collisionMap = []
+        //actors = [player];
+        //resetPlayer()
+        //scroll_x = player.pos.x - (document.documentElement.clientWidth - 4) / 2
+        //theme = current_level.theme
+    }
+
     drawLevel() {
 
         // clear the canvas before repainting
@@ -91,7 +101,7 @@ class Canvas extends React.Component {
         // last tile to show
         let index_x_max = index_x_start + Config.tileSizeTarget.w + 1
     
-        let currentLevelTemplate = this.currentLevel.getTemplate();
+        let currentLevelTemplate = this.currentLevel.template;
 
         for(let i = 0; i < currentLevelTemplate.length-1; i++){
             this.drawLayer(currentLevelTemplate[i], i, index_x_start, index_x_max, offset_x);
