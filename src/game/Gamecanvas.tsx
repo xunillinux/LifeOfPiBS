@@ -6,6 +6,8 @@ import Config from './Config';
 import Levels from './Levels';
 import Level from './Level';
 import Tile from './Tile';
+import Npc from './Entities/characters/Npc';
+import Ects from './Entities/items/Ects';
 
 class Canvas extends React.Component {
 
@@ -23,6 +25,9 @@ class Canvas extends React.Component {
     private levelPosXStart = 0;
 
     private currentLevel: Level = Levels.levels[0];
+
+    private enemies: Npc[] = [];
+    private items: Ects[] = [];
 
     constructor(props: any) {
         super(props);
@@ -78,12 +83,16 @@ class Canvas extends React.Component {
     initializeLevel(){
         //current_level.width = current_level.level[0].length * size.tile.target.w;
         //items = []
+        this.enemies = this.currentLevel.enemies; //Levels.getEnemiesForLevel(this.currentLevel);
+        //this.items = Levels.getItemsForLevel(this.currentLevel);
         //collisionMap = []
         //actors = [player];
         //resetPlayer()
         //scroll_x = player.pos.x - (document.documentElement.clientWidth - 4) / 2
         //theme = current_level.theme
     }
+
+
 
     drawLevel() {
 

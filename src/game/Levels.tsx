@@ -1,7 +1,9 @@
 import Level from './Level';
 import Tile from './Tile';
 import { TileType } from './TileType';
-import TilePosition from './TilePosition';
+import TilePosition from './SpritePosition';
+import Npc from './Entities/characters/Npc';
+import Ects from './Entities/items/Ects';
 
 class Levels {
 
@@ -12,8 +14,8 @@ class Levels {
             "",
             "",
         ],
-        [new TilePosition(1, 2)],
-        [new TilePosition(3, 4)]
+        [new Npc(0, 0, 0, 0, 0)],
+        [new Ects(0, 0, 0)],
         ),
 
         new Level("2", "grey", [
@@ -21,8 +23,8 @@ class Levels {
             "",
             ""
         ],
-        [new TilePosition(1, 2)],
-        [new TilePosition(3, 4)]
+        [new Npc(0, 0, 0, 0, 0)],
+        [new Ects(0, 0, 0)],
         )
 
     ];

@@ -1,4 +1,5 @@
 import Character from './Character';
+import playerSpriteImage from '../../images/playerSprite.jpg';
 
 class Player extends Character {
 
@@ -10,6 +11,7 @@ class Player extends Character {
         super(xPos, yPos, sprite_pos, xVelocity, yVelocity, friction);
         this.lives = lives;
         this.speedLimitY = 25;
+        this.spriteMap.src = playerSpriteImage;
     }
 
     resetPlayer() {
