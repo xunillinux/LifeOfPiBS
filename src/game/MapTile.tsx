@@ -1,6 +1,6 @@
-import { TileType } from './TileType';
+import { MapTileType } from './MapTileType';
 
-export default class Tile {
+export default class MapTile {
 
     private _xPos: number;
     public get xPos(): number {
@@ -37,16 +37,16 @@ export default class Tile {
     public set hurtful(value: boolean) {
         this._hurtful = value;
     }
-    private _type: TileType;
-    public get type(): TileType {
+    private _type: MapTileType;
+    public get type(): MapTileType {
         return this._type;
     }
-    public set type(value: TileType) {
+    public set type(value: MapTileType) {
         this._type = value;
     }
 
 
-    constructor(xPos: number, yPos: number, collision: boolean, solid: boolean, hurtful: boolean, type: TileType) {
+    constructor(xPos: number, yPos: number, collision: boolean, solid: boolean, hurtful: boolean, type: MapTileType) {
 
         this._xPos = xPos;
         this._yPos = yPos;
@@ -57,8 +57,8 @@ export default class Tile {
 
     }
 
-    cloneTile(): Tile{
-        return new Tile(this.xPos, this.yPos, this.collision, this.solid, this.hurtful, this.type);
+    cloneTile(): MapTile{
+        return new MapTile(this.xPos, this.yPos, this.collision, this.solid, this.hurtful, this.type);
     };
 
 

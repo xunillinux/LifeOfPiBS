@@ -1,29 +1,64 @@
 import SpritePosition from "../SpritePosition";
-import Config from "../Config";
 
-class Entity {
+export default class Entity {
 
-    protected xPos: number;
-    protected yPos: number;
-    protected sprite_pos: any;
-    protected source_size: any;
-    protected target_size: any;
-    protected spriteMap: HTMLImageElement;
+    private _xPos: number;
+    private _yPos: number;
+    
+    private _spriteMap: HTMLImageElement;
+    private _spritePos: SpritePosition;
+    private _sourceSize: number;
+    private _targetSize: number;
 
+    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number) {
+        this._xPos = xPos;
+        this._yPos = yPos;
 
-    constructor(xPos:number, yPos:number, sprite_pos:any, tilePos?:SpritePosition) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        this.sprite_pos = sprite_pos;
-        this.source_size = Config.entityDefaultsizeSource;
-        this.target_size = Config.entityDefaultsizeTarget;
-        this.spriteMap = new Image();
-        if(tilePos){
-            this.xPos = tilePos.tileX*Config.tileSizeTarget.w;
-            this.yPos = tilePos.tileY*Config.tileSizeTarget.h;
-        }
+        this._spriteMap = spriteMap;
+        this._spritePos = spritePos;
+        this._sourceSize = sourceSize;
+        this._targetSize = targetSize;
     }
 
-}
+    protected get xPos(): number {
+        return this._xPos;
+    }
+    protected set xPos(value: number) {
+        this._xPos = value;
+    }
 
-export default Entity;
+    protected get yPos(): number {
+        return this._yPos;
+    }
+    protected set yPos(value: number) {
+        this._yPos = value;
+    }
+
+    protected get spriteMap(): HTMLImageElement {
+        return this._spriteMap;
+    }
+    protected set spriteMap(value: HTMLImageElement) {
+        this._spriteMap = value;
+    }
+
+    protected get spritePos(): SpritePosition {
+        return this._spritePos;
+    }
+    protected set spritePos(value: SpritePosition) {
+        this._spritePos = value;
+    }
+    
+    protected get sourceSize(): number {
+        return this._sourceSize;
+    }
+    protected set sourceSize(value: number) {
+        this._sourceSize = value;
+    }
+
+    protected get targetSize(): number {
+        return this._targetSize;
+    }
+    protected set targetSize(value: number) {
+        this._targetSize = value;
+    }
+}

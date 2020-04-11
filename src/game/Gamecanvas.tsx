@@ -5,7 +5,6 @@ import Controls from './Controls';
 import Config from './Config';
 import Levels from './Levels';
 import Level from './Level';
-import Tile from './Tile';
 import Npc from './Entities/characters/Npc';
 import Ects from './Entities/items/Ects';
 
@@ -105,10 +104,10 @@ class Canvas extends React.Component {
         }
         this.levelPosXStart = this.levelPosX;
         // first tile to display:
-        let index_x_start = this.levelPosX / Config.tileSizeTarget.w
-        let offset_x = this.levelPosX % Config.tileSizeTarget.w
+        let index_x_start = this.levelPosX / Config.mapTileSizeTarget.w
+        let offset_x = this.levelPosX % Config.mapTileSizeTarget.w
         // last tile to show
-        let index_x_max = index_x_start + Config.tileSizeTarget.w + 1
+        let index_x_max = index_x_start + Config.mapTileSizeTarget.w + 1
     
         let currentLevelTemplate = this.currentLevel.template;
 
@@ -124,16 +123,16 @@ class Canvas extends React.Component {
 
             let tile = Levels.getLevelTile(currentTemplateLayer.charAt(index_x));
             if (tile) {
-                tile.xPos = index_x * Config.tileSizeTarget.w - offset_x
-                tile.yPos = index_y * Config.tileSizeTarget.h
+                tile.xPos = index_x * Config.mapTileSizeTarget.w - offset_x
+                tile.yPos = index_y * Config.mapTileSizeTarget.h
 
                 this.ctx.drawImage(Config.gameTileImagePath,
-                    tile.xPos * (Config.tileSizeSource.w + 1) + 0.5,
-                    tile.yPos * (Config.tileSizeSource.h + 1) + 0.5,
-                    Config.tileSizeSource.w - 0.8,
-                    Config.tileSizeSource.h - 0.8,
-                    tile.xPos - index_x_start * Config.tileSizeTarget.w, tile.yPos,
-                    Config.tileSizeTarget.w, Config.tileSizeTarget.h)
+                    tile.xPos * (Config.mapTileSizeSource.w + 1) + 0.5,
+                    tile.yPos * (Config.mapTileSizeSource.h + 1) + 0.5,
+                    Config.mapTileSizeSource.w - 0.8,
+                    Config.mapTileSizeSource.h - 0.8,
+                    tile.xPos - index_x_start * Config.mapTileSizeTarget.w, tile.yPos,
+                    Config.mapTileSizeTarget.w, Config.mapTileSizeTarget.h)
 
                 if (tile.collision) {
                     this.collisionMap.push(tile.cloneTile());

@@ -1,6 +1,5 @@
-import TilePosition from "./SpritePosition";
 import Npc from "./Entities/characters/Npc";
-import Ects from "./Entities/items/Ects";
+import Item from "./Entities/items/Item";
 
 export default class Level {
 
@@ -9,16 +8,16 @@ export default class Level {
     private _template: string[];
      
     private _enemies: Npc[];
-    private _ects: Ects[];
+    private _items: Item[];
    
 
-    constructor(name: string, backgroundColor: string, template: string[], enemies: Npc[], ects: Ects[]) {
+    constructor(name: string, backgroundColor: string, template: string[], enemies: Npc[], ects: Item[]) {
 
         this.name = name;
         this.backgroundColor = backgroundColor;
         this._template = template;
         this._enemies = enemies;
-        this._ects = ects;
+        this._items = ects;
 
     }
 
@@ -30,7 +29,7 @@ export default class Level {
         return this._enemies;
     }
 
-    public get ects(): Ects[] {
-        return this._ects;
+    public get items(): Item[] {
+        return this._items;
     }
 }

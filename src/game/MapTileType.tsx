@@ -1,4 +1,4 @@
-export enum TileType{
+export enum MapTileType{
     DEFAULT,
     HIDDEN,
     RESPAWN,

@@ -1,13 +1,11 @@
 import Character from './Character';
 import SpritePosition from '../../SpritePosition';
 
-class Npc extends Character {
+export default class Npc extends Character {
 
-    constructor(xPos:number, yPos:number, sprite_pos:any, xVelocity:number, yVelocity:number, tilePos?:SpritePosition) {
-        let friction = 0.8;
-        super(xPos, yPos, sprite_pos, xVelocity, yVelocity, friction, tilePos);
+    // eslint-disable-next-line
+    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, yVelocity:number, friction:number) {
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, yVelocity, friction);
     }
 
 }
-
-export default Npc;

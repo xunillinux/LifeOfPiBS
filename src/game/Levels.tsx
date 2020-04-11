@@ -1,21 +1,21 @@
 import Level from './Level';
-import Tile from './Tile';
-import { TileType } from './TileType';
-import TilePosition from './SpritePosition';
-import Npc from './Entities/characters/Npc';
+import MapTile from './MapTile';
+import { MapTileType } from './MapTileType';
 import Ects from './Entities/items/Ects';
+import Prof from './Entities/characters/Prof';
 
 class Levels {
 
     static levels: Level[] = [
 
+        //TODO create new class "MAP" which contains a template with MapTiles instead of level.template
         new Level("1", "grey", [
             "",
             "",
             "",
         ],
-        [new Npc(0, 0, 0, 0, 0)],
-        [new Ects(0, 0, 0)],
+        [new Prof(0, 0)],
+        [new Ects(0, 0)],
         ),
 
         new Level("2", "grey", [
@@ -23,20 +23,20 @@ class Levels {
             "",
             ""
         ],
-        [new Npc(0, 0, 0, 0, 0)],
-        [new Ects(0, 0, 0)],
+        [new Prof(0, 0)],
+        [new Ects(0, 0)],
         )
 
     ];
 
-
-    static tiles: { [id: string]: Tile } = {
-        '#' : new Tile(0,0,true,true,false, TileType.DEFAULT),
-        'o' : new Tile(0,1,false,false,false, TileType.DEFAULT),
-        'x' : new Tile(0,2,true,true,false, TileType.HIDDEN),
-        'r' : new Tile(0,3,false,false,false, TileType.HIDDEN),
-        'u' : new Tile(0,4,true,false,false, TileType.TRAMPOLINE),
-        'k' : new Tile(0,5,true,false,false, TileType.EXIT),
+    //TODO use SpritePosition instead of xPos and yPos for MapTile to make clear it is not coordinates but the relative position of the sprite in the image
+    static tiles: { [id: string]: MapTile } = {
+        '#' : new MapTile(0,0,true,true,false, MapTileType.DEFAULT),
+        'o' : new MapTile(0,1,false,false,false, MapTileType.DEFAULT),
+        'x' : new MapTile(0,2,true,true,false, MapTileType.HIDDEN),
+        'r' : new MapTile(0,3,false,false,false, MapTileType.HIDDEN),
+        'u' : new MapTile(0,4,true,false,false, MapTileType.TRAMPOLINE),
+        'k' : new MapTile(0,5,true,false,false, MapTileType.EXIT),
     }
 
     static getLevelTile(key: string) {

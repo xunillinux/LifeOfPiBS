@@ -1,23 +1,22 @@
 import Npc from './Npc';
-import playerSpriteImage from '../../images/playerSprite.jpg';
-import TilePosition from '../../SpritePosition';
+import profSpriteImage from '../../images/profSprite.jpg';
+import SpritePosition from '../../SpritePosition';
 
-class Prof extends Npc {
+export default class Prof extends Npc {
     
+    constructor(xPos:number, yPos:number) {
 
-    constructor(xPos:number, yPos:number, tilePos?:TilePosition) {
+        let spriteMap = new Image();
+        spriteMap.src = profSpriteImage;
+        let spritePos = new SpritePosition(0,0);
+        let sourceSize = 32;
+        let targetSize = 32;
         let xVelocity = 1.5;
         let yVelocity = 25;
-        let sprite_pos = 0;
-        const profSizeTarget: any = {w: 32, h: 32};
-        super(xPos, yPos, sprite_pos, xVelocity, yVelocity);
-        this.spriteMap.src = playerSpriteImage;
-        if(tilePos){
-            this.xPos = tilePos.getXPosForSpriteWidth(profSizeTarget.w);
-            this.yPos = tilePos.getYPosForSpriteHeight(profSizeTarget.h);
-        }
+        let friction = 0.8; //TODO probably move friction to TileTypes
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, yVelocity, friction);
     }
 
-}
+    //TODO some kind of "Artificial Intelligence" for moving around
 
-export default Prof;
+}
