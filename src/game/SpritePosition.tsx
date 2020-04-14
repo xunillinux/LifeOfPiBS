@@ -1,3 +1,9 @@
+/**
+ * 
+ * helper class for transforming relative positions of sprites in a sprite image
+ * into x and y pixel values depending on the used sprite size
+ * 
+ */
 export default class SpritePosition {
 
     private _tileX: number;
