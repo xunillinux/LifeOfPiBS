@@ -2,13 +2,14 @@ import MapTile from "./MapTile";
 import { MapTileType } from "./MapTileType";
 import mapTileImage from "../images/mapTileImage.jpg";
 import SpritePosition from "../SpritePosition";
+import Config from "../Config";
 
 export default class Map {
 
     private _mapTiles: MapTile[][];
     private _spriteMap: HTMLImageElement;
-    private _sourceSize: number;
-    private _targetSize: number;
+    private _numberOfTilesWidth: number;
+    private _numberOfTilesHeight: number;
 
     constructor(template: string[]) {
 
@@ -16,8 +17,8 @@ export default class Map {
         this._spriteMap = new Image();
         this._spriteMap.src = mapTileImage;
 
-        this._sourceSize = 16;
-        this._targetSize = 32;
+        this._numberOfTilesWidth = Config.canvasSize.w / MapTile.targetSize; 
+        this._numberOfTilesHeight = Config.canvasSize.h / MapTile.targetSize;
 
     }
 
@@ -25,22 +26,21 @@ export default class Map {
         let mapTiles: MapTile[][] = [];
         template.forEach(layer => {
             let currentLayerTiles: MapTile[] = [];
-            
             for(let i=0; i < layer.length; i++){
-                
                 currentLayerTiles.push(Map.tiles[layer[i]].cloneTile());
             }
+            mapTiles.push(currentLayerTiles);
         });
         return mapTiles;
     }
 
     private static tiles: { [id: string]: MapTile } = {
-        '#' : new MapTile(new SpritePosition(0,0),true,true,false, MapTileType.DEFAULT),
-        'o' : new MapTile(new SpritePosition(0,1),false,false,false, MapTileType.DEFAULT),
-        'x' : new MapTile(new SpritePosition(0,2),true,true,false, MapTileType.HIDDEN),
-        'r' : new MapTile(new SpritePosition(0,3),false,false,false, MapTileType.HIDDEN),
-        'u' : new MapTile(new SpritePosition(0,4),true,false,false, MapTileType.TRAMPOLINE),
-        'k' : new MapTile(new SpritePosition(0,5),true,false,false, MapTileType.EXIT),
+        ' ' : new MapTile(new SpritePosition(0,0),true,true,false, MapTileType.DEFAULT),
+        '#' : new MapTile(new SpritePosition(1,0),false,false,false, MapTileType.DEFAULT),
+        'x' : new MapTile(new SpritePosition(2,0),true,true,false, MapTileType.HIDDEN),
+        'r' : new MapTile(new SpritePosition(3,0),false,false,false, MapTileType.HIDDEN),
+        'u' : new MapTile(new SpritePosition(4,0),true,false,false, MapTileType.TRAMPOLINE),
+        'k' : new MapTile(new SpritePosition(5,0),true,false,false, MapTileType.EXIT),
     }
 
     public get mapTiles(): MapTile[][] {
@@ -57,12 +57,8 @@ export default class Map {
         this._spriteMap = value;
     }
 
-    public get sourceSize(): number {
-        return this._sourceSize;
-    }
-
-    public get targetSize(): number {
-        return this._targetSize;
+    public get numberOfTilesWidth(): number {
+        return this._numberOfTilesWidth;
     }
 
 }

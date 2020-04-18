@@ -4,8 +4,10 @@ import Map from "../Map/Map";
 
 export default class Level {
 
-    private name: string;
-    private backgroundColor: string;
+    private _name: string;
+    
+    private _backgroundColor: string;
+    
     private _map: Map;
      
     private _enemies: Npc[];
@@ -14,12 +16,20 @@ export default class Level {
 
     constructor(name: string, backgroundColor: string, map: Map, enemies: Npc[], ects: Item[]) {
 
-        this.name = name;
-        this.backgroundColor = backgroundColor;
+        this._name = name;
+        this._backgroundColor = backgroundColor;
         this._map = map;
         this._enemies = enemies;
         this._items = ects;
 
+    }
+
+    public get name(): string {
+        return this._name;
+    }
+
+    public get backgroundColor(): string {
+        return this._backgroundColor;
     }
 
     public get map(): Map {

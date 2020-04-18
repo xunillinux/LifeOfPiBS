@@ -96,47 +96,51 @@ class Canvas extends React.Component {
 
     drawLevel() {
 
-        // clear the canvas before repainting
         this.ctx.clearRect(0, 0, Config.canvasSize.w, Config.canvasSize.h);
         this.collisionMap = [];
-    
         if (this.levelPosX < 0) {
             this.levelPosX = 0;
         }
         this.levelPosXStart = this.levelPosX;
         // first tile to display:
-        let index_x_start = this.levelPosX / this.currentLevel.map.targetSize
-        let offset_x = this.levelPosX % this.currentLevel.map.targetSize
+        let indexFirstTile = Math.trunc(this.levelPosX / MapTile.targetSize);
+        let offset_x = this.levelPosX % MapTile.targetSize;
+
         // last tile to show
-        let index_x_max = index_x_start + this.currentLevel.map.targetSize + 1
+        let indexLastTile = indexFirstTile + this.currentLevel.map.numberOfTilesWidth;
     
         let currentLevelMapTiles = this.currentLevel.map.mapTiles;
 
         currentLevelMapTiles.forEach((mapTileLayer, index) => {
-            this.drawLayer(mapTileLayer, index, index_x_start, index_x_max, offset_x);
+            this.drawLayer(mapTileLayer, index, indexFirstTile, indexLastTile, offset_x);
         });
         
     }
 
-    drawLayer(mapTileLayer: MapTile[], index_y: number, index_x_start: number, index_x_max: number, offset_x: number) {
+    drawLayer(mapTileLayer: MapTile[], currentLayerIndex: number, indexFirstTile: number, indexLastTile: number, offset_x: number) {
+        for (let indexCurrentTile = indexFirstTile; indexCurrentTile < indexLastTile; indexCurrentTile++) {
 
-        for (let index_x = index_x_start; index_x < index_x_max; index_x++) {
+            let mapTile = mapTileLayer[indexCurrentTile];
+            
+            if(mapTile){ //if map template smaller than canvas width map tiles not defined -> TODO refactor
+                mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
+                mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
+                this.ctx.drawImage(this.currentLevel.map.spriteMap,
+                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize),
+                    mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize),
+                    MapTile.sourceSize,
+                    MapTile.sourceSize,
+                    mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
+                    mapTile.yPosCanvas,
+                    MapTile.targetSize,
+                    MapTile.targetSize
+                );
 
-            let mapTile = mapTileLayer[index_x];
-            mapTile.xPosCanvas = index_x * this.currentLevel.map.targetSize - offset_x
-            mapTile.yPosCanvas = index_y * this.currentLevel.map.targetSize
-
-            this.ctx.drawImage(this.currentLevel.map.spriteMap.src,
-                mapTile.xPosCanvas * (this.currentLevel.map.targetSize + 1) + 0.5,
-                mapTile.yPosCanvas * (this.currentLevel.map.targetSize + 1) + 0.5,
-                this.currentLevel.map.targetSize - 0.8,
-                this.currentLevel.map.targetSize - 0.8,
-                mapTile.xPosCanvas - index_x_start * this.currentLevel.map.targetSize, mapTile.yPosCanvas,
-                this.currentLevel.map.targetSize, this.currentLevel.map.targetSize)
-
-            if (mapTile.collision) {
-                this.collisionMap.push(mapTile.cloneTile());
+                if (mapTile.collision) {
+                    this.collisionMap.push(mapTile.cloneTile());
+                }
             }
+
         }
     }
 

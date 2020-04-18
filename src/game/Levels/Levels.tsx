@@ -8,9 +8,11 @@ class Levels {
     static levels: Level[] = [
 
         new Level("1", "grey", new Map([
-            "",
-            "",
-            "",
+            "                                  ",
+            "                      #######     ",
+            "                                  ",
+            "                                  ",
+            "##################################",
         ]),
         [new Prof(0, 0)],
         [new Ects(0, 0)],

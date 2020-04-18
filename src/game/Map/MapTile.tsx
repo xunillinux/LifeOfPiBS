@@ -16,6 +16,10 @@ export default class MapTile {
     
     private _type: MapTileType;
 
+    private static _sourceSize: number = 16;
+    private static _targetSize: number = 32;
+    
+
     constructor(spritePos: SpritePosition, collision: boolean, solid: boolean, hurtful: boolean, type: MapTileType) {
 
         this._xPosCanvas = 0;
@@ -79,6 +83,14 @@ export default class MapTile {
     }
     public set type(value: MapTileType) {
         this._type = value;
+    }
+
+    public static get sourceSize(): number {
+        return MapTile._sourceSize;
+    }
+
+    public static get targetSize(): number {
+        return MapTile._targetSize;
     }
 
 }
