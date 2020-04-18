@@ -1,6 +1,7 @@
 import Character from './Character';
 import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
+import MapTile from '../../Map/MapTile';
 
 export default class Player extends Character {
 
@@ -24,7 +25,9 @@ export default class Player extends Character {
     resetPlayer() {
         this.lives = 3;
         this.xPos = 0;
-        this.yPos = 0;
+        this.yPos = MapTile.targetSize;
+        this.xSpeed = 0;
+        this.ySpeed = 0;
     }
 
     public get lives(): number {

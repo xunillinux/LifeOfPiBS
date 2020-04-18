@@ -8,6 +8,7 @@ import Level from './Levels/Level';
 import Npc from './Entities/characters/Npc';
 import Ects from './Entities/items/Ects';
 import MapTile from './Map/MapTile';
+import Player from './Entities/characters/Player';
 
 class Canvas extends React.Component {
 
@@ -25,9 +26,7 @@ class Canvas extends React.Component {
     private levelPosXStart = 0;
 
     private currentLevel: Level = Levels.levels[0];
-
-    private enemies: Npc[] = [];
-    private items: Ects[] = [];
+    private player: Player = new Player(0, 0);
 
     constructor(props: any) {
         super(props);
@@ -65,7 +64,7 @@ class Canvas extends React.Component {
     startGame() {
         //hideMenus();
         Controls.registerKeyEvents()
-        //initializeLevel()
+        this.initializeLevel();
         window.clearInterval(Config.gameInterval);
         Config.gameInterval = setInterval(this.gameLoop, 1000 / Config.fps);
     }
@@ -73,6 +72,10 @@ class Canvas extends React.Component {
     gameLoop() {
         this.ticks++;
         this.drawLevel();
+        /*
+        if(Controls.heldRight){
+            this.levelPosX += 5;
+        }*/
         //updateCharacters();
         //updateElements();
         //drawElements();
@@ -81,15 +84,9 @@ class Canvas extends React.Component {
     }
 
     initializeLevel(){
-        //current_level.width = current_level.level[0].length * size.tile.target.w;
-        //items = []
-        this.enemies = this.currentLevel.enemies; //Levels.getEnemiesForLevel(this.currentLevel);
-        //this.items = Levels.getItemsForLevel(this.currentLevel);
-        //collisionMap = []
-        //actors = [player];
-        //resetPlayer()
-        //scroll_x = player.pos.x - (document.documentElement.clientWidth - 4) / 2
-        //theme = current_level.theme
+        this.collisionMap = [];
+        this.player.resetPlayer();
+        this.levelPosX = 0;
     }
 
 
@@ -126,10 +123,10 @@ class Canvas extends React.Component {
                 mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
                 mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
                 this.ctx.drawImage(this.currentLevel.map.spriteMap,
-                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize),
-                    mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize),
-                    MapTile.sourceSize,
-                    MapTile.sourceSize,
+                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize + 1),
+                    mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize + 1),
+                    MapTile.sourceSize - 0.8,
+                    MapTile.sourceSize - 0.8,
                     mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
                     mapTile.yPosCanvas,
                     MapTile.targetSize,

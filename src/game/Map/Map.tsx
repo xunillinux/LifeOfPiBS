@@ -10,6 +10,9 @@ export default class Map {
     private _spriteMap: HTMLImageElement;
     private _numberOfTilesWidth: number;
     private _numberOfTilesHeight: number;
+    private _mapWidth: number;
+    private _mapHeight: number;
+   
 
     constructor(template: string[]) {
 
@@ -19,7 +22,8 @@ export default class Map {
 
         this._numberOfTilesWidth = Config.canvasSize.w / MapTile.targetSize; 
         this._numberOfTilesHeight = Config.canvasSize.h / MapTile.targetSize;
-
+        this._mapWidth = MapTile.targetSize * this.numberOfTilesWidth;
+        this._mapHeight = MapTile.targetSize * this._numberOfTilesHeight;
     }
 
     private generateMapTiles(template: string[]){
@@ -59,6 +63,13 @@ export default class Map {
 
     public get numberOfTilesWidth(): number {
         return this._numberOfTilesWidth;
+    }
+
+    public get mapWidth(): number {
+        return this._mapWidth;
+    }
+    public get mapHeight(): number {
+        return this._mapHeight;
     }
 
 }
