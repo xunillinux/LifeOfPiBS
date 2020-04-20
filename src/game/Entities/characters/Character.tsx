@@ -7,16 +7,18 @@ export default class Character extends Entity{
     private _ySpeed: number;
 
     private _xVelocity: number;
+    private _xVelocityJump: number;
     private _yVelocity: number;
     private _friction: number;
     
 
-    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, yVelocity:number, friction:number) {
+    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, friction:number) {
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize);
         this._xSpeed = 0;
         this._ySpeed = 0;
 
         this._xVelocity = xVelocity;
+        this._xVelocityJump = xVelocityJump;
         this._yVelocity = yVelocity;
         this._friction = friction;
     }
@@ -44,15 +46,13 @@ export default class Character extends Entity{
     protected get xVelocity(): number {
         return this._xVelocity;
     }
-    protected set xVelocity(value: number) {
-        this._xVelocity = value;
+
+    protected get xVelocityJump(): number {
+        return this._xVelocityJump;
     }
 
     protected get yVelocity(): number {
         return this._yVelocity;
-    }
-    protected set yVelocity(value: number) {
-        this._yVelocity = value;
     }
 
     protected get friction(): number {

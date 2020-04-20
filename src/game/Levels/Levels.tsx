@@ -2,6 +2,8 @@ import Level from './Level';
 import Ects from '../Entities/items/Ects';
 import Prof from '../Entities/characters/Prof';
 import Map from '../Map/Map';
+import SpritePosition from '../SpritePosition';
+import MapTile from '../Map/MapTile';
 
 class Levels {
 
@@ -14,8 +16,12 @@ class Levels {
             "                                  ",
             "##################################",
         ]),
-        [new Prof(0, 0)],
-        [new Ects(0, 0)],
+        [
+            new Prof( Levels.getCoordinateForRelativeMapPos(23), Levels.getCoordinateForRelativeMapPos(0) )
+        ],
+        [
+            new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) )
+        ],
         ),
 
         new Level("2", "grey", new Map([
@@ -28,6 +34,10 @@ class Levels {
         )
 
     ];
+
+    private static getCoordinateForRelativeMapPos(relativeMapPos: number): number{
+        return MapTile.targetSize * relativeMapPos;
+    }
 
 }
 
