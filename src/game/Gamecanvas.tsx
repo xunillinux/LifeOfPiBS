@@ -9,6 +9,7 @@ import Npc from './Entities/characters/Npc';
 import Ects from './Entities/items/Ects';
 import MapTile from './Map/MapTile';
 import Player from './Entities/characters/Player';
+import Character from './Entities/characters/Character';
 
 class Canvas extends React.Component {
 
@@ -27,6 +28,8 @@ class Canvas extends React.Component {
 
     private currentLevel: Level = Levels.levels[0];
     private player: Player = new Player(0, 0);
+
+    private characters: Character[] = [];
 
     constructor(props: any) {
         super(props);
@@ -79,7 +82,7 @@ class Canvas extends React.Component {
         //updateCharacters();
         //updateElements();
         //drawElements();
-        //drawActors();
+        this.drawCharacters();
         //drawControls();
     }
 
@@ -87,6 +90,8 @@ class Canvas extends React.Component {
         this.collisionMap = [];
         this.player.resetPlayer();
         this.levelPosX = 0;
+        this.characters = this.currentLevel.enemies;
+        this.characters.push(this.player);
     }
 
 
@@ -141,6 +146,21 @@ class Canvas extends React.Component {
         }
     }
 
+    drawCharacters(){
+        this.characters.forEach((character) => {
+            this.ctx.drawImage(
+                character.spriteMap,
+                character.spritePos.tileX,
+                character.spritePos.tileY,
+                character.sourceSize,
+                character.sourceSize,
+                character.xPos - this.levelPosX,
+                character.yPos,
+                character.targetSize,
+                character.targetSize
+            );
+        });
+    }
 }
 
 export default Canvas

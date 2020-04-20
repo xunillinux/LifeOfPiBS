@@ -20,45 +20,45 @@ export default class Entity {
         this._targetSize = targetSize;
     }
 
-    protected get xPos(): number {
+    public get xPos(): number {
         return this._xPos;
     }
-    protected set xPos(value: number) {
+    public set xPos(value: number) {
         this._xPos = value;
     }
 
-    protected get yPos(): number {
+    public get yPos(): number {
         return this._yPos;
     }
-    protected set yPos(value: number) {
+    public set yPos(value: number) {
         this._yPos = value;
     }
 
-    protected get spriteMap(): HTMLImageElement {
+    public get spriteMap(): HTMLImageElement {
         return this._spriteMap;
     }
-    protected set spriteMap(value: HTMLImageElement) {
+    public set spriteMap(value: HTMLImageElement) {
         this._spriteMap = value;
     }
 
-    protected get spritePos(): SpritePosition {
+    public get spritePos(): SpritePosition {
         return this._spritePos;
     }
-    protected set spritePos(value: SpritePosition) {
+    public set spritePos(value: SpritePosition) {
         this._spritePos = value;
     }
     
-    protected get sourceSize(): number {
+    public get sourceSize(): number {
         return this._sourceSize;
     }
-    protected set sourceSize(value: number) {
+    public set sourceSize(value: number) {
         this._sourceSize = value;
     }
 
-    protected get targetSize(): number {
+    public get targetSize(): number {
         return this._targetSize;
     }
-    protected set targetSize(value: number) {
+    public set targetSize(value: number) {
         this._targetSize = value;
     }
 }
