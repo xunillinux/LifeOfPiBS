@@ -188,7 +188,7 @@ class Canvas extends React.Component {
         if(Controls.heldRight){
             this.player.accelerateRight();
         }
-        if (Controls){
+        if (Controls.heldLeft){
             this.player.accelerateLeft();
         }
 
