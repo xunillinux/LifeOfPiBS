@@ -11,8 +11,10 @@ export default class Character extends Entity{
     private _yVelocity: number;
     private _friction: number;
     
+    private _lives: number;
+    
 
-    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, friction:number) {
+    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, friction:number, lives:number) {
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize);
         this._xSpeed = 0;
         this._ySpeed = 0;
@@ -21,25 +23,40 @@ export default class Character extends Entity{
         this._xVelocityJump = xVelocityJump;
         this._yVelocity = yVelocity;
         this._friction = friction;
+        this._lives = lives;
     }
 
-    //TODO probably replace with "moveRight moveLeft moveUp and moveDown, which calculates new position dependant on x and y velocity"
-    updatePos(xPos:number, yPos:number){
-        this.xPos = xPos;
-        this.yPos = yPos;
+    public fellOutOfMap(){
+        this.takeDamage();
     }
 
-    protected get xSpeed(): number {
+    public addLife(){
+        this._lives += 1;
+    }
+
+    public takeDamage(){
+        this._lives -= 1;
+    }
+
+    public kill(){
+        this._lives = 0;
+    }
+
+    public isDead(): boolean {
+        return this._lives <= 0;
+    }
+
+    public get xSpeed(): number {
         return this._xSpeed;
     }
-    protected set xSpeed(value: number) {
+    public set xSpeed(value: number) {
         this._xSpeed = value;
     }
 
-    protected get ySpeed(): number {
+    public get ySpeed(): number {
         return this._ySpeed;
     }
-    protected set ySpeed(value: number) {
+    public set ySpeed(value: number) {
         this._ySpeed = value;
     }
 
@@ -60,6 +77,12 @@ export default class Character extends Entity{
     }
     protected set friction(value: number) {
         this._friction = value;
+    }
+    public get lives(): number {
+        return this._lives;
+    }
+    public set lives(value: number) {
+        this._lives = value;
     }
 
 }

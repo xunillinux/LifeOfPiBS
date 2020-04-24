@@ -8,8 +8,8 @@ export default class Map {
 
     private _mapTiles: MapTile[][];
     private _spriteMap: HTMLImageElement;
-    private _numberOfTilesWidth: number;
-    private _numberOfTilesHeight: number;
+    private _numberOfDisplayedTilesWidth: number;
+    private _numberOfDisplayTilesHeight: number;
     private _mapWidth: number;
     private _mapHeight: number;
    
@@ -20,10 +20,11 @@ export default class Map {
         this._spriteMap = new Image();
         this._spriteMap.src = mapTileImage;
 
-        this._numberOfTilesWidth = Config.canvasSize.w / MapTile.targetSize; 
-        this._numberOfTilesHeight = Config.canvasSize.h / MapTile.targetSize;
-        this._mapWidth = MapTile.targetSize * this.numberOfTilesWidth;
-        this._mapHeight = MapTile.targetSize * this._numberOfTilesHeight;
+        this._numberOfDisplayedTilesWidth = Config.canvasSize.w / MapTile.targetSize; 
+        this._numberOfDisplayTilesHeight = Config.canvasSize.h / MapTile.targetSize;
+
+        this._mapWidth = MapTile.targetSize * this._mapTiles[0].length;
+        this._mapHeight = MapTile.targetSize * this._mapTiles.length;
     }
 
     private generateMapTiles(template: string[]){
@@ -36,6 +37,10 @@ export default class Map {
             mapTiles.push(currentLayerTiles);
         });
         return mapTiles;
+    }
+
+    public getGroundLevel(): number{
+        return this.mapHeight - MapTile.targetSize*2; //second last tile on y axis
     }
 
     private static tiles: { [id: string]: MapTile } = {
@@ -61,8 +66,8 @@ export default class Map {
         this._spriteMap = value;
     }
 
-    public get numberOfTilesWidth(): number {
-        return this._numberOfTilesWidth;
+    public get numberOfDisplayedTilesWidth(): number {
+        return this._numberOfDisplayedTilesWidth;
     }
 
     public get mapWidth(): number {

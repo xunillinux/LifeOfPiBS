@@ -5,8 +5,6 @@ import Controls from './Controls';
 import Config from './Config';
 import Levels from './Levels/Levels';
 import Level from './Levels/Level';
-import Npc from './Entities/characters/Npc';
-import Ects from './Entities/items/Ects';
 import MapTile from './Map/MapTile';
 import Player from './Entities/characters/Player';
 import Character from './Entities/characters/Character';
@@ -87,17 +85,29 @@ class Canvas extends React.Component {
         this.drawCharacters();
         //this.drawUI();
         //drawControls();
+
+        if (this.player.tookDamage) { this.respawnPlayer() }
+        //if (this.player.isDead()){ gameOver() };
     }
 
     initializeLevel(){
         this.collisionMap = [];
         this.player.resetPlayer();
+        this.respawnPlayer()
         this.levelPosX = 0;
         this.characters = this.currentLevel.enemies;
         this.characters.push(this.player);
         this.items = this.currentLevel.items;
     }
 
+    public respawnPlayer(){
+        this.player.xPos = 0;
+        this.player.yPos = this.currentLevel.map.getGroundLevel()-10;
+        this.player.xSpeed = 0;
+        this.player.ySpeed = 0;
+        this.player.tookDamage = false;
+        this.levelPosX = 0;
+    }
 
 
     drawLevel() {
@@ -113,7 +123,7 @@ class Canvas extends React.Component {
         let offset_x = this.levelPosX % MapTile.targetSize;
 
         // last tile to show
-        let indexLastTile = indexFirstTile + this.currentLevel.map.numberOfTilesWidth;
+        let indexLastTile = indexFirstTile + this.currentLevel.map.numberOfDisplayedTilesWidth;
     
         let currentLevelMapTiles = this.currentLevel.map.mapTiles;
 
@@ -182,6 +192,7 @@ class Canvas extends React.Component {
         });
     }
 
+    
 
     updatePlayer(){
 
@@ -192,41 +203,30 @@ class Canvas extends React.Component {
             this.player.accelerateLeft();
         }
 
+        if (Controls.heldUp){
+            this.player.jump();
+            //TODO figure out what this is for
+            //Controls.heldUp = false; not sure what this is for
+        }
+
+        this.player.animate();
+
+        this.player.applyGravity(Config.gravity);
+
+        //TODO figure out what this is for
+        //if (Math.abs(this.player.xSpeed) < 0.8) this.player.xSpeed = 0; //unsure what this does
+        //if (Math.abs(this.player.ySpeed) < 0.1) this.player.ySpeed = 0; //unsure what this does
+
+        this.player.updatePos();
+
+
+        this.checkLevelEdgeCollision(this.player);
+
+        this.checkCollisions();
+
         /*
 
-        if (held.up && actor.speed.y == 0) {
-            sound_jump()
-            actor.speed.y -= speed.player.velocity_y;
-        } else if (held.down) {
-            // this only causes a duck animation, nothing happens in term of speed
-        }
-        held.up = false
-
-        animate_actor(actor);
-
-        // apply gravity.
-        actor.speed.y += speed.player.gravity;
-        if (Math.abs(actor.speed.x) < 0.8) actor.speed.x = 0;
-        if (Math.abs(actor.speed.y) < 0.1) actor.speed.y = 0;
-
-        // apply speed limit when falling down
-        if (actor.speed.y > speed.player.speed_limit_y) {
-            actor.speed.y = speed.player.speed_limit_y
-        }
-
-        actor.pos.x += actor.speed.x;
-        actor.pos.y += actor.speed.y;
-
-        // block on level edge
-        if (actor.pos.x < 0) {
-            actor.pos.x = 0;
-        } else if (actor.pos.x + actor.target_size.w > current_level.width) {
-            actor.pos.x = current_level.width - actor.target_size.w;
-        }
-        // die on level bottom
-        if (actor.pos.y > size.canvas.h) {
-            gameOver();
-        }
+        
 
         // add visible items + actors to collision check
         // todo: only add visible items
@@ -310,6 +310,23 @@ class Canvas extends React.Component {
 
         */
 
+    }
+
+    checkLevelEdgeCollision(character: Character){
+        if (character.xPos < 0) {
+            character.xPos = 0;
+        }
+        else if (character.xPos + character.targetSize > Config.canvasSize.w) {
+            character.xPos = Config.canvasSize.w - character.targetSize;
+        }
+        // die on level bottom
+        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
+            character.fellOutOfMap();
+        }
+    }
+
+    checkCollisions(){
+        //TODO implement
     }
 
 }

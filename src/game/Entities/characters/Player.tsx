@@ -1,12 +1,11 @@
 import Character from './Character';
 import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
-import MapTile from '../../Map/MapTile';
 
 export default class Player extends Character {
 
-    private _lives: number;
     private _speedLimitY: number;
+    private _tookDamage: boolean;
     
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -18,15 +17,16 @@ export default class Player extends Character {
         let xVelocityJump = 1;
         let yVelocity = 25;
         let friction = 0.8; //TODO probably move friction to TileTypes
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction);
-        this._lives = 3;
+        let lives = 3;
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives);
         this._speedLimitY = 25;
+        this._tookDamage = false;
     }
 
 
     public accelerateRight(){
         
-        if(this.ySpeed == 0){
+        if(this.ySpeed === 0){
             this.xSpeed += this.xVelocity;
         } else {
             this.xSpeed += this.xVelocityJump;
@@ -36,7 +36,7 @@ export default class Player extends Character {
 
     public accelerateLeft(){
 
-        if(this.ySpeed == 0){
+        if(this.ySpeed === 0){
             this.xSpeed -= this.xVelocity;
         } else {
             this.xSpeed -= this.xVelocityJump;
@@ -44,20 +44,41 @@ export default class Player extends Character {
 
     }
 
+    public jump(){
+
+        if(this.ySpeed === 0){
+            this.ySpeed -= this.yVelocity; // - because y 0 is on top of canvas so -y means upwards
+        }
+
+    }
+
+    public animate(){
+        //TODO
+    }
+
+    public applyGravity(gravity:number){
+
+        this.ySpeed = (this.ySpeed+gravity > this.speedLimitY) ? this.speedLimitY : this.ySpeed+gravity;
+
+    }
+
+    public updatePos(){
+        this.xPos += this.xSpeed;
+        this.yPos += this.ySpeed;
+    }
 
     public resetPlayer() {
         this.lives = 3;
-        this.xPos = 0;
-        this.yPos = MapTile.targetSize;
-        this.xSpeed = 0;
-        this.ySpeed = 0;
+        this._tookDamage = false;
     }
 
-    public get lives(): number {
-        return this._lives;
+    public fellOutOfMap(){
+        this.takeDamage();
     }
-    public set lives(value: number) {
-        this._lives = value;
+
+    public takeDamage(){
+        super.takeDamage()
+        this._tookDamage = true;
     }
 
     public get speedLimitY(): number {
@@ -65,6 +86,12 @@ export default class Player extends Character {
     }
     public set speedLimitY(value: number) {
         this._speedLimitY = value;
+    }
+    public get tookDamage(): boolean {
+        return this._tookDamage;
+    }
+    public set tookDamage(value: boolean) {
+        this._tookDamage = value;
     }
 
 }

@@ -2,7 +2,6 @@ import Level from './Level';
 import Ects from '../Entities/items/Ects';
 import Prof from '../Entities/characters/Prof';
 import Map from '../Map/Map';
-import SpritePosition from '../SpritePosition';
 import MapTile from '../Map/MapTile';
 
 class Levels {
