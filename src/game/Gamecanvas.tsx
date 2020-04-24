@@ -3,9 +3,12 @@ import './Gamecanvas.css';
 import gamesketchimg from './images/gamesketchimg.jpg';
 import Controls from './Controls';
 import Config from './Config';
-import Levels from './Levels';
-import Level from './Level';
-import Tile from './Tile';
+import Levels from './Levels/Levels';
+import Level from './Levels/Level';
+import MapTile from './Map/MapTile';
+import Player from './Entities/characters/Player';
+import Character from './Entities/characters/Character';
+import Item from './Entities/items/Item';
 
 class Canvas extends React.Component {
 
@@ -23,6 +26,10 @@ class Canvas extends React.Component {
     private levelPosXStart = 0;
 
     private currentLevel: Level = Levels.levels[0];
+    private player: Player = new Player(0, 0);
+
+    private characters: Character[] = [];
+    private items: Item[] = [];
 
     constructor(props: any) {
         super(props);
@@ -60,7 +67,7 @@ class Canvas extends React.Component {
     startGame() {
         //hideMenus();
         Controls.registerKeyEvents()
-        //initializeLevel()
+        this.initializeLevel();
         window.clearInterval(Config.gameInterval);
         Config.gameInterval = setInterval(this.gameLoop, 1000 / Config.fps);
     }
@@ -68,59 +75,258 @@ class Canvas extends React.Component {
     gameLoop() {
         this.ticks++;
         this.drawLevel();
-        //updateCharacters();
+        /*
+        if(Controls.heldRight){
+            this.levelPosX += 5;
+        }*/
+        this.updatePlayer();
         //updateElements();
-        //drawElements();
-        //drawActors();
+        this.drawItems();
+        this.drawCharacters();
+        //this.drawUI();
         //drawControls();
+
+        if (this.player.tookDamage) { this.respawnPlayer() }
+        //if (this.player.isDead()){ gameOver() };
     }
+
+    initializeLevel(){
+        this.collisionMap = [];
+        this.player.resetPlayer();
+        this.respawnPlayer()
+        this.levelPosX = 0;
+        this.characters = this.currentLevel.enemies;
+        this.characters.push(this.player);
+        this.items = this.currentLevel.items;
+    }
+
+    public respawnPlayer(){
+        this.player.xPos = 0;
+        this.player.yPos = this.currentLevel.map.getGroundLevel()-10;
+        this.player.xSpeed = 0;
+        this.player.ySpeed = 0;
+        this.player.tookDamage = false;
+        this.levelPosX = 0;
+    }
+
 
     drawLevel() {
 
-        // clear the canvas before repainting
         this.ctx.clearRect(0, 0, Config.canvasSize.w, Config.canvasSize.h);
         this.collisionMap = [];
-    
         if (this.levelPosX < 0) {
             this.levelPosX = 0;
         }
         this.levelPosXStart = this.levelPosX;
         // first tile to display:
-        let index_x_start = this.levelPosX / Config.tileSizeTarget.w
-        let offset_x = this.levelPosX % Config.tileSizeTarget.w
-        // last tile to show
-        let index_x_max = index_x_start + Config.tileSizeTarget.w + 1
-    
-        let currentLevelTemplate = this.currentLevel.getTemplate();
+        let indexFirstTile = Math.trunc(this.levelPosX / MapTile.targetSize);
+        let offset_x = this.levelPosX % MapTile.targetSize;
 
-        for(let i = 0; i < currentLevelTemplate.length-1; i++){
-            this.drawLayer(currentLevelTemplate[i], i, index_x_start, index_x_max, offset_x);
-        }
+        // last tile to show
+        let indexLastTile = indexFirstTile + this.currentLevel.map.numberOfDisplayedTilesWidth;
+    
+        let currentLevelMapTiles = this.currentLevel.map.mapTiles;
+
+        currentLevelMapTiles.forEach((mapTileLayer, index) => {
+            this.drawLayer(mapTileLayer, index, indexFirstTile, indexLastTile, offset_x);
+        });
         
     }
 
-    drawLayer(currentTemplateLayer: string, index_y: number, index_x_start: number, index_x_max: number, offset_x: number) {
+    drawLayer(mapTileLayer: MapTile[], currentLayerIndex: number, indexFirstTile: number, indexLastTile: number, offset_x: number) {
+        for (let indexCurrentTile = indexFirstTile; indexCurrentTile < indexLastTile; indexCurrentTile++) {
 
-        for (let index_x = index_x_start; index_x < index_x_max; index_x++) {
+            let mapTile = mapTileLayer[indexCurrentTile];
+            
+            if(mapTile){ //if map template smaller than canvas width map tiles not defined -> TODO refactor
+                mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
+                mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
+                this.ctx.drawImage(this.currentLevel.map.spriteMap,
+                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize + 1),
+                    mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize + 1),
+                    MapTile.sourceSize - 0.8,
+                    MapTile.sourceSize - 0.8,
+                    mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
+                    mapTile.yPosCanvas,
+                    MapTile.targetSize,
+                    MapTile.targetSize
+                );
 
-            let tile = Levels.getLevelTile(currentTemplateLayer.charAt(index_x));
-            if (tile) {
-                tile.xPos = index_x * Config.tileSizeTarget.w - offset_x
-                tile.yPos = index_y * Config.tileSizeTarget.h
-
-                this.ctx.drawImage(Config.gameTileImagePath,
-                    tile.xPos * (Config.tileSizeSource.w + 1) + 0.5,
-                    tile.yPos * (Config.tileSizeSource.h + 1) + 0.5,
-                    Config.tileSizeSource.w - 0.8,
-                    Config.tileSizeSource.h - 0.8,
-                    tile.xPos - index_x_start * Config.tileSizeTarget.w, tile.yPos,
-                    Config.tileSizeTarget.w, Config.tileSizeTarget.h)
-
-                if (tile.collision) {
-                    this.collisionMap.push(tile.cloneTile());
+                if (mapTile.collision) {
+                    this.collisionMap.push(mapTile.cloneTile());
                 }
             }
+
         }
+    }
+
+    drawCharacters(){
+        this.characters.forEach((character) => {
+            this.ctx.drawImage(
+                character.spriteMap,
+                character.spritePos.tileX,
+                character.spritePos.tileY,
+                character.sourceSize,
+                character.sourceSize,
+                character.xPos - this.levelPosX,
+                character.yPos,
+                character.targetSize,
+                character.targetSize
+            );
+        });
+    }
+
+    drawItems(){
+        this.currentLevel.items.forEach((item) => {
+            this.ctx.drawImage(
+                item.spriteMap,
+                item.spritePos.tileX,
+                item.spritePos.tileY,
+                item.sourceSize,
+                item.sourceSize,
+                item.xPos - this.levelPosX,
+                item.yPos,
+                item.targetSize,
+                item.targetSize
+            );
+        });
+    }
+
+    
+
+    updatePlayer(){
+
+        if(Controls.heldRight){
+            this.player.accelerateRight();
+        }
+        if (Controls.heldLeft){
+            this.player.accelerateLeft();
+        }
+
+        if (Controls.heldUp){
+            this.player.jump();
+            //TODO figure out what this is for
+            //Controls.heldUp = false; not sure what this is for
+        }
+
+        this.player.animate();
+
+        this.player.applyGravity(Config.gravity);
+
+        //TODO figure out what this is for
+        //if (Math.abs(this.player.xSpeed) < 0.8) this.player.xSpeed = 0; //unsure what this does
+        //if (Math.abs(this.player.ySpeed) < 0.1) this.player.ySpeed = 0; //unsure what this does
+
+        this.player.updatePos();
+
+
+        this.checkLevelEdgeCollision(this.player);
+
+        this.checkCollisions();
+
+        /*
+
+        
+
+        // add visible items + actors to collision check
+        // todo: only add visible items
+        collisionMap = collisionMap.concat(items);
+
+        collisionMap.forEach(function (object) {
+
+            var collides = checkCollision(actor, object);
+
+            // apply collision to player movement
+            // special actions on collisions
+            if (object.solid) {
+                if (collides.top) {
+                    if (object.type == 'block_coin') {
+                        replaceLevelSpriteXY(object.x, object.y, "ß");
+                        items.push({ sx:8, sy:9, x:object.x, y:(object.y - size.tile.target.h), type:'coin' });
+                    } else {
+                        actor.pos.y = object.y + size.tile.target.h;
+                        actor.speed.y = 1;
+                    }
+                } else if (collides.bottom) {
+                    // jump on enemy
+                    if (object.type == 'enemy_mushroom') {
+                        object.deadly = false
+                        object.speed = 0
+                        object.sx = 2
+                        score++;
+                        sound_jump_on_enemy()
+                    }
+                    actor.pos.y = object.y - actor.target_size.h;
+                    actor.speed.y = 0;
+                } else if (collides.right) {
+                    actor.pos.x = object.x - actor.target_size.w;
+                    actor.speed.x = 0;
+                } else if (collides.left) {
+                    actor.pos.x = object.x + size.tile.target.w;
+                    actor.speed.x = 0;
+                }
+            }
+
+            // collide from any side
+            if (collides.top || collides.bottom || collides.right || collides.left) {
+                if (object.deadly == true) {
+                    //items.push({ sx:, sy:9, x:actor.pos.x, y:actor.pos.y, deadly:false, type:'looser' });
+                    gameOver()
+                }
+                if (object.type == 'exit') {
+                    levelWin()
+                }
+                if (object.type == 'trampoline') {
+                    actor.speed.y < 0 ? actor.speed.y = 0 : true
+                    sound_jump()
+                    actor.speed.y = -0.5 * actor.speed.y - 25
+                }
+                if (object.type == 'coin') {
+                    items.splice(items.indexOf(object), 1)
+                    score++
+                    sound_coin()
+                }
+            }
+
+
+        })
+
+        // move the player when the level is at it's border, else move the level
+        if (scroll_x <= 0) {
+            if (actor.pos.x > (size.canvas.w / 2)) {
+                scroll_x = 1;
+            }
+        } else if (scroll_x >= current_level.width - size.canvas.w && current_level.width > size.canvas.w) {
+            scroll_x = current_level.width - size.canvas.w;
+            if (actor.pos.x < current_level.width - (size.canvas.w / 2)) {
+                scroll_x = current_level.width - size.canvas.w - 1;
+            }
+        } else if (current_level.width > size.canvas.w) {
+            scroll_x += actor.speed.x;
+        }
+
+        // apply friction
+        actor.speed.x *= speed.player.friction;
+
+        */
+
+    }
+
+    checkLevelEdgeCollision(character: Character){
+        if (character.xPos < 0) {
+            character.xPos = 0;
+        }
+        else if (character.xPos + character.targetSize > Config.canvasSize.w) {
+            character.xPos = Config.canvasSize.w - character.targetSize;
+        }
+        // die on level bottom
+        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
+            character.fellOutOfMap();
+        }
+    }
+
+    checkCollisions(){
+        //TODO implement
     }
 
 }
