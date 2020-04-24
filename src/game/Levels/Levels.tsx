@@ -10,13 +10,17 @@ class Levels {
 
         new Level("1", "grey", new Map([
             "                                  ",
-            "                      #######     ",
+            "                                  ",
+            "                                  ",
+            "                                  ",
+            "                                  ",
+            "                  #######         ",
             "                                  ",
             "                                  ",
             "##################################",
         ]),
         [
-            new Prof( Levels.getCoordinateForRelativeMapPos(23), Levels.getCoordinateForRelativeMapPos(0) )
+            new Prof( Levels.getCoordinateForRelativeMapPos(20), Levels.getCoordinateForRelativeMapPos(4) )
         ],
         [
             new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) )
