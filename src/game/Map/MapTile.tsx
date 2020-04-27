@@ -1,7 +1,8 @@
 import { MapTileType } from './MapTileType';
 import SpritePosition from '../SpritePosition';
+import ICollisionObject from '../Collision/ICollisionObject';
 
-export default class MapTile {
+export default class MapTile implements ICollisionObject{
 
     private _xPosCanvas: number;
     private _yPosCanvas: number;
@@ -36,17 +37,17 @@ export default class MapTile {
         return new MapTile(new SpritePosition(this.spritePos.tileX, this.spritePos.tileY), this.collision, this.solid, this.hurtful, this.type);
     };
 
-    public get xPosCanvas(): number {
+    public get xPos(): number {
         return this._xPosCanvas;
     }
-    public set xPosCanvas(value: number) {
+    public set xPos(value: number) {
         this._xPosCanvas = value;
     }
 
-    public get yPosCanvas(): number {
+    public get yPos(): number {
         return this._yPosCanvas;
     }
-    public set yPosCanvas(value: number) {
+    public set yPos(value: number) {
         this._yPosCanvas = value;
     }
 

@@ -10,7 +10,8 @@ class Ects extends Item{
         let spritePos = new SpritePosition(0,0);
         let sourceSize = 16;
         let targetSize = 32;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize);
+        let collision = true;
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, collision);
     }
 
 }

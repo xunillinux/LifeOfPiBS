@@ -9,6 +9,7 @@ import MapTile from './Map/MapTile';
 import Player from './Entities/characters/Player';
 import Character from './Entities/characters/Character';
 import Item from './Entities/items/Item';
+import ICollisionObject from './Collision/ICollisionObject';
 
 class Canvas extends React.Component {
 
@@ -74,7 +75,9 @@ class Canvas extends React.Component {
 
     gameLoop() {
         this.ticks++;
+        this.collisionMap = [];
         this.drawLevel();
+        this.collisionMap.push(this.currentLevel.enemies);
         /*
         if(Controls.heldRight){
             this.levelPosX += 5;
@@ -140,7 +143,6 @@ class Canvas extends React.Component {
     drawLevel() {
 
         this.ctx.clearRect(0, 0, Config.canvasSize.w, Config.canvasSize.h);
-        this.collisionMap = [];
         if (this.levelPosX < 0) {
             this.levelPosX = 0;
         }
@@ -166,15 +168,15 @@ class Canvas extends React.Component {
             let mapTile = mapTileLayer[indexCurrentTile];
             
             if(mapTile){ //if map template smaller than canvas width map tiles not defined -> TODO refactor
-                mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
-                mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
+                mapTile.xPos = indexCurrentTile * MapTile.targetSize - offset_x;
+                mapTile.yPos = currentLayerIndex * MapTile.targetSize;
                 this.ctx.drawImage(this.currentLevel.map.spriteMap,
                     mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize + 1),
                     mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize + 1),
                     MapTile.sourceSize - 0.8,
                     MapTile.sourceSize - 0.8,
-                    mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
-                    mapTile.yPosCanvas,
+                    mapTile.xPos - (indexFirstTile * MapTile.targetSize),
+                    mapTile.yPos,
                     MapTile.targetSize,
                     MapTile.targetSize
                 );
@@ -249,12 +251,27 @@ class Canvas extends React.Component {
 
         this.checkLevelEdgeCollision(this.player);
 
-        this.checkCollisions();
-
-        /*
+        this.checkPlayerCollisions();
 
         
 
+    }
+
+    checkLevelEdgeCollision(character: Character){
+        if (character.xPos < 0) {
+            character.xPos = 0;
+        }
+        else if (character.xPos + character.targetSize > Config.canvasSize.w) {
+            character.xPos = Config.canvasSize.w - character.targetSize;
+        }
+        // die on level bottom
+        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
+            character.fellOutOfMap();
+        }
+    }
+
+    checkPlayerCollisions(){
+        /*
         // add visible items + actors to collision check
         // todo: only add visible items
         collisionMap = collisionMap.concat(items);
@@ -336,26 +353,10 @@ class Canvas extends React.Component {
         actor.speed.x *= speed.player.friction;
 
         */
-
     }
 
-    checkLevelEdgeCollision(character: Character){
-        if (character.xPos < 0) {
-            character.xPos = 0;
-        }
-        else if (character.xPos + character.targetSize > Config.canvasSize.w) {
-            character.xPos = Config.canvasSize.w - character.targetSize;
-        }
-        // die on level bottom
-        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
-            character.fellOutOfMap();
-        }
-    }
-
-    checkCollisions(){
+    checkEnemyCollisions(){
         //TODO implement
-    }
-
 }
 
 export default Canvas

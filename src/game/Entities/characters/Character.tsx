@@ -6,6 +6,7 @@ export default class Character extends Entity{
     private _xSpeed: number;
     private _ySpeed: number;
 
+
     private _xVelocity: number;
     private _xVelocityJump: number;
     private _yVelocity: number;
@@ -14,8 +15,8 @@ export default class Character extends Entity{
     private _lives: number;
     
 
-    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, friction:number, lives:number) {
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize);
+    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, friction:number, lives:number, collision: boolean) {
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, collision);
         this._xSpeed = 0;
         this._ySpeed = 0;
 

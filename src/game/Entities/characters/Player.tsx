@@ -18,7 +18,8 @@ export default class Player extends Character {
         let yVelocity = 25;
         let friction = 0.8; //TODO probably move friction to TileTypes
         let lives = 3;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives);
+        let collision = true;
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
         this._speedLimitY = 25;
         this._tookDamage = false;
     }
