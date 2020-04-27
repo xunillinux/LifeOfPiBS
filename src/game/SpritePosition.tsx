@@ -20,9 +20,18 @@ export default class SpritePosition {
         return this._tileX;
     }
 
+    public set tileX(value: number) {
+        this._tileX = value;
+    }
+
     public get tileY(): number {
         return this._tileY;
     }
+
+    public set tileY(value: number) {
+        this._tileY = value;
+    }
+
 
     public getXPosForSpriteWidth(spriteSizeWidth:number): number {
         return spriteSizeWidth*this._tileX;

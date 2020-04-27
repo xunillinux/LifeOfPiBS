@@ -81,6 +81,10 @@ class Canvas extends React.Component {
         }*/
         this.updatePlayer();
         //updateElements();
+
+        //TODO remove afer demo
+        this.animateECTS();
+
         this.drawItems();
         this.drawCharacters();
         //this.drawUI();
@@ -88,6 +92,29 @@ class Canvas extends React.Component {
 
         if (this.player.tookDamage) { this.respawnPlayer() }
         //if (this.player.isDead()){ gameOver() };
+    }
+
+    //TODO remove afer demo
+    animateECTS(){
+        this.currentLevel.items.forEach( item => {
+
+            if(this.ticks % 10 == 0){
+                
+                switch (item.spritePos.tileX){ 
+                    case 0:
+                        item.spritePos.tileX = 1;
+                        break;
+                    case 1:
+                        item.spritePos.tileX = 2;
+                        break;
+                    case 2:
+                        item.spritePos.tileX = 0;
+                        break;
+                }
+
+            }
+
+        });
     }
 
     initializeLevel(){
@@ -164,8 +191,8 @@ class Canvas extends React.Component {
         this.characters.forEach((character) => {
             this.ctx.drawImage(
                 character.spriteMap,
-                character.spritePos.tileX,
-                character.spritePos.tileY,
+                character.spritePos.getXPosForSpriteWidth(character.sourceSize),
+                character.spritePos.getYPosForSpriteHeight(character.sourceSize),
                 character.sourceSize,
                 character.sourceSize,
                 character.xPos - this.levelPosX,
@@ -180,8 +207,8 @@ class Canvas extends React.Component {
         this.currentLevel.items.forEach((item) => {
             this.ctx.drawImage(
                 item.spriteMap,
-                item.spritePos.tileX,
-                item.spritePos.tileY,
+                item.spritePos.getXPosForSpriteWidth(item.sourceSize),
+                item.spritePos.getYPosForSpriteHeight(item.sourceSize),
                 item.sourceSize,
                 item.sourceSize,
                 item.xPos - this.levelPosX,
