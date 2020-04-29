@@ -24,13 +24,17 @@ export default class CollisionMap{
 
         let collision = new Collision();
 
+        let obj1MiddleX = obj1.xPos + obj1.targetSize/2;
+        let obj1MiddleY = obj1.yPos + obj1.targetSize/2;
         let obj1RightX = obj1.xPos + obj1.targetSize;
         let obj1BotY = obj1.yPos + obj1.targetSize;
         let obj2RightX = obj2.xPos + obj2.targetSize;
         let obj2BotY = obj2.yPos + obj2.targetSize;
 
-        //below or above object - eventually make more efficient with less checks (tolerance from middle point)
-        if(this.inRange(obj1.xPos, obj2.xPos, obj2RightX) || this.inRange(obj1RightX, obj2.xPos, obj2RightX)){
+        // TODO make better
+        //below or above object
+        //if(this.inRange(obj1.xPos, obj2.xPos, obj2RightX) || this.inRange(obj1RightX, obj2.xPos, obj2RightX)){
+        if(this.inRange(obj1MiddleX, obj2.xPos - 0.25 * obj2.targetSize, obj2.xPos + 1.25 * obj2.targetSize)){
             
             if(this.inRange(obj1BotY, obj2.yPos, obj2BotY) && obj1.yPos < obj2.yPos){
                 collision.bot = true;
@@ -40,8 +44,10 @@ export default class CollisionMap{
             }
         }
         
+        // TODO make better
         //right or left of object
-        if(this.inRange(obj1.yPos, obj2.yPos, obj2BotY) || this.inRange(obj1BotY, obj2.yPos, obj2BotY)){
+        //if(this.inRange(obj1.yPos, obj2.yPos, obj2BotY) || this.inRange(obj1BotY, obj2.yPos, obj2BotY)){
+        if(this.inRange(obj1MiddleY, obj2.yPos - 0.25 * obj2.targetSize, obj2.yPos + 1.25 * obj2.targetSize)){
 
             if (this.inRange(obj1RightX, obj2.xPos, obj2RightX)) {
                 collision.right = true;
