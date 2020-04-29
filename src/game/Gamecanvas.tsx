@@ -11,6 +11,7 @@ import Character from './Entities/characters/Character';
 import Item from './Entities/items/Item';
 import CollisionMap from './Collision/CollisionMap';
 import Npc from './Entities/characters/Npc';
+import { ENGINE_METHOD_DIGESTS } from 'constants';
 
 class Canvas extends React.Component {
 
@@ -81,7 +82,16 @@ class Canvas extends React.Component {
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
 
         this.updatePlayer();
-        //updateElements();
+        //updateNpc();
+
+        //TODO testing only - remove this
+        this.characters = this.currentLevel.enemies.slice();
+        this.characters.push(this.player);
+        this.currentLevel.enemies.forEach((enemy, index) => {
+            if(enemy.isDead()){
+                delete this.currentLevel.enemies[index];
+            }
+        });
 
         //TODO remove afer demo
         this.animateECTS();
