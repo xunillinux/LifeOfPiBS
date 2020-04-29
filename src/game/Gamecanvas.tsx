@@ -9,7 +9,8 @@ import MapTile from './Map/MapTile';
 import Player from './Entities/characters/Player';
 import Character from './Entities/characters/Character';
 import Item from './Entities/items/Item';
-import ICollisionObject from './Collision/ICollisionObject';
+import CollisionMap from './Collision/CollisionMap';
+import Npc from './Entities/characters/Npc';
 
 class Canvas extends React.Component {
 
@@ -18,7 +19,7 @@ class Canvas extends React.Component {
 
     private ctx: any;
 
-    private collisionMap: any = [];
+    private collisionMap: CollisionMap = new CollisionMap();
     private ticks: number = 0;
 
     // position displayed level
@@ -75,13 +76,10 @@ class Canvas extends React.Component {
 
     gameLoop() {
         this.ticks++;
-        this.collisionMap = [];
+        this.collisionMap.collisionObjects = [];
         this.drawLevel();
-        this.collisionMap.push(this.currentLevel.enemies);
-        /*
-        if(Controls.heldRight){
-            this.levelPosX += 5;
-        }*/
+        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
+
         this.updatePlayer();
         //updateElements();
 
@@ -101,7 +99,7 @@ class Canvas extends React.Component {
     animateECTS(){
         this.currentLevel.items.forEach( item => {
 
-            if(this.ticks % 10 == 0){
+            if(this.ticks % 10 === 0){
                 
                 switch (item.spritePos.tileX){ 
                     case 0:
@@ -121,11 +119,11 @@ class Canvas extends React.Component {
     }
 
     initializeLevel(){
-        this.collisionMap = [];
+        this.collisionMap.collisionObjects = [];
         this.player.resetPlayer();
         this.respawnPlayer()
         this.levelPosX = 0;
-        this.characters = this.currentLevel.enemies;
+        this.characters = this.currentLevel.enemies.slice();
         this.characters.push(this.player);
         this.items = this.currentLevel.items;
     }
@@ -182,7 +180,7 @@ class Canvas extends React.Component {
                 );
 
                 if (mapTile.collision) {
-                    this.collisionMap.push(mapTile.cloneTile());
+                    this.collisionMap.collisionObjects.push(mapTile.cloneTile());
                 }
             }
 
@@ -253,87 +251,46 @@ class Canvas extends React.Component {
 
         this.checkPlayerCollisions();
 
-        
-
     }
 
-    checkLevelEdgeCollision(character: Character){
-        if (character.xPos < 0) {
-            character.xPos = 0;
+    checkLevelEdgeCollision(player: Player){
+        if (player.xPos < 0) {
+            player.xPos = 0;
+            player.xSpeed = 0;
         }
-        else if (character.xPos + character.targetSize > Config.canvasSize.w) {
-            character.xPos = Config.canvasSize.w - character.targetSize;
+        else if (player.xPos + player.targetSize > Config.canvasSize.w) {
+            player.xPos = Config.canvasSize.w - player.targetSize;
+            player.xSpeed = 0;
         }
         // die on level bottom
-        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
-            character.fellOutOfMap();
+        if (player.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
+            player.fellOutOfMap();
         }
     }
 
     checkPlayerCollisions(){
+        //TODO collisionmap should only contain visible objects
+        this.collisionMap.collisionObjects.forEach(collisionObject => {
+            
+            let collides = CollisionMap.checkCollision(this.player, collisionObject);
+
+            if(collides.doesCollide()){
+
+                if (collisionObject instanceof Npc){
+                    CollisionMap.processPlayerNpcCollision(this.player, collisionObject as Npc, collides);
+                }
+                else if (collisionObject instanceof MapTile){
+                    CollisionMap.processPlayerMapTileCollision(this.player, collisionObject as MapTile, collides);
+                }
+                else if (collisionObject instanceof Item){
+                    CollisionMap.processPlayerItemCollision(this.player, collisionObject as Item, collides);
+                }
+
+            }
+
+        });
+
         /*
-        // add visible items + actors to collision check
-        // todo: only add visible items
-        collisionMap = collisionMap.concat(items);
-
-        collisionMap.forEach(function (object) {
-
-            var collides = checkCollision(actor, object);
-
-            // apply collision to player movement
-            // special actions on collisions
-            if (object.solid) {
-                if (collides.top) {
-                    if (object.type == 'block_coin') {
-                        replaceLevelSpriteXY(object.x, object.y, "ß");
-                        items.push({ sx:8, sy:9, x:object.x, y:(object.y - size.tile.target.h), type:'coin' });
-                    } else {
-                        actor.pos.y = object.y + size.tile.target.h;
-                        actor.speed.y = 1;
-                    }
-                } else if (collides.bottom) {
-                    // jump on enemy
-                    if (object.type == 'enemy_mushroom') {
-                        object.deadly = false
-                        object.speed = 0
-                        object.sx = 2
-                        score++;
-                        sound_jump_on_enemy()
-                    }
-                    actor.pos.y = object.y - actor.target_size.h;
-                    actor.speed.y = 0;
-                } else if (collides.right) {
-                    actor.pos.x = object.x - actor.target_size.w;
-                    actor.speed.x = 0;
-                } else if (collides.left) {
-                    actor.pos.x = object.x + size.tile.target.w;
-                    actor.speed.x = 0;
-                }
-            }
-
-            // collide from any side
-            if (collides.top || collides.bottom || collides.right || collides.left) {
-                if (object.deadly == true) {
-                    //items.push({ sx:, sy:9, x:actor.pos.x, y:actor.pos.y, deadly:false, type:'looser' });
-                    gameOver()
-                }
-                if (object.type == 'exit') {
-                    levelWin()
-                }
-                if (object.type == 'trampoline') {
-                    actor.speed.y < 0 ? actor.speed.y = 0 : true
-                    sound_jump()
-                    actor.speed.y = -0.5 * actor.speed.y - 25
-                }
-                if (object.type == 'coin') {
-                    items.splice(items.indexOf(object), 1)
-                    score++
-                    sound_coin()
-                }
-            }
-
-
-        })
 
         // move the player when the level is at it's border, else move the level
         if (scroll_x <= 0) {
@@ -357,6 +314,7 @@ class Canvas extends React.Component {
 
     checkEnemyCollisions(){
         //TODO implement
+    }
 }
 
-export default Canvas
+export default Canvas;

@@ -19,6 +19,8 @@ export default class MapTile implements ICollisionObject{
 
     private static _sourceSize: number = 16;
     private static _targetSize: number = 32;
+
+    private _targetSize: number;
     
 
     constructor(spritePos: SpritePosition, collision: boolean, solid: boolean, hurtful: boolean, type: MapTileType) {
@@ -30,11 +32,15 @@ export default class MapTile implements ICollisionObject{
         this._solid = solid;
         this._hurtful = hurtful;
         this._type = type;
+        this._targetSize = MapTile.targetSize;
 
     }
 
     cloneTile(): MapTile{
-        return new MapTile(new SpritePosition(this.spritePos.tileX, this.spritePos.tileY), this.collision, this.solid, this.hurtful, this.type);
+        let newMapTile = new MapTile(new SpritePosition(this.spritePos.tileX, this.spritePos.tileY), this.collision, this.solid, this.hurtful, this.type);
+        newMapTile.xPos = this._xPosCanvas;
+        newMapTile.yPos = this._yPosCanvas;
+        return newMapTile;
     };
 
     public get xPos(): number {
@@ -92,6 +98,10 @@ export default class MapTile implements ICollisionObject{
 
     public static get targetSize(): number {
         return MapTile._targetSize;
+    }
+
+    public get targetSize(): number {
+        return this._targetSize;
     }
 
 }

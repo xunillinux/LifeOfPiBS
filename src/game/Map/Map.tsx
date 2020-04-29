@@ -44,12 +44,8 @@ export default class Map {
     }
 
     private static tiles: { [id: string]: MapTile } = {
-        ' ' : new MapTile(new SpritePosition(0,0),true,true,false, MapTileType.DEFAULT),
-        '#' : new MapTile(new SpritePosition(1,0),false,false,false, MapTileType.DEFAULT),
-        'x' : new MapTile(new SpritePosition(2,0),true,true,false, MapTileType.HIDDEN),
-        'r' : new MapTile(new SpritePosition(3,0),false,false,false, MapTileType.HIDDEN),
-        'u' : new MapTile(new SpritePosition(4,0),true,false,false, MapTileType.TRAMPOLINE),
-        'k' : new MapTile(new SpritePosition(5,0),true,false,false, MapTileType.EXIT),
+        ' ' : new MapTile(new SpritePosition(0,0),false,false,false, MapTileType.DEFAULT),
+        '#' : new MapTile(new SpritePosition(1,0),true,true,false, MapTileType.DEFAULT),
     }
 
     public get mapTiles(): MapTile[][] {

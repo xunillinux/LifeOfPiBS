@@ -4,6 +4,7 @@ import SpritePosition from '../../SpritePosition';
 
 export default class Player extends Character {
 
+    private _speedLimitX: number;
     private _speedLimitY: number;
     private _tookDamage: boolean;
     
@@ -20,6 +21,7 @@ export default class Player extends Character {
         let lives = 3;
         let collision = true;
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
+        this._speedLimitX = 12;
         this._speedLimitY = 25;
         this._tookDamage = false;
     }
@@ -27,22 +29,24 @@ export default class Player extends Character {
 
     public accelerateRight(){
         
-        if(this.ySpeed === 0){
-            this.xSpeed += this.xVelocity;
-        } else {
-            this.xSpeed += this.xVelocityJump;
+        if(this.xSpeed < this._speedLimitX){
+            if(this.ySpeed === 0){
+                this.xSpeed += this.xVelocity;
+            } else {
+                this.xSpeed += this.xVelocityJump;
+            }
         }
-
     }
 
     public accelerateLeft(){
 
-        if(this.ySpeed === 0){
-            this.xSpeed -= this.xVelocity;
-        } else {
-            this.xSpeed -= this.xVelocityJump;
+        if(this.xSpeed > -this._speedLimitX){
+            if(this.ySpeed === 0){
+                this.xSpeed -= this.xVelocity;
+            } else {
+                this.xSpeed -= this.xVelocityJump;
+            }
         }
-
     }
 
     public jump(){
@@ -51,6 +55,12 @@ export default class Player extends Character {
             this.ySpeed -= this.yVelocity; // - because y 0 is on top of canvas so -y means upwards
         }
 
+    }
+
+    public smallJump(){
+        if(this.ySpeed === 0){
+            this.ySpeed -= this.yVelocity/2; // - because y 0 is on top of canvas so -y means upwards
+        }
     }
 
     public animate(){
