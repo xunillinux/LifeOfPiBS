@@ -277,6 +277,21 @@ class Canvas extends React.Component {
         if (player.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
             player.fellOutOfMap();
         }
+
+        // move the player when the level is at it's border, else move the level
+        //TODO check why player stops half a canvas away from level end
+        if (this.levelPosX <= 0) {
+            if (player.xPos > (Config.canvasSize.w / 2)) {
+                this.levelPosX = 1;
+            }
+        } else if (this.levelPosX >= this.currentLevel.map.mapWidth - Config.canvasSize.w && this.currentLevel.map.mapWidth > Config.canvasSize.w) {
+            this.levelPosX = this.currentLevel.map.mapWidth - Config.canvasSize.w;
+            if (player.xPos < this.currentLevel.map.mapWidth - (Config.canvasSize.w / 2)) {
+                this.levelPosX = this.currentLevel.map.mapWidth - Config.canvasSize.w - 1;
+            }
+        } else if (this.currentLevel.map.mapWidth > Config.canvasSize.w) {
+            this.levelPosX += player.xSpeed;
+        }
     }
 
     checkPlayerCollisions(){
@@ -304,26 +319,6 @@ class Canvas extends React.Component {
 
         });
 
-        /*
-
-        // move the player when the level is at it's border, else move the level
-        if (scroll_x <= 0) {
-            if (actor.pos.x > (size.canvas.w / 2)) {
-                scroll_x = 1;
-            }
-        } else if (scroll_x >= current_level.width - size.canvas.w && current_level.width > size.canvas.w) {
-            scroll_x = current_level.width - size.canvas.w;
-            if (actor.pos.x < current_level.width - (size.canvas.w / 2)) {
-                scroll_x = current_level.width - size.canvas.w - 1;
-            }
-        } else if (current_level.width > size.canvas.w) {
-            scroll_x += actor.speed.x;
-        }
-
-        // apply friction
-        actor.speed.x *= speed.player.friction;
-
-        */
     }
 
     checkEnemyCollisions(){
