@@ -10,12 +10,11 @@ export default class Character extends Entity{
     private _xVelocity: number;
     private _xVelocityJump: number;
     private _yVelocity: number;
-    private _friction: number;
     
     private _lives: number;
     
 
-    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, friction:number, lives:number, collision: boolean) {
+    constructor(xPos:number, yPos:number, spriteMap:HTMLImageElement, spritePos:SpritePosition, sourceSize:number, targetSize:number, xVelocity:number, xVelocityJump: number, yVelocity:number, lives:number, collision: boolean) {
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, collision);
         this._xSpeed = 0;
         this._ySpeed = 0;
@@ -23,7 +22,6 @@ export default class Character extends Entity{
         this._xVelocity = xVelocity;
         this._xVelocityJump = xVelocityJump;
         this._yVelocity = yVelocity;
-        this._friction = friction;
         this._lives = lives;
     }
 
@@ -73,12 +71,6 @@ export default class Character extends Entity{
         return this._yVelocity;
     }
 
-    protected get friction(): number {
-        return this._friction;
-    }
-    protected set friction(value: number) {
-        this._friction = value;
-    }
     public get lives(): number {
         return this._lives;
     }

@@ -7,6 +7,8 @@ export default class Player extends Character {
     private _speedLimitX: number;
     private _speedLimitY: number;
     private _tookDamage: boolean;
+    private _ects: number;
+
     
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -17,13 +19,13 @@ export default class Player extends Character {
         let xVelocity = 1.5;
         let xVelocityJump = 1;
         let yVelocity = 25;
-        let friction = 0.8; //TODO probably move friction to TileTypes
         let lives = 3;
         let collision = true;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, lives, collision);
         this._speedLimitX = 12;
         this._speedLimitY = 25;
         this._tookDamage = false;
+        this._ects = 0;
     }
 
 
@@ -60,6 +62,12 @@ export default class Player extends Character {
     public smallJump(){
         if(this.ySpeed === 0){
             this.ySpeed -= this.yVelocity/2; // - because y 0 is on top of canvas so -y means upwards
+        }
+    }
+
+    public bigJump(){
+        if(this.ySpeed === 0){
+            this.ySpeed -= this.yVelocity*2; // - because y 0 is on top of canvas so -y means upwards
         }
     }
 
@@ -103,6 +111,14 @@ export default class Player extends Character {
     }
     public set tookDamage(value: boolean) {
         this._tookDamage = value;
+    }
+
+    public get ects(): number {
+        return this._ects;
+    }
+
+    public addEcts() {
+        this._ects++;
     }
 
 }

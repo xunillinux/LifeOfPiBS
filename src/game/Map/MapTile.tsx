@@ -17,6 +17,9 @@ export default class MapTile implements ICollisionObject{
     
     private _type: MapTileType;
 
+    private _friction: number = 0.8;
+        
+
     private static _sourceSize: number = 16;
     private static _targetSize: number = 32;
 
@@ -33,7 +36,7 @@ export default class MapTile implements ICollisionObject{
         this._hurtful = hurtful;
         this._type = type;
         this._targetSize = MapTile.targetSize;
-
+        this.setFriction();
     }
 
     cloneTile(): MapTile{
@@ -102,6 +105,21 @@ export default class MapTile implements ICollisionObject{
 
     public get targetSize(): number {
         return this._targetSize;
+    }
+
+    public get friction(): number {
+        return this._friction;
+    }
+
+    private setFriction(){
+        switch (this._type) {
+            case MapTileType.ICE:
+                this._friction = 0.4;
+                break;
+            default:
+                this._friction = 0.8;
+                break;
+        }
     }
 
 }

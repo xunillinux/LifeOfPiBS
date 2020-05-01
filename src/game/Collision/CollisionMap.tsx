@@ -3,6 +3,10 @@ import Collision from "./Collision";
 import Player from "../Entities/characters/Player";
 import Npc from "../Entities/characters/Npc";
 import MapTile from "../Map/MapTile";
+import { MapTileType } from "../Map/MapTileType";
+import Item from "../Entities/items/Item";
+import SpecialCollisionEvents from "./SpecialCollisionEvents";
+import Ects from "../Entities/items/Ects";
 
 export default class CollisionMap{
 
@@ -76,7 +80,7 @@ export default class CollisionMap{
 
     }
 
-    public static processPlayerMapTileCollision(player: Player, mapTile: MapTile, collides: Collision){
+    public static processPlayerMapTileCollision(player: Player, mapTile: MapTile, collides: Collision, specialCollisionEvents: SpecialCollisionEvents){
         
         if (mapTile.solid) {
             if (collides.top) {
@@ -84,9 +88,9 @@ export default class CollisionMap{
                 player.ySpeed = 1;
             }
             else if (collides.bot) {
-                //TODO apply friction of that mapTile type
                 player.yPos = mapTile.yPos - player.targetSize;
                 player.ySpeed = 0;
+                player.xSpeed *= mapTile.friction;
             } else if (collides.right) {
                 player.xPos = mapTile.xPos - player.targetSize;
                 player.xSpeed = 0;
@@ -96,32 +100,31 @@ export default class CollisionMap{
             }
         }
 
-        /*
-        TODO check all maptiletypes
-        if (object.deadly == true) {
-                    //items.push({ sx:, sy:9, x:actor.pos.x, y:actor.pos.y, deadly:false, type:'looser' });
-                    gameOver()
-                }
-                if (object.type == 'exit') {
-                    levelWin()
-                }
-                if (object.type == 'trampoline') {
-                    actor.speed.y < 0 ? actor.speed.y = 0 : true
-                    sound_jump()
-                    actor.speed.y = -0.5 * actor.speed.y - 25
-                }
-        */
+        
+        switch (mapTile.type) {
+            case MapTileType.HURTFUL:
+                player.takeDamage();
+                break;
 
+            case MapTileType.TRAMPOLINE:
+                player.bigJump();
+                break;
+
+            case MapTileType.EXIT:
+                specialCollisionEvents.levelEnd = true;
+                break;
+            
+            default:
+                break;
+        }
     }
 
-    public static processPlayerItemCollision(player: Player, npc: Item, collides: Collision){
-        /*
-        if (object.type == 'coin') {
-                items.splice(items.indexOf(object), 1)
-                score++
-                sound_coin()
+
+    public static processPlayerItemCollision(player: Player, item: Item, collides: Collision){
+        if(item instanceof Ects){
+            player.addEcts();
+            item.isCollected = true;
         }
-        */
     }
 
     

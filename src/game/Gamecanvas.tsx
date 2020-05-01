@@ -12,6 +12,7 @@ import Item from './Entities/items/Item';
 import CollisionMap from './Collision/CollisionMap';
 import Npc from './Entities/characters/Npc';
 import { ENGINE_METHOD_DIGESTS } from 'constants';
+import SpecialCollisionEvents from './Collision/SpecialCollisionEvents';
 
 class Canvas extends React.Component {
 
@@ -285,17 +286,20 @@ class Canvas extends React.Component {
             let collides = CollisionMap.checkCollision(this.player, collisionObject);
 
             if(collides.doesCollide()){
+                let specialCollisionEvent = new SpecialCollisionEvents();
 
                 if (collisionObject instanceof Npc){
                     CollisionMap.processPlayerNpcCollision(this.player, collisionObject as Npc, collides);
                 }
                 else if (collisionObject instanceof MapTile){
-                    CollisionMap.processPlayerMapTileCollision(this.player, collisionObject as MapTile, collides);
+                    CollisionMap.processPlayerMapTileCollision(this.player, collisionObject as MapTile, collides, specialCollisionEvent);
                 }
                 else if (collisionObject instanceof Item){
                     CollisionMap.processPlayerItemCollision(this.player, collisionObject as Item, collides);
                 }
-
+                if(specialCollisionEvent.levelEnd){
+                    this.endLevel();
+                }
             }
 
         });
@@ -323,6 +327,10 @@ class Canvas extends React.Component {
     }
 
     checkEnemyCollisions(){
+        //TODO implement
+    }
+
+    endLevel(){
         //TODO implement
     }
 }

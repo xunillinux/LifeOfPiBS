@@ -14,10 +14,9 @@ export default class Prof extends Npc {
         let xVelocity = 1.5;
         let xVelocityJump = 1;
         let yVelocity = 25;
-        let friction = 0.8; //TODO probably move friction to TileTypes
         let lives = 1;
         let collision = true;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, lives, collision);
     }
 
     //TODO some kind of "Artificial Intelligence" for moving around
