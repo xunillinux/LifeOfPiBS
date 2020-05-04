@@ -35,9 +35,8 @@ export default class CollisionMap{
         let obj2RightX = obj2.xPos + obj2.targetSize;
         let obj2BotY = obj2.yPos + obj2.targetSize;
 
-        // TODO make better
+        // TODO use depth collision check
         //below or above object
-        //if(this.inRange(obj1.xPos, obj2.xPos, obj2RightX) || this.inRange(obj1RightX, obj2.xPos, obj2RightX)){
         if(this.inRange(obj1MiddleX, obj2.xPos - 0.25 * obj2.targetSize, obj2.xPos + 1.25 * obj2.targetSize)){
             
             if(this.inRange(obj1BotY, obj2.yPos, obj2BotY) && obj1.yPos < obj2.yPos){
@@ -50,7 +49,6 @@ export default class CollisionMap{
         
         // TODO make better
         //right or left of object
-        //if(this.inRange(obj1.yPos, obj2.yPos, obj2BotY) || this.inRange(obj1BotY, obj2.yPos, obj2BotY)){
         if(this.inRange(obj1MiddleY, obj2.yPos - 0.25 * obj2.targetSize, obj2.yPos + 1.25 * obj2.targetSize)){
 
             if (this.inRange(obj1RightX, obj2.xPos, obj2RightX)) {

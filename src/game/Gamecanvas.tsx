@@ -236,17 +236,11 @@ class Canvas extends React.Component {
 
         if (Controls.heldUp){
             this.player.jump();
-            //TODO figure out what this is for
-            //Controls.heldUp = false; not sure what this is for
         }
 
         this.player.animate();
 
         this.player.applyGravity(Config.gravity);
-
-        //TODO figure out what this is for
-        //if (Math.abs(this.player.xSpeed) < 0.8) this.player.xSpeed = 0; //unsure what this does
-        //if (Math.abs(this.player.ySpeed) < 0.1) this.player.ySpeed = 0; //unsure what this does
 
         this.player.updatePos();
 
