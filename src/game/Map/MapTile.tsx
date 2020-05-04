@@ -114,7 +114,7 @@ export default class MapTile implements ICollisionObject{
     private setFriction(){
         switch (this._type) {
             case MapTileType.ICE:
-                this._friction = 0.4;
+                this._friction = 0.95;
                 break;
             default:
                 this._friction = 0.8;

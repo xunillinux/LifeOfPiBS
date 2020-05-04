@@ -11,7 +11,6 @@ import Character from './Entities/characters/Character';
 import Item from './Entities/items/Item';
 import CollisionMap from './Collision/CollisionMap';
 import Npc from './Entities/characters/Npc';
-import { ENGINE_METHOD_DIGESTS } from 'constants';
 import SpecialCollisionEvents from './Collision/SpecialCollisionEvents';
 
 class Canvas extends React.Component {
@@ -27,7 +26,7 @@ class Canvas extends React.Component {
     // position displayed level
     private levelPosX: number = 0;
     // scroll position at the beginning of the game loop
-    private levelPosXStart = 0;
+    private levelPosXStart: number = 0;
 
     private currentLevel: Level = Levels.levels[0];
     private player: Player = new Player(0, 0);
@@ -79,20 +78,14 @@ class Canvas extends React.Component {
     gameLoop() {
         this.ticks++;
         this.collisionMap.collisionObjects = [];
-        this.drawLevel();
-        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
-
-        this.updatePlayer();
-        //updateNpc();
-
-        //TODO testing only - remove this
         this.characters = this.currentLevel.enemies.slice();
         this.characters.push(this.player);
-        this.currentLevel.enemies.forEach((enemy, index) => {
-            if(enemy.isDead()){
-                delete this.currentLevel.enemies[index];
-            }
-        });
+        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
+
+        this.drawLevel();
+
+        this.updatePlayer();
+        this.updateNpc();
 
         //TODO remove afer demo
         this.animateECTS();
@@ -259,27 +252,52 @@ class Canvas extends React.Component {
 
 
         this.checkLevelEdgeCollision(this.player);
+        this.updateMapPosition(this.player);
 
         this.checkPlayerCollisions();
 
     }
 
-    checkLevelEdgeCollision(player: Player){
-        if (player.xPos < 0) {
-            player.xPos = 0;
-            player.xSpeed = 0;
+    updateNpc(){
+
+        
+        this.currentLevel.enemies.forEach((enemy, index) => {
+
+            if(enemy.isDead()){
+                delete this.currentLevel.enemies[index];
+                return;
+            }
+
+            enemy.animate(this.ticks);
+            enemy.move(this.levelPosX, this.currentLevel.map);
+            //enemy.applyGravity();
+
+            this.checkLevelEdgeCollision(enemy);
+            this.checkEnemyCollisions(enemy);
+
+
+        });
+
+    }
+
+
+    checkLevelEdgeCollision(character: Character){
+        if (character.xPos < 0) {
+            character.xPos = 0;
+            character.xSpeed = 0;
         }
-        else if (player.xPos + player.targetSize > Config.canvasSize.w) {
-            player.xPos = Config.canvasSize.w - player.targetSize;
-            player.xSpeed = 0;
+        else if (character.xPos + character.targetSize > this.currentLevel.map.mapWidth) {
+            character.xPos = this.currentLevel.map.mapWidth - character.targetSize;
+            character.xSpeed = 0;
         }
         // die on level bottom
-        if (player.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
-            player.fellOutOfMap();
+        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
+            character.fellOutOfMap();
         }
+    }
 
+    updateMapPosition(player: Player){
         // move the player when the level is at it's border, else move the level
-        //TODO check why player stops half a canvas away from level end
         if (this.levelPosX <= 0) {
             if (player.xPos > (Config.canvasSize.w / 2)) {
                 this.levelPosX = 1;
@@ -321,7 +339,7 @@ class Canvas extends React.Component {
 
     }
 
-    checkEnemyCollisions(){
+    checkEnemyCollisions(enemy: Npc){
         //TODO implement
     }
 

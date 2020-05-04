@@ -16,12 +16,13 @@ export default class Player extends Character {
         let spritePos = new SpritePosition(0,0);
         let sourceSize = 32;
         let targetSize = 42;
-        let xVelocity = 1.5;
-        let xVelocityJump = 1;
+        let xVelocity = 2;
+        let xVelocityJump = 0.5;
         let yVelocity = 25;
+        let friction = 0.95;
         let lives = 3;
         let collision = true;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, lives, collision);
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
         this._speedLimitX = 12;
         this._speedLimitY = 25;
         this._tookDamage = false;
@@ -33,9 +34,9 @@ export default class Player extends Character {
         
         if(this.xSpeed < this._speedLimitX){
             if(this.ySpeed === 0){
-                this.xSpeed += this.xVelocity;
+                this.xSpeed += this.xVelocity * this.friction;
             } else {
-                this.xSpeed += this.xVelocityJump;
+                this.xSpeed += this.xVelocityJump * this.friction;
             }
         }
     }
@@ -44,9 +45,9 @@ export default class Player extends Character {
 
         if(this.xSpeed > -this._speedLimitX){
             if(this.ySpeed === 0){
-                this.xSpeed -= this.xVelocity;
+                this.xSpeed -= this.xVelocity * this.friction;
             } else {
-                this.xSpeed -= this.xVelocityJump;
+                this.xSpeed -= this.xVelocityJump * this.friction;
             }
         }
     }

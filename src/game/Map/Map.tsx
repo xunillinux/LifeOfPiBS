@@ -48,6 +48,13 @@ export default class Map {
         '#' : new MapTile(new SpritePosition(1,0),true,true,false, MapTileType.DEFAULT),
     }
 
+    public getMapTileAtXY(x:number, y:number): MapTile{
+        let xTileIndex = Math.trunc(x / MapTile.targetSize);
+        let yTileIndex = Math.trunc(y / MapTile.targetSize);
+
+        return this.mapTiles[yTileIndex][xTileIndex];
+    }
+
     public get mapTiles(): MapTile[][] {
         return this._mapTiles;
     }
