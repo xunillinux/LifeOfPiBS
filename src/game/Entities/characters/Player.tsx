@@ -73,8 +73,31 @@ export default class Player extends Character {
         }
     }
 
-    public animate(){
-        //TODO
+    public animate(ticks: number) {
+        console.log(this.xSpeed);
+        console.log(this.ySpeed);
+        if (ticks % 4 === 0 && (this.xSpeed !== 0 || this.ySpeed !== 0)) {
+            switch (this.spritePos.tileX) {
+                case 0:
+                    this.spritePos.tileX = 1;
+                    break;
+                case 1:
+                    this.spritePos.tileX = 2;
+                    break;
+                case 2:
+                    this.spritePos.tileX = 3;
+                    break;
+                case 3:
+                    this.spritePos.tileX = 0;
+                    break;
+                default:
+                    this.spritePos.tileX = 0;
+                    break;
+            }
+        }
+        else{
+            this.spritePos.tileX = 0;
+        }
     }
 
     public applyGravity(gravity:number){

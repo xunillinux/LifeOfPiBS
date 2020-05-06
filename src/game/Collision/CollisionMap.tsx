@@ -47,7 +47,7 @@ export default class CollisionMap{
             }
         }
         
-        // TODO make better
+        // TODO use depth collision check
         //right or left of object
         if(this.inRange(obj1MiddleY, obj2.yPos - 0.25 * obj2.targetSize, obj2.yPos + 1.25 * obj2.targetSize)){
 

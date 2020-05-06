@@ -211,7 +211,11 @@ class Canvas extends React.Component {
             this.player.jump();
         }
 
-        this.player.animate();
+        //make sure x and y speed is 0 if player practically standing still
+        if (Math.abs(this.player.xSpeed) < 0.8) this.player.xSpeed = 0;
+        if (Math.abs(this.player.ySpeed) < 0.1) this.player.ySpeed = 0;
+
+        this.player.animate(this.ticks);
 
         this.player.applyGravity(Config.gravity);
 
