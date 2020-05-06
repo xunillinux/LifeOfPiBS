@@ -17,22 +17,18 @@ class Canvas extends React.Component {
 
     private gameCanvasRef: any;
     private gameSketchImgRef: any;
-
     private ctx: any;
 
-    private collisionMap: CollisionMap = new CollisionMap();
     private ticks: number = 0;
 
-    // position displayed level
-    private levelPosX: number = 0;
-    // scroll position at the beginning of the game loop
-    private levelPosXStart: number = 0;
-
     private currentLevel: Level = Levels.levels[0];
-    private player: Player = new Player(0, 0);
+    // current map position
+    private levelPosX: number = 0;
 
+    private collisionMap: CollisionMap = new CollisionMap();
+
+    private player: Player = new Player(0, 0);
     private characters: Character[] = [];
-    private items: Item[] = [];
 
     constructor(props: any) {
         super(props);
@@ -127,7 +123,6 @@ class Canvas extends React.Component {
         this.levelPosX = 0;
         this.characters = this.currentLevel.enemies.slice();
         this.characters.push(this.player);
-        this.items = this.currentLevel.items;
 
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.map.mapTiles.flat().filter(mapTile => mapTile.collision));
