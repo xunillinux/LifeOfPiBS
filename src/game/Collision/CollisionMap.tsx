@@ -117,6 +117,34 @@ export default class CollisionMap{
         }
     }
 
+    public static processEnemyMapTileCollision(enemy: Npc, mapTile: MapTile, collides: Collision){
+        if (mapTile.solid) {
+            if (collides.top) {
+                enemy.yPos = mapTile.yPos + mapTile.targetSize;
+                enemy.ySpeed = 1;
+            }
+            else if (collides.bot) {
+                enemy.yPos = mapTile.yPos - enemy.targetSize;
+                enemy.ySpeed = 0;
+            } else if (collides.right) {
+                enemy.xPos = mapTile.xPos - enemy.targetSize;
+                enemy.switchDirection();
+            } else if (collides.left) {
+                enemy.xPos = mapTile.xPos + mapTile.targetSize;
+                enemy.switchDirection();
+            }
+        }
+
+        
+        switch (mapTile.type) {
+            case MapTileType.HURTFUL:
+                enemy.takeDamage();
+                break;
+            default:
+                break;
+        }
+    }
+
 
     public static processPlayerItemCollision(player: Player, item: Item, collides: Collision){
         if(item instanceof Ects){

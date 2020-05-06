@@ -1,5 +1,6 @@
 import Entity from "../Entity";
 import SpritePosition from "../../SpritePosition";
+import Map from "../../Map/Map";
 
 export default class Character extends Entity{
 
@@ -48,6 +49,8 @@ export default class Character extends Entity{
     public isDead(): boolean {
         return this._lives <= 0;
     }
+
+    public handleLevelEdgeCollision(map: Map){}
 
     public get xSpeed(): number {
         return this._xSpeed;

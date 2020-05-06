@@ -77,10 +77,8 @@ class Canvas extends React.Component {
 
     gameLoop() {
         this.ticks++;
-        this.collisionMap.collisionObjects = [];
         this.characters = this.currentLevel.enemies.slice();
         this.characters.push(this.player);
-        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
 
         this.drawLevel();
 
@@ -130,6 +128,10 @@ class Canvas extends React.Component {
         this.characters = this.currentLevel.enemies.slice();
         this.characters.push(this.player);
         this.items = this.currentLevel.items;
+
+        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
+        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.map.mapTiles.flat().filter(mapTile => mapTile.collision));
+
     }
 
     public respawnPlayer(){
@@ -183,9 +185,6 @@ class Canvas extends React.Component {
                     MapTile.targetSize
                 );
 
-                if (mapTile.collision) {
-                    this.collisionMap.collisionObjects.push(mapTile.cloneTile());
-                }
             }
 
         }
@@ -264,7 +263,7 @@ class Canvas extends React.Component {
 
             enemy.animate(this.ticks);
             enemy.move(this.levelPosX, this.currentLevel.map);
-            //enemy.applyGravity();
+            enemy.applyGravity(Config.gravity);
 
             this.checkLevelEdgeCollision(enemy);
             this.checkEnemyCollisions(enemy);
@@ -276,14 +275,8 @@ class Canvas extends React.Component {
 
 
     checkLevelEdgeCollision(character: Character){
-        if (character.xPos < 0) {
-            character.xPos = 0;
-            character.xSpeed = 0;
-        }
-        else if (character.xPos + character.targetSize > this.currentLevel.map.mapWidth) {
-            character.xPos = this.currentLevel.map.mapWidth - character.targetSize;
-            character.xSpeed = 0;
-        }
+        character.handleLevelEdgeCollision(this.currentLevel.map);
+        
         // die on level bottom
         if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
             character.fellOutOfMap();
@@ -307,7 +300,6 @@ class Canvas extends React.Component {
     }
 
     checkPlayerCollisions(){
-        //TODO collisionmap should only contain visible objects
         this.collisionMap.collisionObjects.forEach(collisionObject => {
             
             let collides = CollisionMap.checkCollision(this.player, collisionObject);
@@ -334,7 +326,20 @@ class Canvas extends React.Component {
     }
 
     checkEnemyCollisions(enemy: Npc){
-        //TODO implement
+            
+        this.collisionMap.collisionObjects.forEach(collisionObject => {
+            
+            //only check for collision with MapTiles
+            if(collisionObject instanceof MapTile){
+                console.log(collisionObject);
+
+                let collides = CollisionMap.checkCollision(enemy, collisionObject);
+
+                CollisionMap.processEnemyMapTileCollision(enemy, collisionObject as MapTile, collides);
+            }
+
+        });
+
     }
 
     endLevel(){

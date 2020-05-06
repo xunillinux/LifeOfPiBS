@@ -1,6 +1,7 @@
 import Character from './Character';
 import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
+import Map from '../../Map/Map';
 
 export default class Player extends Character {
 
@@ -99,6 +100,17 @@ export default class Player extends Character {
     public takeDamage(){
         super.takeDamage()
         this._tookDamage = true;
+    }
+
+    public handleLevelEdgeCollision(map: Map){
+        if (this.xPos < 0) {
+            this.xPos = 0;
+            this.xSpeed = 0;
+        }
+        else if (this.xPos + this.targetSize > map.mapWidth) {
+            this.xPos = map.mapWidth - this.targetSize;
+            this.xSpeed = 0;
+        }
     }
 
     public get speedLimitY(): number {

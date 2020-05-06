@@ -16,13 +16,15 @@ export default class Prof extends Npc {
         let spritePos = new SpritePosition(0,0);
         let sourceSize = 32;
         let targetSize = 32;
-        let xVelocity = 4;
+        let xVelocity = 2;
         let xVelocityJump = 1;
         let yVelocity = 25;
+        let speedLimitY = 25;
         let friction = 0.4;
         let lives = 1;
         let collision = true;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity,speedLimitY, friction, lives, collision);
+        this.xSpeed = 4;
         this.movingLeft = true;
         this.movingRight = !this.movingLeft;
     }
@@ -62,29 +64,33 @@ export default class Prof extends Npc {
 
     private moveLeft(levelPosX: number, map: Map){
         let mapTileToBotLeft = map.getMapTileAtXY(this.xPos - MapTile.targetSize, this.yPos + this.targetSize);
-        console.log(mapTileToBotLeft);
-        if (!mapTileToBotLeft.solid || mapTileToBotLeft.hurtful){
+        if (mapTileToBotLeft && (!mapTileToBotLeft.solid || mapTileToBotLeft.hurtful)){
             this.switchDirection();
         }
         else{
-            this.xPos -= this.xVelocity;
+            this.xPos -= this.xSpeed;
         }
     }
 
     private moveRight(levelPosX: number, map: Map){
         let mapTileToBotRight = map.getMapTileAtXY(this.xPos + MapTile.targetSize, this.yPos + this.targetSize);
 
-        if (!mapTileToBotRight.solid || mapTileToBotRight.hurtful){
+        if (mapTileToBotRight && (!mapTileToBotRight.solid || mapTileToBotRight.hurtful)){
             this.switchDirection();
         }
         else{
-            this.xPos += this.xVelocity;
+            this.xPos += this.xSpeed;
         }
     }
 
     public switchDirection(){
         this.movingLeft = !this.movingLeft;
         this.movingRight = !this.movingRight;
+    }
+
+    public applyGravity(gravity:number){
+        this.ySpeed = (this.ySpeed+gravity > this.speedLimitY) ? this.speedLimitY : this.ySpeed+gravity;
+        this.yPos += this.ySpeed;
     }
 
 
