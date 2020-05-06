@@ -320,7 +320,9 @@ class Canvas extends React.Component {
     }
 
     checkEnemyCollisions(enemy: Npc){
-            
+        
+        //TODO fix enemy dropping through tiles when not visible at start
+
         this.collisionMap.collisionObjects.forEach(collisionObject => {
             
             //only check for collision with MapTiles
