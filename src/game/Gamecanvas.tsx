@@ -86,11 +86,11 @@ class Canvas extends React.Component {
 
         this.drawItems();
         this.drawCharacters();
-        //this.drawUI();
-        //drawControls();
+        this.drawUI();
+        this.drawControls();
 
         if (this.player.tookDamage) { this.respawnPlayer() }
-        //if (this.player.isDead()){ gameOver() };
+        if (this.player.isDead()){ this.gameOver() };
     }
 
     //TODO remove afer demo
@@ -145,7 +145,6 @@ class Canvas extends React.Component {
         if (this.levelPosX < 0) {
             this.levelPosX = 0;
         }
-        this.levelPosXStart = this.levelPosX;
         // first tile to display:
         let indexFirstTile = Math.trunc(this.levelPosX / MapTile.targetSize);
         let offset_x = this.levelPosX % MapTile.targetSize;
@@ -338,6 +337,18 @@ class Canvas extends React.Component {
     }
 
     endLevel(){
+        //TODO implement
+    }
+
+    gameOver(){
+        //TODO implement
+    }
+
+    drawUI(){
+        //TODO implement
+    }
+
+    drawControls(){
         //TODO implement
     }
 }
