@@ -65,7 +65,6 @@ export default class CollisionMap{
 
     public static processPlayerNpcCollision(player: Player, npc: Npc, collides: Collision){
 
-        console.log(collides);
         if (collides.bot) {
             player.yPos = npc.yPos - player.targetSize;
             player.ySpeed = 0;

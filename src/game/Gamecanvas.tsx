@@ -12,6 +12,7 @@ import Item from './Entities/items/Item';
 import CollisionMap from './Collision/CollisionMap';
 import Npc from './Entities/characters/Npc';
 import SpecialCollisionEvents from './Collision/SpecialCollisionEvents';
+import Ects from './Entities/items/Ects';
 
 class Canvas extends React.Component {
 
@@ -29,6 +30,8 @@ class Canvas extends React.Component {
 
     private player: Player = new Player(0, 0);
     private characters: Character[] = [];
+
+    private currentEctsScore = 0;
 
     constructor(props: any) {
         super(props);
@@ -80,9 +83,7 @@ class Canvas extends React.Component {
 
         this.updatePlayer();
         this.updateNpc();
-
-        //TODO remove afer demo
-        this.animateECTS();
+        this.updateItems();
 
         this.drawItems();
         this.drawCharacters();
@@ -93,28 +94,6 @@ class Canvas extends React.Component {
         if (this.player.isDead()){ this.gameOver() };
     }
 
-    //TODO remove afer demo
-    animateECTS(){
-        this.currentLevel.items.forEach( item => {
-
-            if(this.ticks % 10 === 0){
-                
-                switch (item.spritePos.tileX){ 
-                    case 0:
-                        item.spritePos.tileX = 1;
-                        break;
-                    case 1:
-                        item.spritePos.tileX = 2;
-                        break;
-                    case 2:
-                        item.spritePos.tileX = 0;
-                        break;
-                }
-
-            }
-
-        });
-    }
 
     initializeLevel(){
         this.collisionMap.collisionObjects = [];
@@ -125,6 +104,7 @@ class Canvas extends React.Component {
         this.characters.push(this.player);
 
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
+        this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.items);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.map.mapTiles.flat().filter(mapTile => mapTile.collision));
 
     }
@@ -246,7 +226,6 @@ class Canvas extends React.Component {
     }
 
     updateNpc(){
-
         
         this.currentLevel.enemies.forEach((enemy, index) => {
 
@@ -264,6 +243,21 @@ class Canvas extends React.Component {
 
 
         });
+
+    }
+
+    updateItems(){
+
+        this.currentLevel.items.forEach( item => {
+            if(item.isCollected){
+                if(item instanceof Ects){
+                    this.currentEctsScore ++;
+                }
+            }
+            item.animate(this.ticks);
+        });
+
+        this.currentLevel.items = this.currentLevel.items.filter(item => !item.isCollected);
 
     }
 
@@ -327,10 +321,7 @@ class Canvas extends React.Component {
             
             //only check for collision with MapTiles
             if(collisionObject instanceof MapTile){
-                console.log(collisionObject);
-
                 let collides = CollisionMap.checkCollision(enemy, collisionObject);
-
                 CollisionMap.processEnemyMapTileCollision(enemy, collisionObject as MapTile, collides);
             }
 

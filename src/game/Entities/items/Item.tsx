@@ -18,5 +18,7 @@ export default class Item extends Entity{
         this._isCollected = value;
     }
 
+    public animate(ticks:number){}
+
 
 }
