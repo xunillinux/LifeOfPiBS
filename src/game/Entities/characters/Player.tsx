@@ -74,8 +74,6 @@ export default class Player extends Character {
     }
 
     public animate(ticks: number) {
-        console.log(this.xSpeed);
-        console.log(this.ySpeed);
         if (ticks % 4 === 0 && (this.xSpeed !== 0 || this.ySpeed !== 0)) {
             switch (this.spritePos.tileX) {
                 case 0:
