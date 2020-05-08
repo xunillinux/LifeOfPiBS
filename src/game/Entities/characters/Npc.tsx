@@ -19,7 +19,7 @@ export default class Npc extends Character implements ICollisionObject{
 
     public animate(ticks: number){}
 
-    public move(levelPosX: number, map: Map){}
+    public move(map: Map){}
 
     public applyGravity(gravity:number){}
 

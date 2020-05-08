@@ -51,19 +51,19 @@ export default class Prof extends Npc {
         }
     }
 
-    public move(levelPosX: number, map: Map){
+    public move(map: Map){
         
         if(this.movingLeft){
-            this.moveLeft(levelPosX, map);
+            this.moveLeft(map);
         }
         else if(this.movingRight){
-            this.moveRight(levelPosX, map);
+            this.moveRight(map);
         }
 
     }
 
-    private moveLeft(levelPosX: number, map: Map){
-        let mapTileToBotLeft = map.getMapTileAtXY(this.xPos - MapTile.targetSize, this.yPos + this.targetSize);
+    private moveLeft(map: Map){
+        let mapTileToBotLeft = map.getMapTileAtXY(this.xPos, this.yPos + this.targetSize);
         if (mapTileToBotLeft && (!mapTileToBotLeft.solid || mapTileToBotLeft.hurtful)){
             this.switchDirection();
         }
@@ -72,11 +72,12 @@ export default class Prof extends Npc {
         }
     }
 
-    private moveRight(levelPosX: number, map: Map){
-        let mapTileToBotRight = map.getMapTileAtXY(this.xPos + MapTile.targetSize, this.yPos + this.targetSize);
+    private moveRight(map: Map){
+        let mapTileToBotRight = map.getMapTileAtXY(this.xPos + this.targetSize, this.yPos + this.targetSize);
 
         if (mapTileToBotRight && (!mapTileToBotRight.solid || mapTileToBotRight.hurtful)){
             this.switchDirection();
+            
         }
         else{
             this.xPos += this.xSpeed;

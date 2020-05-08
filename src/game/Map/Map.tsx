@@ -29,10 +29,12 @@ export default class Map {
 
     private generateMapTiles(template: string[]){
         let mapTiles: MapTile[][] = [];
-        template.forEach(layer => {
+        template.forEach((layer, layerIndex) => {
             let currentLayerTiles: MapTile[] = [];
-            for(let i=0; i < layer.length; i++){
-                currentLayerTiles.push(Map.tiles[layer[i]].cloneTile());
+            for(let tileIndex=0; tileIndex < layer.length; tileIndex++){
+                let newTileIndex = currentLayerTiles.push(Map.tiles[layer[tileIndex]].cloneTile())-1;
+                currentLayerTiles[newTileIndex].xPos = tileIndex*MapTile.targetSize;
+                currentLayerTiles[newTileIndex].yPos = layerIndex*MapTile.targetSize;
             }
             mapTiles.push(currentLayerTiles);
         });

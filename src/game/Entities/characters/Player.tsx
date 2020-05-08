@@ -18,7 +18,7 @@ export default class Player extends Character {
         let sourceSize = 32;
         let targetSize = 42;
         let xVelocity = 2;
-        let xVelocityJump = 0.5;
+        let xVelocityJump = 2;
         let yVelocity = 25;
         let friction = 0.95;
         let lives = 3;

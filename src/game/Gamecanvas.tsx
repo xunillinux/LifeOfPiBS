@@ -106,7 +106,7 @@ class Canvas extends React.Component {
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.items);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.map.mapTiles.flat().filter(mapTile => mapTile.collision));
-
+        console.log(this.collisionMap.collisionObjects);
     }
 
     public respawnPlayer(){
@@ -146,15 +146,15 @@ class Canvas extends React.Component {
             let mapTile = mapTileLayer[indexCurrentTile];
             
             if(mapTile){ //if map template smaller than canvas width map tiles not defined -> TODO refactor
-                mapTile.xPos = indexCurrentTile * MapTile.targetSize - offset_x;
-                mapTile.yPos = currentLayerIndex * MapTile.targetSize;
+                mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
+                mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
                 this.ctx.drawImage(this.currentLevel.map.spriteMap,
                     mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize + 1),
                     mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize + 1),
                     MapTile.sourceSize - 0.8,
                     MapTile.sourceSize - 0.8,
-                    mapTile.xPos - (indexFirstTile * MapTile.targetSize),
-                    mapTile.yPos,
+                    mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
+                    mapTile.yPosCanvas,
                     MapTile.targetSize,
                     MapTile.targetSize
                 );
@@ -231,15 +231,16 @@ class Canvas extends React.Component {
 
     updateNpc(){
         
-        this.currentLevel.enemies.forEach((enemy, index) => {
+        this.currentLevel.enemies.forEach((enemy, index, object) => {
 
             if(enemy.isDead()){
-                delete this.currentLevel.enemies[index];
+                object.splice(index, 1);
+                this.collisionMap.collisionObjects.splice(this.collisionMap.collisionObjects.findIndex(x => x.id === enemy.id), 1);
                 return;
             }
 
             enemy.animate(this.ticks);
-            enemy.move(this.levelPosX, this.currentLevel.map);
+            enemy.move(this.currentLevel.map);
             enemy.applyGravity(Config.gravity);
 
             this.checkLevelEdgeCollision(enemy);

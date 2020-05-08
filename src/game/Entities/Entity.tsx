@@ -1,8 +1,9 @@
 import SpritePosition from "../SpritePosition";
 import ICollisionObject from "../Collision/ICollisionObject";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Entity implements ICollisionObject{
-
+    private _id: string;
     private _xPos: number;
     private _yPos: number;
     private _collision: boolean;
@@ -22,6 +23,11 @@ export default class Entity implements ICollisionObject{
         this._spritePos = spritePos;
         this._sourceSize = sourceSize;
         this._targetSize = targetSize;
+        this._id = uuidv4();
+    }
+
+    public get id(): string {
+        return this._id;
     }
 
     public get xPos(): number {
