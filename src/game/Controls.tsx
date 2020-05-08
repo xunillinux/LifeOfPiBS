@@ -6,6 +6,7 @@ class Controls {
     static heldUp: boolean = false;
     static heldDown: boolean = false;
     static Escape: boolean = false;
+    static heldE: boolean = false;
 
     static registerKeyEvents(){
         window.onkeydown = function (e: any) {
@@ -34,6 +35,10 @@ class Controls {
                     e.preventDefault();
                     Controls.Escape = true;
                     break;
+                case 69: // E
+                    e.preventDefault();
+                    Controls.heldE = true;
+                    break;
                 default:
                     return;
             }
@@ -61,6 +66,10 @@ class Controls {
                 case 40: // down
                     e.preventDefault();
                     Controls.heldDown = false;
+                    break;
+                case 69: // e
+                    e.preventDefault();
+                    Controls.heldE = false;
                     break;
                 default:
                     return;

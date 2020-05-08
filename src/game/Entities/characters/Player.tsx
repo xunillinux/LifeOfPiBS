@@ -2,6 +2,7 @@ import Character from './Character';
 import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
+import Projectile from '../projectiles/Projectile';
 
 export default class Player extends Character {
 
@@ -9,6 +10,7 @@ export default class Player extends Character {
     private _speedLimitY: number;
     private _tookDamage: boolean;
     private _ects: number;
+    private _facingRight: boolean;
 
     
     constructor(xPos:number, yPos:number) {
@@ -20,7 +22,7 @@ export default class Player extends Character {
         let xVelocity = 2;
         let xVelocityJump = 2;
         let yVelocity = 25;
-        let friction = 0.95;
+        let friction = 0.9;
         let lives = 3;
         let collision = true;
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
@@ -28,6 +30,7 @@ export default class Player extends Character {
         this._speedLimitY = 25;
         this._tookDamage = false;
         this._ects = 0;
+        this._facingRight = true;
     }
 
 
@@ -40,6 +43,7 @@ export default class Player extends Character {
                 this.xSpeed += this.xVelocityJump * this.friction;
             }
         }
+        this._facingRight = (this.xSpeed > 0);
     }
 
     public accelerateLeft(){
@@ -51,6 +55,7 @@ export default class Player extends Character {
                 this.xSpeed -= this.xVelocityJump * this.friction;
             }
         }
+        this._facingRight = (this.xSpeed > 0);
     }
 
     public jump(){
@@ -131,6 +136,20 @@ export default class Player extends Character {
         else if (this.xPos + this.targetSize > map.mapWidth) {
             this.xPos = map.mapWidth - this.targetSize;
             this.xSpeed = 0;
+        }
+    }
+
+    public shoot(): Projectile{
+        //TODO: limit shooting number of projectiles
+        
+        if(this._facingRight){
+            let projectile = new Projectile(0, 0, true);
+            projectile.updatePos(this.xPos+this.targetSize, this.yPos);
+            return projectile;
+        }else{
+            let projectile = new Projectile(0, 0, false);
+            projectile.updatePos(this.xPos-projectile.targetSize, this.yPos);
+            return projectile;
         }
     }
 

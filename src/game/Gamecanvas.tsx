@@ -13,7 +13,8 @@ import CollisionMap from './Collision/CollisionMap';
 import Npc from './Entities/characters/Npc';
 import SpecialCollisionEvents from './Collision/SpecialCollisionEvents';
 import Ects from './Entities/items/Ects';
-
+import Entity from './Entities/Entity';
+import Projectile from './Entities/projectiles/Projectile';
 class Canvas extends React.Component {
 
     private gameCanvasRef: any;
@@ -30,6 +31,8 @@ class Canvas extends React.Component {
 
     private player: Player = new Player(0, 0);
     private characters: Character[] = [];
+
+    private projectiles: Projectile[] = [];
 
     private currentEctsScore = 0;
 
@@ -84,9 +87,11 @@ class Canvas extends React.Component {
         this.updatePlayer();
         this.updateNpc();
         this.updateItems();
+        this.updateProjectiles();
 
-        this.drawItems();
-        this.drawCharacters();
+        this.drawEntities(this.currentLevel.items);
+        this.drawEntities(this.characters);
+        this.drawEntities(this.projectiles);
         this.drawUI();
         this.drawControls();
 
@@ -164,38 +169,21 @@ class Canvas extends React.Component {
         }
     }
 
-    drawCharacters(){
-        this.characters.forEach((character) => {
+    drawEntities(entities: Entity[]){
+        entities.forEach(entity => {
             this.ctx.drawImage(
-                character.spriteMap,
-                character.spritePos.getXPosForSpriteWidth(character.sourceSize),
-                character.spritePos.getYPosForSpriteHeight(character.sourceSize),
-                character.sourceSize,
-                character.sourceSize,
-                character.xPos - this.levelPosX,
-                character.yPos,
-                character.targetSize,
-                character.targetSize
+                entity.spriteMap,
+                entity.spritePos.getXPosForSpriteWidth(entity.sourceSize),
+                entity.spritePos.getYPosForSpriteHeight(entity.sourceSize),
+                entity.sourceSize,
+                entity.sourceSize,
+                entity.xPos - this.levelPosX,
+                entity.yPos,
+                entity.targetSize,
+                entity.targetSize
             );
         });
     }
-
-    drawItems(){
-        this.currentLevel.items.forEach((item) => {
-            this.ctx.drawImage(
-                item.spriteMap,
-                item.spritePos.getXPosForSpriteWidth(item.sourceSize),
-                item.spritePos.getYPosForSpriteHeight(item.sourceSize),
-                item.sourceSize,
-                item.sourceSize,
-                item.xPos - this.levelPosX,
-                item.yPos,
-                item.targetSize,
-                item.targetSize
-            );
-        });
-    }
-
     
 
     updatePlayer(){
@@ -209,6 +197,10 @@ class Canvas extends React.Component {
 
         if (Controls.heldUp){
             this.player.jump();
+        }
+
+        if (Controls.heldE){
+            this.projectiles.push(this.player.shoot());
         }
 
         //make sure x and y speed is 0 if player practically standing still
@@ -265,14 +257,33 @@ class Canvas extends React.Component {
         this.currentLevel.items = this.currentLevel.items.filter(item => !item.isCollected);
 
     }
+    
+    updateProjectiles(){
+        console.log(this.projectiles);
+        this.projectiles.forEach((projectile, index, object) => {
+
+            if(projectile.hasCollided){
+                object.splice(index, 1);
+                this.collisionMap.collisionObjects.splice(this.collisionMap.collisionObjects.findIndex(x => x.id === projectile.id), 1);
+                return;
+            }
+
+            projectile.animate(this.ticks);
+            projectile.move();
+
+            this.checkLevelEdgeCollision(projectile);
+            this.checkProjectileCollisions(projectile);
+        });
+        
+    }
 
 
-    checkLevelEdgeCollision(character: Character){
-        character.handleLevelEdgeCollision(this.currentLevel.map);
+    checkLevelEdgeCollision(entity: Entity){
+        entity.handleLevelEdgeCollision(this.currentLevel.map);
         
         // die on level bottom
-        if (character.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
-            character.fellOutOfMap();
+        if (entity.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
+            entity.fellOutOfMap();
         }
     }
 
@@ -319,9 +330,6 @@ class Canvas extends React.Component {
     }
 
     checkEnemyCollisions(enemy: Npc){
-        
-        //TODO fix enemy dropping through tiles when not visible at start
-
         this.collisionMap.collisionObjects.forEach(collisionObject => {
             
             //only check for collision with MapTiles
@@ -332,6 +340,24 @@ class Canvas extends React.Component {
 
         });
 
+    }
+
+    checkProjectileCollisions(projectile: Projectile){
+        this.collisionMap.collisionObjects.forEach(collisionObject => {
+            let collides = CollisionMap.checkCollision(projectile, collisionObject);
+            if(collides.doesCollide()){
+                if(collisionObject instanceof MapTile){
+                    projectile.hasCollided = true;
+                }else if(collisionObject instanceof Npc){
+                    (collisionObject as Npc).takeDamage();
+                    projectile.hasCollided = true;
+                }
+            }
+            
+            //only check for collision with MapTiles
+            
+
+        });
     }
 
     endLevel(){

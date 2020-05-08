@@ -1,6 +1,7 @@
 import SpritePosition from "../SpritePosition";
 import ICollisionObject from "../Collision/ICollisionObject";
 import { v4 as uuidv4 } from 'uuid';
+import Map from "../Map/Map";
 
 export default class Entity implements ICollisionObject{
     private _id: string;
@@ -25,6 +26,10 @@ export default class Entity implements ICollisionObject{
         this._targetSize = targetSize;
         this._id = uuidv4();
     }
+
+    public handleLevelEdgeCollision(map: Map){}
+
+    public fellOutOfMap(){}
 
     public get id(): string {
         return this._id;

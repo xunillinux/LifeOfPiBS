@@ -146,7 +146,7 @@ export default class MapTile implements ICollisionObject{
                 this._friction = 0.95;
                 break;
             default:
-                this._friction = 0.8;
+                this._friction = 0.9;
                 break;
         }
     }
