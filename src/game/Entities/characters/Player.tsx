@@ -145,8 +145,6 @@ export default class Player extends Character {
 
     public shoot(): Projectile | null{
 
-        console.log(this._shootCooldown);
-        
         if(!this.canShoot()){
             return null;
         }
