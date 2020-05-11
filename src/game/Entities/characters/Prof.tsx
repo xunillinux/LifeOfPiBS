@@ -1,7 +1,6 @@
 import Npc from './Npc';
 import profSpriteImage from '../../images/profSprite.jpg';
 import SpritePosition from '../../SpritePosition';
-import MapTile from '../../Map/MapTile';
 import Map from '../../Map/Map';
 
 export default class Prof extends Npc {

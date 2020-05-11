@@ -11,6 +11,8 @@ export default class Player extends Character {
     private _tookDamage: boolean;
     private _ects: number;
     private _facingRight: boolean;
+    private _shootCooldown: number;
+    private _shootCooldownTime: number;
 
     
     constructor(xPos:number, yPos:number) {
@@ -31,6 +33,8 @@ export default class Player extends Character {
         this._tookDamage = false;
         this._ects = 0;
         this._facingRight = true;
+        this._shootCooldown = 0;
+        this._shootCooldownTime = 15;
     }
 
 
@@ -139,9 +143,16 @@ export default class Player extends Character {
         }
     }
 
-    public shoot(): Projectile{
-        //TODO: limit shooting number of projectiles
+    public shoot(): Projectile | null{
+
+        console.log(this._shootCooldown);
         
+        if(!this.canShoot()){
+            return null;
+        }
+
+        this._shootCooldown = this._shootCooldownTime;
+
         if(this._facingRight){
             let projectile = new Projectile(0, 0, true);
             projectile.updatePos(this.xPos+this.targetSize, this.yPos);
@@ -151,6 +162,20 @@ export default class Player extends Character {
             projectile.updatePos(this.xPos-projectile.targetSize, this.yPos);
             return projectile;
         }
+    }
+
+    public updateShootCooldown(){
+        if(this._shootCooldown > 0){
+            this._shootCooldown--;
+        }
+    }
+
+    public addEcts() {
+        this._ects++;
+    }
+
+    private canShoot(){
+        return (this._shootCooldown <= 0);
     }
 
     public get speedLimitY(): number {
@@ -168,10 +193,6 @@ export default class Player extends Character {
 
     public get ects(): number {
         return this._ects;
-    }
-
-    public addEcts() {
-        this._ects++;
     }
 
 }

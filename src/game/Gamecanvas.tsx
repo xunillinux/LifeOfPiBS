@@ -111,7 +111,6 @@ class Canvas extends React.Component {
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.items);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.map.mapTiles.flat().filter(mapTile => mapTile.collision));
-        console.log(this.collisionMap.collisionObjects);
     }
 
     public respawnPlayer(){
@@ -200,7 +199,10 @@ class Canvas extends React.Component {
         }
 
         if (Controls.heldE){
-            this.projectiles.push(this.player.shoot());
+            let projectile = this.player.shoot();
+            if(projectile){
+                this.projectiles.push(projectile);
+            }
         }
 
         //make sure x and y speed is 0 if player practically standing still
@@ -212,7 +214,7 @@ class Canvas extends React.Component {
         this.player.applyGravity(Config.gravity);
 
         this.player.updatePos();
-
+        this.player.updateShootCooldown();
 
         this.checkLevelEdgeCollision(this.player);
         this.updateMapPosition(this.player);
@@ -259,12 +261,17 @@ class Canvas extends React.Component {
     }
     
     updateProjectiles(){
-        console.log(this.projectiles);
         this.projectiles.forEach((projectile, index, object) => {
 
-            if(projectile.hasCollided){
+            if(projectile.shouldBeDestroyed()){
                 object.splice(index, 1);
-                this.collisionMap.collisionObjects.splice(this.collisionMap.collisionObjects.findIndex(x => x.id === projectile.id), 1);
+                
+                let collisionMapProjectileIndex = this.collisionMap.collisionObjects.findIndex(x => x.id === projectile.id);
+
+                if( collisionMapProjectileIndex !== -1){
+                    this.collisionMap.collisionObjects.splice(collisionMapProjectileIndex, 1);
+                }
+                
                 return;
             }
 
@@ -354,9 +361,6 @@ class Canvas extends React.Component {
                 }
             }
             
-            //only check for collision with MapTiles
-            
-
         });
     }
 
