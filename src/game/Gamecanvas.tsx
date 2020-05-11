@@ -18,13 +18,11 @@ interface IGameCanvasState{
 export default class Canvas extends React.Component<IGameCanvasProps, IGameCanvasState> {
 
     private gameCanvasRef: any;
-    private gameSketchImgRef: any;
     private ctx: any;
 
     constructor(props: IGameCanvasProps) {
         super(props);
         this.gameCanvasRef = React.createRef();
-        this.gameSketchImgRef = React.createRef();
     }
 
     render() {

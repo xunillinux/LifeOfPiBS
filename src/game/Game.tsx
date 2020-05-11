@@ -61,7 +61,10 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         return(
             <div className="Game">
             <header className="Game-header">
-                <GameUI/>
+                <GameUI
+                    currentEctsScore = {this.state.currentEctsScore}
+                    currentLevelName = {this.state.currentLevel.name}
+                    currentLives = {this.player.lives}/>
                 <GameCanvas
                     currentLevel = {this.state.currentLevel}
                     ticks = {this.state.ticks}
@@ -74,12 +77,11 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
 
     private startGame() {
-        //hideMenus();
 
         Controls.registerKeyEvents()
 
         this.initializeLevel(this.currentLevel);
-        window.clearInterval(Config.gameInterval);
+        clearInterval(Config.gameInterval);
         Config.gameInterval = setInterval(this.gameLoop, 1000 / Config.fps);
     }
 
@@ -111,10 +113,9 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         if (this.player.isDead()){ this.gameOver() };
         
         this.updateState();
-
     }
 
-    updateState(){
+    private updateState(){
 
         this.entities = [];
         this.entities = this.entities.concat(this.currentLevel.items);
@@ -130,8 +131,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             ticks: this.ticks
         });
     }
-
-    
 
     private updatePlayer(){
 
