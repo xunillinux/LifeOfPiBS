@@ -1,11 +1,19 @@
 import Character from './Character';
 import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
+import Map from '../../Map/Map';
+import Projectile from '../projectiles/Projectile';
 
 export default class Player extends Character {
 
+    private _speedLimitX: number;
     private _speedLimitY: number;
     private _tookDamage: boolean;
+    private _ects: number;
+    private _facingRight: boolean;
+    private _shootCooldown: number;
+    private _shootCooldownTime: number;
+
     
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -13,35 +21,45 @@ export default class Player extends Character {
         let spritePos = new SpritePosition(0,0);
         let sourceSize = 32;
         let targetSize = 42;
-        let xVelocity = 1.5;
-        let xVelocityJump = 1;
+        let xVelocity = 2;
+        let xVelocityJump = 2;
         let yVelocity = 25;
-        let friction = 0.8; //TODO probably move friction to TileTypes
+        let friction = 0.9;
         let lives = 3;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives);
+        let collision = true;
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
+        this._speedLimitX = 12;
         this._speedLimitY = 25;
         this._tookDamage = false;
+        this._ects = 0;
+        this._facingRight = true;
+        this._shootCooldown = 0;
+        this._shootCooldownTime = 15;
     }
 
 
     public accelerateRight(){
         
-        if(this.ySpeed === 0){
-            this.xSpeed += this.xVelocity;
-        } else {
-            this.xSpeed += this.xVelocityJump;
+        if(this.xSpeed < this._speedLimitX){
+            if(this.ySpeed === 0){
+                this.xSpeed += this.xVelocity * this.friction;
+            } else {
+                this.xSpeed += this.xVelocityJump * this.friction;
+            }
         }
-
+        this._facingRight = (this.xSpeed > 0);
     }
 
     public accelerateLeft(){
 
-        if(this.ySpeed === 0){
-            this.xSpeed -= this.xVelocity;
-        } else {
-            this.xSpeed -= this.xVelocityJump;
+        if(this.xSpeed > -this._speedLimitX){
+            if(this.ySpeed === 0){
+                this.xSpeed -= this.xVelocity * this.friction;
+            } else {
+                this.xSpeed -= this.xVelocityJump * this.friction;
+            }
         }
-
+        this._facingRight = (this.xSpeed > 0);
     }
 
     public jump(){
@@ -52,8 +70,41 @@ export default class Player extends Character {
 
     }
 
-    public animate(){
-        //TODO
+    public smallJump(){
+        if(this.ySpeed === 0){
+            this.ySpeed -= this.yVelocity/2; // - because y 0 is on top of canvas so -y means upwards
+        }
+    }
+
+    public bigJump(){
+        if(this.ySpeed === 0){
+            this.ySpeed -= this.yVelocity*2; // - because y 0 is on top of canvas so -y means upwards
+        }
+    }
+
+    public animate(ticks: number) {
+        if (ticks % 4 === 0 && (this.xSpeed !== 0 || this.ySpeed !== 0)) {
+            switch (this.spritePos.tileX) {
+                case 0:
+                    this.spritePos.tileX = 1;
+                    break;
+                case 1:
+                    this.spritePos.tileX = 2;
+                    break;
+                case 2:
+                    this.spritePos.tileX = 3;
+                    break;
+                case 3:
+                    this.spritePos.tileX = 0;
+                    break;
+                default:
+                    this.spritePos.tileX = 0;
+                    break;
+            }
+        }
+        else{
+            this.spritePos.tileX = 0;
+        }
     }
 
     public applyGravity(gravity:number){
@@ -81,6 +132,50 @@ export default class Player extends Character {
         this._tookDamage = true;
     }
 
+    public handleLevelEdgeCollision(map: Map){
+        if (this.xPos < 0) {
+            this.xPos = 0;
+            this.xSpeed = 0;
+        }
+        else if (this.xPos + this.targetSize > map.mapWidth) {
+            this.xPos = map.mapWidth - this.targetSize;
+            this.xSpeed = 0;
+        }
+    }
+
+    public shoot(): Projectile | null{
+
+        if(!this.canShoot()){
+            return null;
+        }
+
+        this._shootCooldown = this._shootCooldownTime;
+
+        if(this._facingRight){
+            let projectile = new Projectile(0, 0, true);
+            projectile.updatePos(this.xPos+this.targetSize, this.yPos);
+            return projectile;
+        }else{
+            let projectile = new Projectile(0, 0, false);
+            projectile.updatePos(this.xPos-projectile.targetSize, this.yPos);
+            return projectile;
+        }
+    }
+
+    public updateShootCooldown(){
+        if(this._shootCooldown > 0){
+            this._shootCooldown--;
+        }
+    }
+
+    public addEcts() {
+        this._ects++;
+    }
+
+    private canShoot(){
+        return (this._shootCooldown <= 0);
+    }
+
     public get speedLimitY(): number {
         return this._speedLimitY;
     }
@@ -92,6 +187,10 @@ export default class Player extends Character {
     }
     public set tookDamage(value: boolean) {
         this._tookDamage = value;
+    }
+
+    public get ects(): number {
+        return this._ects;
     }
 
 }

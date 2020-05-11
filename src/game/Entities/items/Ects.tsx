@@ -2,7 +2,7 @@ import Item from './Item';
 import SpritePosition from '../../SpritePosition';
 import ectsSpriteImage from '../../images/ectsSprite.jpg';
 
-class Ects extends Item{
+export default class Ects extends Item{
 
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -10,9 +10,30 @@ class Ects extends Item{
         let spritePos = new SpritePosition(0,0);
         let sourceSize = 16;
         let targetSize = 32;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize);
+        let collision = true;
+        let isCollected = false;
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, collision, isCollected);
     }
 
-}
+    public animate(ticks:number){
 
-export default Ects;
+        if(ticks % 10 === 0){
+            
+            switch (this.spritePos.tileX){ 
+                case 0:
+                    this.spritePos.tileX = 1;
+                    break;
+                case 1:
+                    this.spritePos.tileX = 2;
+                    break;
+                case 2:
+                    this.spritePos.tileX = 0;
+                    break;
+            }
+
+        }
+
+    }
+
+
+}

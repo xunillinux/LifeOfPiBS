@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import GameCanvas from './game/Gamecanvas';
+import Game from './game/Game';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <h1>Life of PiBS</h1>
-        <GameCanvas/>
+        <Game/>
       </header>
     </div>
   );

@@ -29,10 +29,12 @@ export default class Map {
 
     private generateMapTiles(template: string[]){
         let mapTiles: MapTile[][] = [];
-        template.forEach(layer => {
+        template.forEach((layer, layerIndex) => {
             let currentLayerTiles: MapTile[] = [];
-            for(let i=0; i < layer.length; i++){
-                currentLayerTiles.push(Map.tiles[layer[i]].cloneTile());
+            for(let tileIndex=0; tileIndex < layer.length; tileIndex++){
+                let newTileIndex = currentLayerTiles.push(Map.tiles[layer[tileIndex]].cloneTile())-1;
+                currentLayerTiles[newTileIndex].xPos = tileIndex*MapTile.targetSize;
+                currentLayerTiles[newTileIndex].yPos = layerIndex*MapTile.targetSize;
             }
             mapTiles.push(currentLayerTiles);
         });
@@ -44,12 +46,15 @@ export default class Map {
     }
 
     private static tiles: { [id: string]: MapTile } = {
-        ' ' : new MapTile(new SpritePosition(0,0),true,true,false, MapTileType.DEFAULT),
-        '#' : new MapTile(new SpritePosition(1,0),false,false,false, MapTileType.DEFAULT),
-        'x' : new MapTile(new SpritePosition(2,0),true,true,false, MapTileType.HIDDEN),
-        'r' : new MapTile(new SpritePosition(3,0),false,false,false, MapTileType.HIDDEN),
-        'u' : new MapTile(new SpritePosition(4,0),true,false,false, MapTileType.TRAMPOLINE),
-        'k' : new MapTile(new SpritePosition(5,0),true,false,false, MapTileType.EXIT),
+        ' ' : new MapTile(new SpritePosition(0,0),false,false,false, MapTileType.DEFAULT),
+        '#' : new MapTile(new SpritePosition(1,0),true,true,false, MapTileType.DEFAULT),
+    }
+
+    public getMapTileAtXY(x:number, y:number): MapTile{
+        let xTileIndex = Math.trunc(x / MapTile.targetSize);
+        let yTileIndex = Math.trunc(y / MapTile.targetSize);
+
+        return this.mapTiles[yTileIndex][xTileIndex];
     }
 
     public get mapTiles(): MapTile[][] {

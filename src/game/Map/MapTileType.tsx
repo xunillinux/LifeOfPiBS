@@ -1,7 +1,8 @@
 export enum MapTileType{
     DEFAULT,
     HIDDEN,
-    RESPAWN,
+    HURTFUL,
     EXIT,
-    TRAMPOLINE
+    TRAMPOLINE,
+    ICE
 }
