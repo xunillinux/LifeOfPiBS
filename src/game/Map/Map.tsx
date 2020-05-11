@@ -47,7 +47,9 @@ export default class Map {
 
     private static tiles: { [id: string]: MapTile } = {
         ' ' : new MapTile(new SpritePosition(0,0),false,false,false, MapTileType.DEFAULT),
-        '#' : new MapTile(new SpritePosition(1,0),true,true,false, MapTileType.DEFAULT),
+        '.' : new MapTile(new SpritePosition(1,0),false,false,false, MapTileType.DEFAULT),
+        '#' : new MapTile(new SpritePosition(2,0),true,true,false, MapTileType.DEFAULT),
+        '@' : new MapTile(new SpritePosition(3,0),true,true,false, MapTileType.DEFAULT),
     }
 
     public getMapTileAtXY(x:number, y:number): MapTile{

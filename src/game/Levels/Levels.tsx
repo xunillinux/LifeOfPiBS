@@ -9,15 +9,15 @@ class Levels {
     static levels: Level[] = [
 
         new Level("1", "grey", new Map([
+            "  .           .                   ",
+            "    .                        .    ",
+            "         .           .            ",
+            "              .                   ",
+            "  @@##@##                     .   ",
+            "           .      ##@##@@         ",
+            "   .                              ",
             "                                  ",
-            "                                  ",
-            "                                  ",
-            "                                  ",
-            "  #######                         ",
-            "                  #######         ",
-            "                                  ",
-            "                                  ",
-            "##################################",
+            "##@@##@##@#####@@@@###@####@##@@@#",
         ]),
         [
             new Prof( Levels.getCoordinateForRelativeMapPos(20), Levels.getCoordinateForRelativeMapPos(4) )
