@@ -1,6 +1,5 @@
 import React from 'react';
 import './Gamecanvas.css';
-import gamesketchimg from './images/gamesketchimg.jpg';
 import Config from './Config';
 import Level from './Levels/Level';
 import MapTile from './Map/MapTile';
@@ -36,7 +35,6 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
         return (
             <div>
                 <canvas ref={this.gameCanvasRef} width={Config.canvasSize.w} height={Config.canvasSize.h} />
-                <img ref={this.gameSketchImgRef} src={gamesketchimg} className="hidden" alt="gameSketchImg"/>
             </div>
         )
     }
@@ -44,14 +42,6 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
     componentDidMount() {
         const canvas = this.gameCanvasRef.current;
         this.ctx = canvas.getContext("2d");
-        const img = this.gameSketchImgRef.current;
-
-        if(this.ctx != null && img != null && img.currentSrc != null){
-            img.onload = () => {
-                this.ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
-            }
-        }
-        
     }
 
     drawLevel(currentLevel: Level, levelPosX: number) {
