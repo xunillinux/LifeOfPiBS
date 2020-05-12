@@ -13,9 +13,10 @@ export default class Projectile extends Entity{
     constructor(xPos:number, yPos:number, _directionRight: boolean) {
         let spriteMap = new Image();
         spriteMap.src = projectileSpriteImage;
-        let spritePos = new SpritePosition(0,0);
+        let randomXPos = Math.floor(Math.random() * (5 - 0 + 1)) + 0;
+        let spritePos = new SpritePosition(randomXPos,0);
         let sourceSize = 16;
-        let targetSize = 32;
+        let targetSize = 16;
         let collision = true;
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, collision);
         this._xSpeed = _directionRight ? 15 : -15;
@@ -23,7 +24,6 @@ export default class Projectile extends Entity{
         this.startXPos = 0;
         this._range = 10 * MapTile.targetSize;
     }
-
 
     public get hasCollided(): boolean {
         return this._hasCollided;
