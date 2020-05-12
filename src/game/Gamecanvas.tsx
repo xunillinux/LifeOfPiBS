@@ -72,10 +72,10 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
                 mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
                 mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
                 this.ctx.drawImage(currentLevel.map.spriteMap,
-                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize + 1),
-                    mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize + 1),
-                    MapTile.sourceSize - 0.8,
-                    MapTile.sourceSize - 0.8,
+                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize),
+                    mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize),
+                    MapTile.sourceSize,
+                    MapTile.sourceSize,
                     mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
                     mapTile.yPosCanvas,
                     MapTile.targetSize,

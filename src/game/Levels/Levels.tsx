@@ -17,7 +17,7 @@ class Levels {
             "           .      ##@##@@         ",
             "   .                              ",
             "                                  ",
-            "##@@##@##@#####@@@@###@####@##@@@#",
+            "##@@##@##@#####@@@@##    ##@##@@@#",
         ]),
         [
             new Prof( Levels.getCoordinateForRelativeMapPos(20), Levels.getCoordinateForRelativeMapPos(4) )
