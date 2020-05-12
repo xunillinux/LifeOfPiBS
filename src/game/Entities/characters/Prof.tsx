@@ -29,6 +29,11 @@ export default class Prof extends Npc {
     }
 
     public animate(ticks: number) {
+        if(this.movingRight){
+            this.spritePos.tileY = 0;
+        }else{
+            this.spritePos.tileY = 1;
+        }
         if (ticks % 4 === 0) {
             switch (this.spritePos.tileX) {
                 case 0:

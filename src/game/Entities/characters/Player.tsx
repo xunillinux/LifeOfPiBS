@@ -83,6 +83,11 @@ export default class Player extends Character {
     }
 
     public animate(ticks: number) {
+        if(this._facingRight){
+            this.spritePos.tileY = 0;
+        }else{
+            this.spritePos.tileY = 1;
+        }
         if (ticks % 4 === 0 && (this.xSpeed !== 0 || this.ySpeed !== 0)) {
             switch (this.spritePos.tileX) {
                 case 0:
