@@ -13,8 +13,7 @@ export default class Projectile extends Entity{
     constructor(xPos:number, yPos:number, _directionRight: boolean) {
         let spriteMap = new Image();
         spriteMap.src = projectileSpriteImage;
-        let randomXPos = Math.floor(Math.random() * (5 - 0 + 1)) + 0;
-        let spritePos = new SpritePosition(randomXPos,0);
+        let spritePos = new SpritePosition(Projectile.getRandomSpriteX(),0);
         let sourceSize = 16;
         let targetSize = 16;
         let collision = true;
@@ -58,6 +57,10 @@ export default class Projectile extends Entity{
 
     public shouldBeDestroyed(){
         return (this.hasCollided || this.reachedRangeLimit());
+    }
+
+    public static getRandomSpriteX(){
+        return Math.floor(Math.random() * (5 - 0 + 1)) + 0;
     }
 
     private reachedRangeLimit(){

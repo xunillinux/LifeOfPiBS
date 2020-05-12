@@ -88,7 +88,10 @@ export default class Player extends Character {
         }else{
             this.spritePos.tileY = 1;
         }
-        if (ticks % 4 === 0 && (this.xSpeed !== 0 || this.ySpeed !== 0)) {
+        if(this.ySpeed !== 0){
+            this.spritePos.tileX = 4;
+        }
+        else if (ticks % 4 === 0 && this.xSpeed !== 0) {
             switch (this.spritePos.tileX) {
                 case 0:
                     this.spritePos.tileX = 1;
