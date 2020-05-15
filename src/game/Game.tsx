@@ -21,6 +21,8 @@ interface IGameProps{
 }
 
 interface IGameState{
+    canvasWidth: number;
+    canvasHeight: number;
     ticks: number;
     currentLevel: Level;
     levelPosX: number;
@@ -29,7 +31,6 @@ interface IGameState{
 }
 
 export default class Game extends React.Component<IGameProps, IGameState> {
-
     private ticks: number = 0;
     private currentLevel: Level = Levels.levels[0];
     private levelPosX: number = 0;
@@ -44,12 +45,15 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     constructor(props:IGameProps){
         super(props);
         this.state = {
+            canvasWidth: 0,
+            canvasHeight: 0,
             ticks: 0,
             currentLevel: Levels.levels[0],
             levelPosX: 0,
             entities: [],
             currentEctsScore: 0
         };
+        
 
         this.gameLoop = this.gameLoop.bind(this);
 
@@ -66,6 +70,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     currentLevelName = {this.state.currentLevel.name}
                     currentLives = {this.player.lives}/>
                 <GameCanvas
+                    canvasWidth = {this.state.canvasWidth}
+                    canvasHeight = {this.state.canvasHeight}
                     currentLevel = {this.state.currentLevel}
                     ticks = {this.state.ticks}
                     levelPosX = {this.state.levelPosX}
@@ -75,6 +81,22 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         )
     }
 
+    private updateDimensions() {
+        //TODO: check if playerpos outside displayed canvas
+        Config.canvasSize.w = window.innerWidth;
+        Config.canvasSize.h = window.innerHeight-56;
+          this.setState({ canvasWidth: window.innerWidth, canvasHeight: Config.canvasSize.h});
+    }
+
+    componentDidMount() {
+        this.updateDimensions();
+        window.addEventListener("resize", this.updateDimensions.bind(this));
+    }
+
+    componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDimensions.bind(this));
+    }
+    
 
     private startGame() {
 

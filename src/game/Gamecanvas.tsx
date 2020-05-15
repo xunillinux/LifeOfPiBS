@@ -10,6 +10,8 @@ interface IGameCanvasProps{
     ticks: number;
     levelPosX: number;
     entities: Entity[];
+    canvasWidth: number;
+    canvasHeight: number;
 }
 
 interface IGameCanvasState{
@@ -26,13 +28,9 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
     }
 
     render() {
-        if(this.ctx){
-            this.drawLevel(this.props.currentLevel, this.props.levelPosX);
-            this.drawEntities(this.props.entities, this.props.levelPosX);
-        }
         return (
             <div>
-                <canvas ref={this.gameCanvasRef} width={Config.canvasSize.w} height={Config.canvasSize.h} />
+                <canvas ref={this.gameCanvasRef} width={this.props.canvasWidth} height={this.props.canvasHeight} />
             </div>
         )
     }
@@ -42,9 +40,14 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
         this.ctx = canvas.getContext("2d");
     }
 
+    componentDidUpdate(){
+            this.drawLevel(this.props.currentLevel, this.props.levelPosX);
+            this.drawEntities(this.props.entities, this.props.levelPosX);
+    }
+
     drawLevel(currentLevel: Level, levelPosX: number) {
 
-        this.ctx.clearRect(0, 0, Config.canvasSize.w, Config.canvasSize.h);
+        this.ctx.clearRect(0, 0, this.props.canvasWidth, this.props.canvasHeight);
         if (levelPosX < 0) {
             levelPosX = 0;
         }
@@ -53,7 +56,7 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
         let offset_x = levelPosX % MapTile.targetSize;
 
         // last tile to show
-        let indexLastTile = indexFirstTile + currentLevel.map.numberOfDisplayedTilesWidth;
+        let indexLastTile = indexFirstTile + currentLevel.map.getNumberOfDisplayedTilesWidth();
     
         let currentLevelMapTiles = currentLevel.map.mapTiles;
 

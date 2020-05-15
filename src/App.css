@@ -1,8 +1,5 @@
-.App {
+/*.App{
   text-align: center;
-}
-
-.App-header {
   background-color: #24313bea;
   min-height: 100vh;
   display: flex;
@@ -11,4 +8,32 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: rgb(208, 235, 213);
+}
+
+
+.App-header {
+  
+}
+
+*/
+
+.navbar{
+  height: 56px;
+}
+
+#content{
+  background-color: #00616e;
+  /*background-image: url("./game/images/skyBackground.jpg");
+  background-size: 32px;
+  background-repeat: repeat;*/
+  min-height: 100vh;
+}
+
+#gameContent{
+  padding: 0px;
+  height: calc(100% - 56px);
+}
+
+.App{
+  
 }

@@ -21,7 +21,7 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
         return (
             <div className="GameUI">
               <header className="GameUI-header">
-                <div className="col-md-2"></div>
+                <div className="col-md-2">col-md-2</div>
               </header>
             </div>
           );

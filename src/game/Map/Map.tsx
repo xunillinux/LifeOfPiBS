@@ -8,8 +8,6 @@ export default class Map {
 
     private _mapTiles: MapTile[][];
     private _spriteMap: HTMLImageElement;
-    private _numberOfDisplayedTilesWidth: number;
-    private _numberOfDisplayTilesHeight: number;
     private _mapWidth: number;
     private _mapHeight: number;
    
@@ -20,11 +18,16 @@ export default class Map {
         this._spriteMap = new Image();
         this._spriteMap.src = mapTileImage;
 
-        this._numberOfDisplayedTilesWidth = Config.canvasSize.w / MapTile.targetSize; 
-        this._numberOfDisplayTilesHeight = Config.canvasSize.h / MapTile.targetSize;
-
         this._mapWidth = MapTile.targetSize * this._mapTiles[0].length;
         this._mapHeight = MapTile.targetSize * this._mapTiles.length;
+    }
+
+    public getNumberOfDisplayedTilesWidth(): number{
+        return Config.canvasSize.w / MapTile.targetSize; 
+    }
+
+    public numberOfDisplayedTilesHeight(): number{
+        return Config.canvasSize.h / MapTile.targetSize;
     }
 
     private generateMapTiles(template: string[]){
@@ -71,10 +74,6 @@ export default class Map {
     }
     public set spriteMap(value: HTMLImageElement) {
         this._spriteMap = value;
-    }
-
-    public get numberOfDisplayedTilesWidth(): number {
-        return this._numberOfDisplayedTilesWidth;
     }
 
     public get mapWidth(): number {
