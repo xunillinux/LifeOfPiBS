@@ -1,22 +1,3 @@
-/*.App{
-  text-align: center;
-  background-color: #24313bea;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: rgb(208, 235, 213);
-}
-
-
-.App-header {
-  
-}
-
-*/
-
 .navbar{
   height: 56px;
 }
@@ -32,8 +13,4 @@
 #gameContent{
   padding: 0px;
   height: calc(100% - 56px);
-}
-
-.App{
-  
 }

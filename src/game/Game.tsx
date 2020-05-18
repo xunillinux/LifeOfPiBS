@@ -63,12 +63,12 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     render(){
         
         return(
-            <div className="Game">
-            <header className="Game-header">
+            <div className="Game col-lg-12">
                 <GameUI
                     currentEctsScore = {this.state.currentEctsScore}
                     currentLevelName = {this.state.currentLevel.name}
-                    currentLives = {this.player.lives}/>
+                    currentLives = {this.player.lives}
+                    maxLives = {this.player.maxLives}/>
                 <GameCanvas
                     canvasWidth = {this.state.canvasWidth}
                     canvasHeight = {this.state.canvasHeight}
@@ -76,16 +76,17 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     ticks = {this.state.ticks}
                     levelPosX = {this.state.levelPosX}
                     entities = {this.state.entities}/>
-            </header>
             </div>
         )
     }
 
     private updateDimensions() {
-        //TODO: check if playerpos outside displayed canvas
-        Config.canvasSize.w = window.innerWidth;
+        //TODO fix
+        Config.canvasSize.w = document.getElementById("gameCanvas")?.offsetWidth;
         Config.canvasSize.h = window.innerHeight-56;
-          this.setState({ canvasWidth: window.innerWidth, canvasHeight: Config.canvasSize.h});
+        this.centerLevelPosX();
+
+        this.setState({ canvasWidth: window.innerWidth, canvasHeight: Config.canvasSize.h});
     }
 
     componentDidMount() {
@@ -95,6 +96,22 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions.bind(this));
+    }
+
+    private centerLevelPosX(){
+        
+        // no centering needed
+        if(this.state.canvasWidth > this.currentLevel.map.mapWidth){
+            return;
+        }
+
+        this.levelPosX = this.player.xPos + this.state.canvasWidth/2;
+        
+        //if player near end of level set levelPosX to max
+        if(this.levelPosX >= this.currentLevel.map.mapWidth - Config.canvasSize.w && this.currentLevel.map.mapWidth > Config.canvasSize.w){
+            this.levelPosX = this.currentLevel.map.mapWidth - Config.canvasSize.w;
+        }
+        
     }
     
 

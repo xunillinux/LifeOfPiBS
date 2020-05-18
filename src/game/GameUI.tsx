@@ -1,13 +1,14 @@
 import React from 'react';
 import './GameUI.css';
-import {Table} from 'react-bootstrap';
 import ectsCoin from '../game/images/ects_UI.jpg';
-import lives from '../game/images/lives_UI.jpg';
+import fullHeart from '../game/images/full_heart.jpg';
+import emptyHeart from '../game/images/empty_heart.jpg';
 
 interface IGameUIProps{
     currentLevelName: string;
     currentEctsScore: number;
     currentLives: number;
+    maxLives: number;
 }
 
 interface IGameUIState{
@@ -21,42 +22,42 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
     }
 
     render(){
+
+      const lifeImages = [];
+      
+      for(let i=0; i < this.props.maxLives; i++){
+        lifeImages.push(
+          <img
+            key={"lifeImg"+ i}
+            alt="logo"
+            src={ (i < this.props.currentLives) ? fullHeart : emptyHeart}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+        );
+      }
+
         return (
-            <div className="GameUI">
-              <header className="GameUI-header">
-                <Table className="uiTable"size="sm" borderless>
-                  <tbody>
-                    <tr>
-                      <td></td>
-                      <td><img
-                        alt="logo"
-                        src={ectsCoin}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                      /> Score: {this.props.currentEctsScore}</td>
-                    </tr>
-                    <tr>
-                      <td>Level: {this.props.currentLevelName}</td>
-                      <td><img
-                        alt="logo"
-                        src={lives}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                      /> Lives: {this.props.currentLives}
-                      </td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </header>
+            <div className="GameUI row">
+                <div className="col-lg-6">
+                  <strong>Level:</strong> {this.props.currentLevelName}
+                </div>
+                <div className="col-lg-3">
+                  <img
+                      alt="logo"
+                      src={ectsCoin}
+                      width="30"
+                      height="30"
+                      className="d-inline-block align-top"
+                    /> : {this.props.currentEctsScore}
+                </div>
+                <div className="col-lg-3">
+                  {lifeImages}
+                </div>
             </div>
           );
     }
 
-    drawUI(){
-        //TODO implement
-    }
-  
 }
 

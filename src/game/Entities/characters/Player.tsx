@@ -13,6 +13,8 @@ export default class Player extends Character {
     private _facingRight: boolean;
     private _shootCooldown: number;
     private _shootCooldownTime: number;
+    private _maxLives: number;
+    
 
     
     constructor(xPos:number, yPos:number) {
@@ -25,9 +27,9 @@ export default class Player extends Character {
         let xVelocityJump = 2;
         let yVelocity = 25;
         let friction = 0.9;
-        let lives = 3;
+        let maxLives = 3;
         let collision = true;
-        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, lives, collision);
+        super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity, friction, maxLives, collision);
         this._speedLimitX = 12;
         this._speedLimitY = 25;
         this._tookDamage = false;
@@ -35,6 +37,7 @@ export default class Player extends Character {
         this._facingRight = true;
         this._shootCooldown = 0;
         this._shootCooldownTime = 15;
+        this._maxLives = maxLives;
     }
 
 
@@ -184,6 +187,10 @@ export default class Player extends Character {
         return (this._shootCooldown <= 0);
     }
 
+
+    public get maxLives(): number {
+        return this._maxLives;
+    }
     public get speedLimitY(): number {
         return this._speedLimitY;
     }

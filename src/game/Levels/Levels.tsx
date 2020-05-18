@@ -9,18 +9,20 @@ class Levels {
     static levels: Level[] = [
 
         new Level("1", "grey", new Map([
-            "  .           .                   ",
-            "    .                        .    ",
-            "         .           .            ",
-            "              .                   ",
-            "  @@##@##                     .   ",
-            "           .      ##@##@@         ",
-            "   .                              ",
-            "                                  ",
-            "##@@##@##@#####@@@@##    ##@##@@@#",
+            "  .                             .                        .                             ",
+            "    .                                          .                                       ",
+            "         .                          .                     .                            ",
+            "                                .                        .                             ",
+            "        @@##@##                                  @@##@##@@##@##    .  @@##@##@@##@##   ",
+            "                    .         ##@#####@@         .         .          .         .      ",
+            "   .                                .                 .                                ",
+            "                                                                                       ",
+            "##@@##@##@##############@@@@##       ##@#######@@##@##@@##@##@@##@#      #@@###########",
         ]),
         [
-            new Prof( Levels.getCoordinateForRelativeMapPos(20), Levels.getCoordinateForRelativeMapPos(4) )
+            new Prof( Levels.getCoordinateForRelativeMapPos(33), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(45), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(54), Levels.getCoordinateForRelativeMapPos(3) )
         ],
         [
             new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) )

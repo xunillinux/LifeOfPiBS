@@ -1,6 +1,5 @@
 import React from 'react';
 import './Gamecanvas.css';
-import Config from './Config';
 import Level from './Levels/Level';
 import MapTile from './Map/MapTile';
 import Entity from './Entities/Entity';
@@ -30,7 +29,7 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
     render() {
         return (
             <div>
-                <canvas ref={this.gameCanvasRef} width={this.props.canvasWidth} height={this.props.canvasHeight} />
+                <canvas id="gameCanvas" ref={this.gameCanvasRef} width={this.props.canvasWidth} height={this.props.canvasHeight} />
             </div>
         )
     }
