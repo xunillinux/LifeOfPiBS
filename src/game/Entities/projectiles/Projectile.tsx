@@ -10,10 +10,13 @@ export default class Projectile extends Entity{
     private _range: number;
     private startXPos: number;
     
+    private static spritePattern = "loremipsumdolorsitamet";
+    private static currentPatternIndex = 0;
+    
     constructor(xPos:number, yPos:number, _directionRight: boolean) {
         let spriteMap = new Image();
         spriteMap.src = projectileSpriteImage;
-        let spritePos = new SpritePosition(Projectile.getRandomSpriteX(),0);
+        let spritePos = Projectile.getNextSpritePosition();
         let sourceSize = 16;
         let targetSize = 16;
         let collision = true;
@@ -65,6 +68,19 @@ export default class Projectile extends Entity{
 
     private reachedRangeLimit(){
         return (Math.abs(this.xPos - this.startXPos) > this._range);
+    }
+
+    private static getNextSpritePosition(){
+        let spritePosition = Projectile.getSpritePositionForLetter(Projectile.spritePattern.charAt(Projectile.currentPatternIndex));
+        Projectile.currentPatternIndex = (Projectile.currentPatternIndex >= Projectile.spritePattern.length-1) ? 0 : Projectile.currentPatternIndex+1;
+        return spritePosition;
+    }
+
+    private static getSpritePositionForLetter(l: string){
+
+        let relativeCharCode = l.toUpperCase().charCodeAt(0) - 65; //A-Z -> 65 - 90 in ascii table
+        return new SpritePosition(relativeCharCode, 0);
+
     }
 
 
