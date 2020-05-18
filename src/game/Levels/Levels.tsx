@@ -16,7 +16,7 @@ class Levels {
             "        @@##@##                                  @@##@##@@##@##    .  @@##@##@@##@##   ",
             "                    .         ##@#####@@         .         .          .         .      ",
             "   .                                .                 .                                ",
-            "                                                                                       ",
+            "                                                                                    E  ",
             "##@@##@##@##############@@@@##       ##@#######@@##@##@@##@##@@##@#      #@@###########",
         ]),
         [
@@ -25,17 +25,55 @@ class Levels {
             new Prof( Levels.getCoordinateForRelativeMapPos(54), Levels.getCoordinateForRelativeMapPos(3) )
         ],
         [
-            new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) )
+            new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(30), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(32), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(35), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(60), Levels.getCoordinateForRelativeMapPos(1) )
         ],
+        5
+        ),
+
+        new Level("1: Boss", "grey", new Map([
+            "  .                             .                      ",
+            "    .                                                  ",
+            "         .                                             ",
+            "                                .                      ",
+            "        @@##@##                   ##@##########        ",
+            "                    .      .          .         .      ",
+            "   .                         .                         ",
+            "                                                    E  ",
+            "##@@##@##@########@##@@#@##############################",
+        ]),
+        [
+            new Prof( Levels.getCoordinateForRelativeMapPos(33), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(45), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(54), Levels.getCoordinateForRelativeMapPos(3) )
+        ],
+        [
+            new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(30), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(32), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(35), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(60), Levels.getCoordinateForRelativeMapPos(1) )
+        ],
+        5
         ),
 
         new Level("2", "grey", new Map([
-            "",
-            "",
-            "",
+            "  .                             .                        .                             ",
+            "    .                                          .                                       ",
+            "         .                          .                     .                            ",
+            "                                .                        .                             ",
+            "        @@##@##                                  @@##@##@@##@##    .  @@##@##@@##@##   ",
+            "                    .         ##@#####@@         .         .          .         .      ",
+            "   .                                .                 .                                ",
+            "                                                                                    E  ",
+            "##@@##@##@##############@@@@##       ##@#######@@##@##@@##@##@@##@#      #@@###########",
         ]),
-        [new Prof(0, 0)],
+        [],
         [new Ects(0, 0)],
+        10
         )
 
     ];

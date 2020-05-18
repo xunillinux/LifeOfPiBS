@@ -12,15 +12,21 @@ export default class Level {
      
     private _enemies: Npc[];
     private _items: Item[];
-   
 
-    constructor(name: string, backgroundColor: string, map: Map, enemies: Npc[], ects: Item[]) {
+    private _exitIsOpen: boolean;
+    
 
+    private _requiredEcts: number;
+    
+    constructor(name: string, backgroundColor: string, map: Map, enemies: Npc[], ects: Item[], requiredEcts: number) {
+
+        this._exitIsOpen = false;
         this._name = name;
         this._backgroundColor = backgroundColor;
         this._map = map;
         this._enemies = enemies;
         this._items = ects;
+        this._requiredEcts = requiredEcts;
 
     }
 
@@ -45,5 +51,14 @@ export default class Level {
     }
     public set items(value:Item[]){
         this._items = value;
+    }
+    public get requiredEcts(): number {
+        return this._requiredEcts;
+    }
+    public get exitIsOpen(): boolean {
+        return this._exitIsOpen;
+    }
+    public set exitIsOpen(value: boolean) {
+        this._exitIsOpen = value;
     }
 }

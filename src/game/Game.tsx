@@ -11,11 +11,11 @@ import Player from './Entities/characters/Player';
 import Character from './Entities/characters/Character';
 import Projectile from './Entities/projectiles/Projectile';
 import Config from './Config';
-import Ects from './Entities/items/Ects';
 import MapTile from './Map/MapTile';
 import SpecialCollisionEvents from './Collision/SpecialCollisionEvents';
 import Npc from './Entities/characters/Npc';
 import Item from './Entities/items/Item';
+import { MapTileType } from './Map/MapTileType';
 
 interface IGameProps{
 }
@@ -148,10 +148,26 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         this.updateItems();
         this.updateProjectiles();
 
+        this.checkEctsRequirement();
+
         if (this.player.tookDamage) { this.respawnPlayer() }
         if (this.player.isDead()){ this.gameOver() };
         
         this.updateState();
+    }
+
+    private checkEctsRequirement(){
+        if(this.state.currentEctsScore >= this.currentLevel.requiredEcts && !this.currentLevel.exitIsOpen){
+            this.openLevelExit();
+        }
+    }
+
+    private openLevelExit(){
+        this.currentLevel.map.mapTiles.forEach(layer => {
+            layer = layer.map(mapTile => mapTile.type === MapTileType.CLOSEDEXIT ? mapTile.replaceWithOpenExitMapTile() : mapTile);
+            this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(layer.filter(mapTile => mapTile.type === MapTileType.EXIT));
+        });
+        this.currentLevel.exitIsOpen = true;
     }
 
     private updateState(){
@@ -163,7 +179,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         this.entities.push(this.player);
 
         this.setState({
-            currentEctsScore: this.currentEctsScore,
+            currentEctsScore: this.player.ects,
             currentLevel: this.currentLevel,
             entities: this.entities,
             levelPosX: this.levelPosX,
@@ -234,9 +250,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
         this.currentLevel.items.forEach( item => {
             if(item.isCollected){
-                if(item instanceof Ects){
-                    this.currentEctsScore ++;
-                }
+                this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.filter(i => i.id !== item.id);
             }
             item.animate(this.ticks);
         });

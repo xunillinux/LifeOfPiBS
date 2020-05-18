@@ -56,6 +56,16 @@ export default class MapTile implements ICollisionObject{
         return newMapTile;
     };
 
+    public replaceWithOpenExitMapTile(){
+        this.collision = true;
+        this.solid = false;
+        this.hurtful = false;
+        this.type = MapTileType.EXIT;
+        this.spritePos.tileX = 5;
+        this.spritePos.tileY = 0;
+        return this;
+    }
+
     public get id(): string {
         return this._id;
     }
