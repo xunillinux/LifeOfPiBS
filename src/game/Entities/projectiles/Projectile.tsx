@@ -60,7 +60,7 @@ export default class Projectile extends Entity{
     }
 
     public static getRandomSpriteX(){
-        return Math.floor(Math.random() * (5 - 0 + 1)) + 0;
+        return Math.floor(Math.random() * (4 - 0)) + 0;
     }
 
     private reachedRangeLimit(){

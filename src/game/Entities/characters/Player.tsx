@@ -165,6 +165,7 @@ export default class Player extends Character {
         if(this._facingRight){
             let projectile = new Projectile(0, 0, true);
             projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
+            console.log(projectile);
             return projectile;
         }else{
             let projectile = new Projectile(0, 0, false);
