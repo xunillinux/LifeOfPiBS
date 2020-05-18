@@ -62,10 +62,6 @@ export default class Projectile extends Entity{
         return (this.hasCollided || this.reachedRangeLimit());
     }
 
-    public static getRandomSpriteX(){
-        return Math.floor(Math.random() * (4 - 0)) + 0;
-    }
-
     private reachedRangeLimit(){
         return (Math.abs(this.xPos - this.startXPos) > this._range);
     }
