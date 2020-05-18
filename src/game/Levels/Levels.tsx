@@ -3,6 +3,7 @@ import Ects from '../Entities/items/Ects';
 import Prof from '../Entities/characters/Prof';
 import Map from '../Map/Map';
 import MapTile from '../Map/MapTile';
+import Transferpaper from '../Entities/characters/Transferpaper';
 
 class Levels {
 
@@ -46,16 +47,9 @@ class Levels {
             "##@@##@##@########@##@@#@##############################",
         ]),
         [
-            new Prof( Levels.getCoordinateForRelativeMapPos(33), Levels.getCoordinateForRelativeMapPos(4) ),
-            new Prof( Levels.getCoordinateForRelativeMapPos(45), Levels.getCoordinateForRelativeMapPos(7) ),
-            new Prof( Levels.getCoordinateForRelativeMapPos(54), Levels.getCoordinateForRelativeMapPos(3) )
+            new Transferpaper( Levels.getCoordinateForRelativeMapPos(33), Levels.getCoordinateForRelativeMapPos(4) ),
         ],
         [
-            new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(30), Levels.getCoordinateForRelativeMapPos(4) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(32), Levels.getCoordinateForRelativeMapPos(4) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(35), Levels.getCoordinateForRelativeMapPos(4) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(60), Levels.getCoordinateForRelativeMapPos(1) )
         ],
         5
         ),
