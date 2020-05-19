@@ -1,7 +1,8 @@
 import Entity from "../Entity";
 import SpritePosition from "../../SpritePosition";
 
-export default class Item extends Entity{
+export default abstract class Item extends Entity{
+    
     private _isCollected: boolean;
    
     
@@ -18,7 +19,6 @@ export default class Item extends Entity{
         this._isCollected = value;
     }
 
-    public animate(ticks:number){}
-
+    public abstract animate(ticks:number): void;
 
 }

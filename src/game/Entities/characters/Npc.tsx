@@ -3,7 +3,7 @@ import SpritePosition from '../../SpritePosition';
 import ICollisionObject from '../../Collision/ICollisionObject';
 import Map from '../../Map/Map';
 
-export default class Npc extends Character implements ICollisionObject{
+export default abstract class Npc extends Character implements ICollisionObject{
 
     private _speedLimitY: number;
 
@@ -17,13 +17,11 @@ export default class Npc extends Character implements ICollisionObject{
         this.kill();
     }
 
-    public animate(ticks: number){}
+    public abstract move(map: Map): void;
 
-    public move(map: Map){}
+    public abstract applyGravity(gravity:number): void;
 
-    public applyGravity(gravity:number){}
-
-    public switchDirection(){}
+    public abstract switchDirection(): void;
 
     public handleLevelEdgeCollision(map: Map){
         if (this.xPos < 0) {

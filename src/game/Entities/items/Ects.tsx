@@ -1,8 +1,10 @@
 import Item from './Item';
 import SpritePosition from '../../SpritePosition';
 import ectsSpriteImage from '../../images/ectsSprite.jpg';
+import Map from '../../Map/Map';
 
 export default class Ects extends Item{
+    
 
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -33,6 +35,13 @@ export default class Ects extends Item{
 
         }
 
+    }
+
+    public handleLevelEdgeCollision(map: Map): void {
+        throw new Error("Ects should not be colliding with Level Edge");
+    }
+    public fellOutOfMap(): void {
+        throw new Error("Ects should not fall out of map.");
     }
 
 

@@ -3,12 +3,11 @@ import ICollisionObject from "../Collision/ICollisionObject";
 import { v4 as uuidv4 } from 'uuid';
 import Map from "../Map/Map";
 
-export default class Entity implements ICollisionObject{
+export default abstract class Entity implements ICollisionObject{
     private _id: string;
     private _xPos: number;
     private _yPos: number;
     private _collision: boolean;
-    
     
     private _spriteMap: HTMLImageElement;
     private _spritePos: SpritePosition;
@@ -27,9 +26,9 @@ export default class Entity implements ICollisionObject{
         this._id = uuidv4();
     }
 
-    public handleLevelEdgeCollision(map: Map){}
+    public abstract handleLevelEdgeCollision(map: Map): void;
 
-    public fellOutOfMap(){}
+    public abstract fellOutOfMap(): void;
 
     public get id(): string {
         return this._id;

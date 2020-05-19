@@ -1,7 +1,7 @@
 import Entity from "../Entity";
 import SpritePosition from "../../SpritePosition";
 
-export default class Character extends Entity{
+export default abstract class Character extends Entity{
 
     private _xSpeed: number;
     private _ySpeed: number;
@@ -29,6 +29,7 @@ export default class Character extends Entity{
         this._lives = lives;
     }
 
+    public abstract animate(ticks: number): void;
 
     public addLife(){
         this._lives += 1;
