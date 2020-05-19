@@ -55,15 +55,19 @@ export default class Prof extends Npc {
         }
     }
 
-    public move(map: Map){
+    public update(map: Map){
         
+        this.move(map);
+
+    }
+
+    private move(map: Map){
         if(this.movingLeft){
             this.moveLeft(map);
         }
         else if(this.movingRight){
             this.moveRight(map);
         }
-
     }
 
     private moveLeft(map: Map){

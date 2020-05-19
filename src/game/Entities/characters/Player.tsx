@@ -4,7 +4,7 @@ import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Projectile from '../projectiles/Projectile';
 
-export default class Player extends Character {
+export default class Player extends Character{
 
     private _speedLimitX: number;
     private _speedLimitY: number;
@@ -14,8 +14,6 @@ export default class Player extends Character {
     private _shootCooldown: number;
     private _shootCooldownTime: number;
     private _maxLives: number;
-    
-
     
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -141,6 +139,13 @@ export default class Player extends Character {
     public takeDamage(){
         super.takeDamage()
         this._tookDamage = true;
+    }
+
+    public takeDamageFrom(character: Character){
+
+        super.takeDamage()
+        this._tookDamage = true;
+
     }
 
     public handleLevelEdgeCollision(map: Map){

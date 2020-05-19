@@ -23,7 +23,7 @@ class Levels {
         [
             new Prof( Levels.getCoordinateForRelativeMapPos(33), Levels.getCoordinateForRelativeMapPos(4) ),
             new Prof( Levels.getCoordinateForRelativeMapPos(45), Levels.getCoordinateForRelativeMapPos(7) ),
-            new Prof( Levels.getCoordinateForRelativeMapPos(54), Levels.getCoordinateForRelativeMapPos(3) )
+            new Prof( Levels.getCoordinateForRelativeMapPos(54), Levels.getCoordinateForRelativeMapPos(3) ),
         ],
         [
             new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) ),
@@ -95,7 +95,7 @@ class Levels {
             "##@@##@##@#####################",
         ]),
         [
-            new Transferpaper( Levels.getCoordinateForRelativeMapPos(9), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Transferpaper( Levels.getCoordinateForRelativeMapPos(9), Levels.getCoordinateForRelativeMapPos(6) ),
         ],
         [
 

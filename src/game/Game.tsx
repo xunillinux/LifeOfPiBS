@@ -236,7 +236,11 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             }
 
             enemy.animate(this.ticks);
-            enemy.move(this.currentLevel.map);
+            let projectile = enemy.update(this.currentLevel.map);
+            if(projectile){
+                this.projectiles.push(projectile);
+                console.log(projectile);
+            }
             enemy.applyGravity(Config.gravity);
 
             this.checkLevelEdgeCollision(enemy);
@@ -349,13 +353,23 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private checkProjectileCollisions(projectile: Projectile){
-        this.collisionMap.collisionObjects.forEach(collisionObject => {
+
+        this.collisionMap.collisionObjects.concat(this.player).forEach(collisionObject => {
             let collides = CollisionMap.checkCollision(projectile, collisionObject);
             if(collides.doesCollide()){
                 if(collisionObject instanceof MapTile){
                     projectile.hasCollided = true;
                 }else if(collisionObject instanceof Npc){
+                    if(projectile.owner instanceof Npc){
+                        return;
+                    }
                     (collisionObject as Npc).takeDamageFrom(projectile.owner);
+                    projectile.hasCollided = true;
+                }else if(collisionObject instanceof Player){
+                    if(projectile.owner instanceof Player){
+                        return;
+                    }
+                    collisionObject.takeDamageFrom(projectile.owner);
                     projectile.hasCollided = true;
                 }
             }

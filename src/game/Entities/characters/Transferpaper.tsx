@@ -4,12 +4,15 @@ import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Character from './Character';
 import Player from './Player';
+import Projectile from '../projectiles/Projectile';
 
 export default class Transferpaper extends Npc {
     
     private movingRight:boolean;
     private movingLeft:boolean;
     private ectsKillReward: number;
+    private _shootCooldown: number;
+    private _shootCooldownTime: number;
 
     constructor(xPos:number, yPos:number) {
 
@@ -29,6 +32,8 @@ export default class Transferpaper extends Npc {
         this.xSpeed = 4;
         this.movingLeft = true;
         this.ectsKillReward = 5;
+        this._shootCooldown = 0;
+        this._shootCooldownTime = 20;
         this.movingRight = !this.movingLeft;
     }
 
@@ -48,15 +53,24 @@ export default class Transferpaper extends Npc {
         }
     }
 
-    public move(map: Map){
+    public update(map: Map){
         
+        this.move(map);
+        let projectile = this.shoot();
+        if(projectile){
+            return projectile;
+        }
+        this.updateShootCooldown();
+
+    }
+
+    private move(map: Map){
         if(this.movingLeft){
             this.moveLeft(map);
         }
         else if(this.movingRight){
             this.moveRight(map);
         }
-
     }
 
     private moveLeft(map: Map){
@@ -99,6 +113,36 @@ export default class Transferpaper extends Npc {
             character.addEcts(this.ectsKillReward);
         }
 
+    }
+
+    public shoot(): Projectile | null{
+
+        if(!this.canShoot()){
+            return null;
+        }
+
+        this._shootCooldown = this._shootCooldownTime;
+        let shootDirectionRight = Math.random() >= 0.5;
+
+        if(shootDirectionRight){
+            let projectile = new Projectile(0, 0, true, this);
+            projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
+            return projectile;
+        }else{
+            let projectile = new Projectile(0, 0, false, this);
+            projectile.updatePos(this.xPos-projectile.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
+            return projectile;
+        }
+    }
+
+    public updateShootCooldown(){
+        if(this._shootCooldown > 0){
+            this._shootCooldown--;
+        }
+    }
+
+    private canShoot(){
+        return (this._shootCooldown <= 0);
     }
 
 

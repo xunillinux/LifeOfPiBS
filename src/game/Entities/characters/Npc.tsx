@@ -2,6 +2,7 @@ import Character from './Character';
 import SpritePosition from '../../SpritePosition';
 import ICollisionObject from '../../Collision/ICollisionObject';
 import Map from '../../Map/Map';
+import Projectile from '../projectiles/Projectile';
 
 export default abstract class Npc extends Character implements ICollisionObject{
 
@@ -17,7 +18,7 @@ export default abstract class Npc extends Character implements ICollisionObject{
         this.kill();
     }
 
-    public abstract move(map: Map): void;
+    public abstract update(map: Map): Projectile | void;
 
     public abstract applyGravity(gravity:number): void;
 
