@@ -38,6 +38,10 @@ export default class Character extends Entity{
         this._lives -= 1;
     }
 
+    public takeDamageFrom(character: Character){
+        this._lives -= 1;
+    }
+
     public kill(){
         this._lives = 0;
     }

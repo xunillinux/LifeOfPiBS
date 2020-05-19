@@ -18,7 +18,7 @@ export default class Level {
 
     private _requiredEcts: number;
     
-    constructor(name: string, backgroundColor: string, map: Map, enemies: Npc[], ects: Item[], requiredEcts: number) {
+    constructor(name: string, backgroundColor: string, requiredEcts: number, map: Map, enemies: Npc[], ects: Item[]) {
 
         this._exitIsOpen = false;
         this._name = name;

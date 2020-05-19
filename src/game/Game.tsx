@@ -355,7 +355,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                 if(collisionObject instanceof MapTile){
                     projectile.hasCollided = true;
                 }else if(collisionObject instanceof Npc){
-                    (collisionObject as Npc).takeDamage();
+                    (collisionObject as Npc).takeDamageFrom(projectile.owner);
                     projectile.hasCollided = true;
                 }
             }

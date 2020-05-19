@@ -163,11 +163,11 @@ export default class Player extends Character {
         this._shootCooldown = this._shootCooldownTime;
 
         if(this._facingRight){
-            let projectile = new Projectile(0, 0, true);
+            let projectile = new Projectile(0, 0, true, this);
             projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }else{
-            let projectile = new Projectile(0, 0, false);
+            let projectile = new Projectile(0, 0, false, this);
             projectile.updatePos(this.xPos-projectile.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }
@@ -179,8 +179,8 @@ export default class Player extends Character {
         }
     }
 
-    public addEcts() {
-        this._ects++;
+    public addEcts(amount?: number) {
+        this._ects = (amount) ? this.ects + amount : this.ects + 1;
     }
 
     private canShoot(){

@@ -9,7 +9,7 @@ class Levels {
 
     static levels: Level[] = [
 
-        new Level("1", "grey", new Map([
+        new Level("1", "grey", 5, new Map([
             "  .                             .                        .                             ",
             "    .                                          .                                       ",
             "         .                          .                     .                            ",
@@ -27,15 +27,14 @@ class Levels {
         ],
         [
             new Ects( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(1) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(30), Levels.getCoordinateForRelativeMapPos(4) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(32), Levels.getCoordinateForRelativeMapPos(4) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(35), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(30), Levels.getCoordinateForRelativeMapPos(2) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(80), Levels.getCoordinateForRelativeMapPos(3) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(45), Levels.getCoordinateForRelativeMapPos(1) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(60), Levels.getCoordinateForRelativeMapPos(1) )
-        ],
-        5
+        ]
         ),
 
-        new Level("1: Boss", "grey", new Map([
+        new Level("1: Boss", "grey", 10, new Map([
             "  .                             .                      ",
             "    .                                                  ",
             "         .                                             ",
@@ -50,11 +49,11 @@ class Levels {
             new Transferpaper( Levels.getCoordinateForRelativeMapPos(33), Levels.getCoordinateForRelativeMapPos(4) ),
         ],
         [
-        ],
-        5
+
+        ]
         ),
 
-        new Level("2", "grey", new Map([
+        new Level("2", "grey", 15, new Map([
             "  .                             .                        .                             ",
             "    .                                          .                                       ",
             "         .                          .                     .                            ",
@@ -65,10 +64,43 @@ class Levels {
             "                                                                                    E  ",
             "##@@##@##@##############@@@@##       ##@#######@@##@##@@##@##@@##@#      #@@###########",
         ]),
-        [],
-        [new Ects(0, 0)],
-        10
-        )
+        [
+            new Prof( Levels.getCoordinateForRelativeMapPos(10), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(20), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(11), Levels.getCoordinateForRelativeMapPos(3) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(31), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(43), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(58), Levels.getCoordinateForRelativeMapPos(7) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(74), Levels.getCoordinateForRelativeMapPos(3) ),
+            new Prof( Levels.getCoordinateForRelativeMapPos(76), Levels.getCoordinateForRelativeMapPos(7) ),
+        ],
+        [
+            new Ects( Levels.getCoordinateForRelativeMapPos(15), Levels.getCoordinateForRelativeMapPos(3) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(25), Levels.getCoordinateForRelativeMapPos(2) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(66), Levels.getCoordinateForRelativeMapPos(1) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(42), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(75), Levels.getCoordinateForRelativeMapPos(2) ),
+        ]
+        ),
+
+        new Level("2: Boss", "grey", 10, new Map([
+            "  .                            ",
+            "    .                          ",
+            "         .                     ",
+            "                               ",
+            "                               ",
+            "                 .      .      ",
+            "   .                           ",
+            "                            E  ",
+            "##@@##@##@#####################",
+        ]),
+        [
+            new Transferpaper( Levels.getCoordinateForRelativeMapPos(9), Levels.getCoordinateForRelativeMapPos(7) ),
+        ],
+        [
+
+        ]
+        ),
 
     ];
 

@@ -3,17 +3,19 @@ import SpritePosition from "../../SpritePosition";
 import projectileSpriteImage from '../../images/projectileSpriteImage.jpg';
 import Map from "../../Map/Map";
 import MapTile from "../../Map/MapTile";
+import Character from "../characters/Character";
 
 export default class Projectile extends Entity{
     private _hasCollided: boolean;
     private _xSpeed: number;
     private _range: number;
     private startXPos: number;
+    private _owner: Character;
     
     private static spritePattern = "loremipsumdolorsitamet";
     private static currentPatternIndex = 0;
     
-    constructor(xPos:number, yPos:number, _directionRight: boolean) {
+    constructor(xPos:number, yPos:number, _directionRight: boolean, owner: Character) {
         let spriteMap = new Image();
         spriteMap.src = projectileSpriteImage;
         let spritePos = Projectile.getNextSpritePosition();
@@ -25,6 +27,7 @@ export default class Projectile extends Entity{
         this._hasCollided = false;
         this.startXPos = 0;
         this._range = 10 * MapTile.targetSize;
+        this._owner = owner;
     }
 
     public get hasCollided(): boolean {
@@ -78,6 +81,11 @@ export default class Projectile extends Entity{
         return new SpritePosition(relativeCharCode, 0);
 
     }
+
+    public get owner(): Character {
+        return this._owner;
+    }
+    
 
 
 }

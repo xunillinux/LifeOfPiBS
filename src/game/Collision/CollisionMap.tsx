@@ -68,7 +68,7 @@ export default class CollisionMap{
         if (collides.bot) {
             player.yPos = npc.yPos - player.targetSize;
             player.ySpeed = 0;
-            npc.takeDamage();
+            npc.takeDamageFrom(player);
             player.smallJump();
         }
         else if (collides.top || collides.right || collides.left) {

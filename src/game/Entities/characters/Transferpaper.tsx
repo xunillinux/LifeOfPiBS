@@ -2,11 +2,14 @@ import Npc from './Npc';
 import transferPaperSpriteImage from '../../images/transferpaper.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
+import Character from './Character';
+import Player from './Player';
 
 export default class Transferpaper extends Npc {
     
     private movingRight:boolean;
     private movingLeft:boolean;
+    private ectsKillReward: number;
 
     constructor(xPos:number, yPos:number) {
 
@@ -25,6 +28,7 @@ export default class Transferpaper extends Npc {
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity,speedLimitY, friction, lives, collision);
         this.xSpeed = 4;
         this.movingLeft = true;
+        this.ectsKillReward = 5;
         this.movingRight = !this.movingLeft;
     }
 
@@ -85,6 +89,16 @@ export default class Transferpaper extends Npc {
     public applyGravity(gravity:number){
         this.ySpeed = (this.ySpeed+gravity > this.speedLimitY) ? this.speedLimitY : this.ySpeed+gravity;
         this.yPos += this.ySpeed;
+    }
+
+    public takeDamageFrom(character: Character){
+        
+        this.lives -= 1;
+
+        if(character instanceof Player && this.isDead()){
+            character.addEcts(this.ectsKillReward);
+        }
+
     }
 
 
