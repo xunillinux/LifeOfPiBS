@@ -1,8 +1,12 @@
 import React from 'react';
 import './GameUI.css';
 import { Modal, Button } from 'react-bootstrap';
+import Level from './Levels/Level';
 
 interface IGameMenuProps{
+    show: boolean;
+    gameMenuType: GameMenuType;
+    currentLevel: Level;
 }
 
 interface IGameMenuState{
@@ -18,18 +22,25 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
     render(){
 
         return (
-            <Modal.Dialog>
+            <Modal show={this.props.show}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Life of PiBS</Modal.Title>
+                <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
-
                 <Modal.Body>
-                    <Button variant="primary">Start Game</Button>
+                    Welcome to Life of PiBS!
                 </Modal.Body>
-
-            </Modal.Dialog>
+                <Modal.Footer>
+                </Modal.Footer>
+            </Modal>
         );
     }
 
 }
 
+export enum GameMenuType{
+    START,
+    PAUSE,
+    NEXTLEVEL,
+    WIN,
+    LOOSE
+}
