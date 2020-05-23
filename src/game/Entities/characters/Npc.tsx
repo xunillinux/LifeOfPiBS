@@ -18,7 +18,7 @@ export default abstract class Npc extends Character implements ICollisionObject{
         this.kill();
     }
 
-    public abstract update(map: Map): Projectile | void;
+    public abstract update(map: Map): Projectile[] | void;
 
     public abstract applyGravity(gravity:number): void;
 
