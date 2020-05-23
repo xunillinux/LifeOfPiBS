@@ -78,7 +78,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     levelPosX = {this.state.levelPosX}
                     entities = {this.state.entities}/>
                 <GameMenu
-                    show = {true}
+                    show = {false}
                     currentLevel = {this.state.currentLevel}
                     gameMenuType = {GameMenuType.START}/>
                 

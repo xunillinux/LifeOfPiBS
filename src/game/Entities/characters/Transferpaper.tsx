@@ -44,7 +44,7 @@ export default class Transferpaper extends Npc {
             this.spritePos.tileY = 1;
         }
         if (ticks % 4 === 0) {
-            switch (this.spritePos.tileX) {
+            switch (this.spritePos.tileX % 4) {
                 case 0:
                     this.spritePos.tileX = 1 + 4 * this.lives; // 4 * lives -> take sprite that corresponds to current health state
                     break;
