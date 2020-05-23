@@ -13,6 +13,9 @@ export default class Transferpaper extends Npc {
     private ectsKillReward: number;
     private _shootCooldown: number;
     private _shootCooldownTime: number;
+    private _regenerateCooldown: number;
+    private _regenerateCooldownTime: number;
+    private maxLives: number;
 
     constructor(xPos:number, yPos:number) {
 
@@ -34,10 +37,15 @@ export default class Transferpaper extends Npc {
         this.ectsKillReward = 5;
         this._shootCooldown = 0;
         this._shootCooldownTime = 20;
+        this._regenerateCooldown = 0;
+        this._regenerateCooldownTime = 150;
+        this.maxLives = lives;
+
         this.movingRight = !this.movingLeft;
     }
 
     public animate(ticks: number) {
+        //TODO: update sprite and animation here
         if(this.movingRight){
             this.spritePos.tileY = 0;
         }else{
@@ -67,12 +75,15 @@ export default class Transferpaper extends Npc {
     public update(map: Map){
         
         this.move(map);
-        let projectile = this.shoot();
+        let projectileArray:Projectile[] = [];
+        let projectile = this.tryShoot();
         if(projectile){
-            return projectile;
+            projectileArray = projectileArray.concat(projectile);
         }
+        projectileArray = projectileArray.concat(this.regenerateLives());
         this.updateShootCooldown();
-
+        this.updateRegenerateCooldown();
+        return projectileArray;
     }
 
     private move(map: Map){
@@ -126,12 +137,16 @@ export default class Transferpaper extends Npc {
 
     }
 
-    public shoot(): Projectile | null{
-
-        if(!this.canShoot()){
+    public tryShoot(){
+        if(this.canShoot()){
+            return this.shoot();
+        }else{
             return null;
         }
 
+    }
+
+    public shoot(directionRight?:boolean): Projectile{
         this._shootCooldown = this._shootCooldownTime;
         let shootDirectionRight = Math.random() >= 0.5;
 
@@ -156,5 +171,20 @@ export default class Transferpaper extends Npc {
         return (this._shootCooldown <= 0);
     }
 
+    public updateRegenerateCooldown(){
+        if(this._regenerateCooldown > 0){
+            this._regenerateCooldown--;
+        }
+    }
+
+    private regenerateLives(){
+        let projectileArray:Projectile[] = [];
+        if(this.lives !== this.maxLives){
+            this.lives++;
+            projectileArray.push(this.shoot(true));
+            projectileArray.push(this.shoot(false));
+        }
+        return projectileArray;
+    }
 
 }

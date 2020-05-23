@@ -242,10 +242,9 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             }
 
             enemy.animate(this.ticks);
-            let projectile = enemy.update(this.currentLevel.map);
-            if(projectile){
-                this.projectiles.push(projectile);
-                console.log(projectile);
+            let projectilesArray = enemy.update(this.currentLevel.map);
+            if(projectilesArray){
+                this.projectiles = this.projectiles.concat(projectilesArray);
             }
             enemy.applyGravity(Config.gravity);
 
