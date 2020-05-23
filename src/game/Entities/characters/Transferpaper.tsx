@@ -1,5 +1,5 @@
 import Npc from './Npc';
-import transferPaperSpriteImage from '../../images/Transferpaper_10_hits.jpg';
+import transferPaperSpriteImage from '../../images/transferpaper.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Character from './Character';

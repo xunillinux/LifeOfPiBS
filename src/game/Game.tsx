@@ -16,6 +16,7 @@ import SpecialCollisionEvents from './Collision/SpecialCollisionEvents';
 import Npc from './Entities/characters/Npc';
 import Item from './Entities/items/Item';
 import { MapTileType } from './Map/MapTileType';
+import GameMenu from './GameMenu';
 
 interface IGameProps{
 }
@@ -76,6 +77,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     ticks = {this.state.ticks}
                     levelPosX = {this.state.levelPosX}
                     entities = {this.state.entities}/>
+                <GameMenu/>
+                
             </div>
         )
     }
