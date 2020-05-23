@@ -1,5 +1,5 @@
 import Npc from './Npc';
-import transferPaperSpriteImage from '../../images/transferpaper.jpg';
+import transferPaperSpriteImage from '../../images/Transferpaper_10_hits.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Character from './Character';
@@ -41,11 +41,22 @@ export default class Transferpaper extends Npc {
         if(this.movingRight){
             this.spritePos.tileY = 0;
         }else{
-            this.spritePos.tileY = 0;
+            this.spritePos.tileY = 1;
         }
         if (ticks % 4 === 0) {
             switch (this.spritePos.tileX) {
-                
+                case 0:
+                    this.spritePos.tileX = 1;
+                    break;
+                case 1:
+                    this.spritePos.tileX = 2;
+                    break;
+                case 2:
+                    this.spritePos.tileX = 3;
+                    break;
+                case 3:
+                    this.spritePos.tileX = 0;
+                    break;
                 default:
                     this.spritePos.tileX = 0;
                     break;
