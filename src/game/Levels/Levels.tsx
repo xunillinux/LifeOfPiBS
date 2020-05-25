@@ -83,7 +83,7 @@ class Levels {
         ]
         ),
 
-        new Level("2: Boss", "grey", 10, new Map([
+        new Level("2: Boss", "grey", 20, new Map([
             "  .                            ",
             "    .                          ",
             "         .                     ",
@@ -95,7 +95,7 @@ class Levels {
             "##@@##@##@#####################",
         ]),
         [
-            new Transferpaper( Levels.getCoordinateForRelativeMapPos(9), Levels.getCoordinateForRelativeMapPos(6) ),
+            new Transferpaper( Levels.getCoordinateForRelativeMapPos(15), Levels.getCoordinateForRelativeMapPos(6) ),
         ],
         [
 

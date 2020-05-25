@@ -36,9 +36,9 @@ export default class Transferpaper extends Npc {
         this.movingLeft = true;
         this.ectsKillReward = 5;
         this._shootCooldown = 0;
-        this._shootCooldownTime = 20;
+        this._shootCooldownTime = 30;
         this._regenerateCooldown = 0;
-        this._regenerateCooldownTime = 150;
+        this._regenerateCooldownTime = 60;
         this.maxLives = lives;
 
         this.movingRight = !this.movingLeft;
@@ -80,7 +80,9 @@ export default class Transferpaper extends Npc {
         if(projectile){
             projectileArray = projectileArray.concat(projectile);
         }
-        projectileArray = projectileArray.concat(this.regenerateLives());
+        if(this.canRegenerate()){
+            projectileArray = projectileArray.concat(this.regenerateLives());
+        }
         this.updateShootCooldown();
         this.updateRegenerateCooldown();
         return projectileArray;
@@ -148,7 +150,7 @@ export default class Transferpaper extends Npc {
 
     public shoot(directionRight?:boolean): Projectile{
         this._shootCooldown = this._shootCooldownTime;
-        let shootDirectionRight = Math.random() >= 0.5;
+        let shootDirectionRight = (directionRight) ? directionRight : Math.random() >= 0.5;
 
         if(shootDirectionRight){
             let projectile = new Projectile(0, 0, true, this);
@@ -177,12 +179,17 @@ export default class Transferpaper extends Npc {
         }
     }
 
+    private canRegenerate(){
+        return (this._regenerateCooldown <= 0);
+    }
+
     private regenerateLives(){
         let projectileArray:Projectile[] = [];
         if(this.lives !== this.maxLives){
             this.lives++;
             projectileArray.push(this.shoot(true));
             projectileArray.push(this.shoot(false));
+            this._regenerateCooldown = this._regenerateCooldownTime;
         }
         return projectileArray;
     }
