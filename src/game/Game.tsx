@@ -137,6 +137,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         this.player.resetPlayer();
         this.respawnPlayer()
         this.levelPosX = 0;
+        Config.canvasSize.h = this.currentLevel.map.mapHeight;
 
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.items);
@@ -309,7 +310,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         //TODO fix
         //Config.canvasSize.w = document.getElementById("gameCanvas")?.offsetWidth;
         Config.canvasSize.w = window.innerWidth;
-        Config.canvasSize.h = window.innerHeight-56;
 
         this.centerLevelPosX(); //fix -> after setstate or give canvas width and height as params
 
