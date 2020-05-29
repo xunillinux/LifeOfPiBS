@@ -29,6 +29,8 @@ interface IGameState{
     levelPosX: number;
     entities: Entity[];
     currentEctsScore: number;
+    showGameMenuModal: boolean;
+    gameMenuType: GameMenuType;
 }
 
 export default class Game extends React.Component<IGameProps, IGameState> {
@@ -52,11 +54,13 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             currentLevel: Levels.levels[0],
             levelPosX: 0,
             entities: [],
-            currentEctsScore: 0
+            currentEctsScore: 0,
+            showGameMenuModal: false,
+            gameMenuType: GameMenuType.START
         };
-        
 
         this.gameLoop = this.gameLoop.bind(this);
+        this.onGameMenuModalClose = this.onGameMenuModalClose.bind(this);
 
         this.startGame();
     }
@@ -64,7 +68,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     render(){
         
         return(
-            <div className="Game col-lg-12">
+            <div id="gameDiv" className={`Game col-lg-12 ${this.state.showGameMenuModal ? "modal-backdrop" : ""}`}>
                 <GameUI
                     currentEctsScore = {this.state.currentEctsScore}
                     currentLevelName = {this.state.currentLevel.name}
@@ -78,12 +82,20 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     levelPosX = {this.state.levelPosX}
                     entities = {this.state.entities}/>
                 <GameMenu
-                    show = {false}
+                    show = {this.state.showGameMenuModal}
                     currentLevel = {this.state.currentLevel}
-                    gameMenuType = {GameMenuType.START}/>
+                    gameMenuType = {this.state.gameMenuType}
+                    onModalCloseHandler = {this.onGameMenuModalClose}
+                    />
                 
             </div>
         )
+    }
+
+    onGameMenuModalClose(){
+        this.setState({
+            showGameMenuModal: false
+        });
     }
 
     private updateDimensions() {
@@ -98,10 +110,18 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
+        this.showStartMenu();
     }
 
     componentWillUnmount() {
     window.removeEventListener("resize", this.updateDimensions.bind(this));
+    }
+
+    private showStartMenu(){
+        this.setState({
+            showGameMenuModal: true,
+            gameMenuType: GameMenuType.START
+        });
     }
 
     private centerLevelPosX(){
@@ -122,7 +142,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     
 
     private startGame() {
-
         Controls.registerKeyEvents()
 
         this.initializeLevel(this.currentLevel);
@@ -145,6 +164,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private gameLoop() {
+        
         this.ticks++;
         this.characters = this.currentLevel.enemies.slice();
         this.characters.push(this.player);

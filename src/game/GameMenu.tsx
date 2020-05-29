@@ -7,6 +7,7 @@ interface IGameMenuProps{
     show: boolean;
     gameMenuType: GameMenuType;
     currentLevel: Level;
+    onModalCloseHandler: () => void;
 }
 
 interface IGameMenuState{
@@ -14,15 +15,21 @@ interface IGameMenuState{
 
 export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuState> {
 
+    private modalRef: React.RefObject<Modal>;
+
     // eslint-disable-next-line
     constructor(props:IGameMenuProps){
         super(props);
+
+        this.modalRef = React.createRef();
+
+
     }
 
     render(){
 
         return (
-            <Modal show={this.props.show}>
+            <Modal ref={this.modalRef} show={this.props.show} onShow={this.handleModalShown}>
                 <Modal.Header closeButton>
                 <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
@@ -30,9 +37,18 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                     Welcome to Life of PiBS!
                 </Modal.Body>
                 <Modal.Footer>
+                    <Button variant="primary" onClick={this.props.onModalCloseHandler}>
+                        Close
+                    </Button>
                 </Modal.Footer>
             </Modal>
         );
+    }
+
+    handleModalShown(){
+        let body = document.getElementsByTagName("body")[0];
+        body.style.padding = "";
+        body.classList.remove("modal-open");
     }
 
 }

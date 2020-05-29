@@ -1,0 +1,8 @@
+
+.modal-backdrop {
+    position: absolute !important;
+}
+
+#gameDiv {
+    position: relative;
+}
