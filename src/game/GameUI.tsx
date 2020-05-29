@@ -40,10 +40,10 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
 
         return (
             <div className="GameUI row">
-                <div className="col-lg-6">
+                <div className="col-sm-6">
                   <strong>Level:</strong> {this.props.currentLevelName}
                 </div>
-                <div className="col-lg-3">
+                <div className="col-sm-3">
                   <img
                       alt="logo"
                       src={ectsCoin}
@@ -52,7 +52,7 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
                       className="d-inline-block align-top"
                     /> : {this.props.currentEctsScore}
                 </div>
-                <div className="col-lg-3">
+                <div className="col-sm-3">
                   {lifeImages}
                 </div>
             </div>
