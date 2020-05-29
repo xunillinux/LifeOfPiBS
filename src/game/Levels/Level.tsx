@@ -1,9 +1,11 @@
 import Npc from "../Entities/characters/Npc";
 import Item from "../Entities/items/Item";
 import Map from "../Map/Map";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class Level {
 
+    private _id: string;
     private _name: string;
     
     private _backgroundColor: string;
@@ -27,7 +29,12 @@ export default class Level {
         this._enemies = enemies;
         this._items = ects;
         this._requiredEcts = requiredEcts;
+        this._id = uuidv4();
 
+    }
+
+    public get id(): string {
+        return this._id;
     }
 
     public get name(): string {

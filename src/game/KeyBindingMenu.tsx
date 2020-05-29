@@ -14,6 +14,8 @@ export default class KeyBindingMenu extends React.Component{
             <div id="keyBinding">
                 <h2>Key Binding</h2>
                 <table>
+                    <thead></thead>
+                    <tbody>
                     <tr>
                         <td><kbd>RIGHT</kbd></td>
                         <td>Move right</td>
@@ -38,6 +40,7 @@ export default class KeyBindingMenu extends React.Component{
                         <td><kbd>ESC</kbd></td>
                         <td>Pause</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
           );
