@@ -29,7 +29,7 @@ interface IGameState{
     levelPosX: number;
     entities: Entity[];
     currentEctsScore: number;
-    showGameMenuModal: boolean;
+    showGameMenu: boolean;
     gameMenuType: GameMenuType;
 }
 
@@ -55,20 +55,38 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             levelPosX: 0,
             entities: [],
             currentEctsScore: 0,
-            showGameMenuModal: false,
+            showGameMenu: true,
             gameMenuType: GameMenuType.START
         };
 
         this.gameLoop = this.gameLoop.bind(this);
-        this.onGameMenuModalClose = this.onGameMenuModalClose.bind(this);
-
-        this.startGame();
+        this.onGameNextLevelHandler = this.onGameNextLevelHandler.bind(this);
+        this.onGameRestartHandler = this.onGameRestartHandler.bind(this);
+        this.onGameResumeHandler = this.onGameResumeHandler.bind(this);
+        this.onGameStartHandler = this.onGameStartHandler.bind(this);
     }
 
     render(){
-        
-        return(
-            <div id="gameDiv" className={`Game col-lg-12 ${this.state.showGameMenuModal ? "modal-backdrop" : ""}`}>
+        if(this.state.showGameMenu){
+            return(
+                <div id="gameDiv" className={`Game col-lg-12`}>
+                    <GameMenu
+                    show = {this.state.showGameMenu}
+                    gameMenuType = {this.state.gameMenuType}
+                    currentEctsScore = {this.state.currentEctsScore}
+                    currentLevelName = {this.state.currentLevel.name}
+                    currentLives = {this.player.lives}
+                    maxLives = {this.player.maxLives}
+                    onGameNextLevelHandler = {this.onGameNextLevelHandler}
+                    onGameRestartHandler = {this.onGameRestartHandler}
+                    onGameResumeHandler = {this.onGameResumeHandler}
+                    onGameStartHandler = {this.onGameStartHandler}
+                    />
+                </div>
+            )
+        }else{
+            return(
+                <div id="gameDiv" className={`Game col-lg-12`}>
                 <GameUI
                     currentEctsScore = {this.state.currentEctsScore}
                     currentLevelName = {this.state.currentLevel.name}
@@ -81,21 +99,35 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     ticks = {this.state.ticks}
                     levelPosX = {this.state.levelPosX}
                     entities = {this.state.entities}/>
-                <GameMenu
-                    show = {this.state.showGameMenuModal}
-                    currentLevel = {this.state.currentLevel}
-                    gameMenuType = {this.state.gameMenuType}
-                    onModalCloseHandler = {this.onGameMenuModalClose}
-                    />
-                
-            </div>
-        )
+                    </div>
+            )
+        }
     }
 
-    onGameMenuModalClose(){
-        this.setState({
-            showGameMenuModal: false
-        });
+    onGameStartHandler(){
+        this.setState({showGameMenu: false})
+        this.startNewGame();
+    }
+    onGameResumeHandler(){
+        this.setState({showGameMenu: false})
+        this.startGameLoop();
+    }
+    onGameNextLevelHandler(){
+        this.setState({showGameMenu: false})
+        this.endLevel();
+    }
+    onGameRestartHandler(){
+        this.setState({showGameMenu: false})
+        this.startNewGame();
+    }
+
+    private showNextLevelMenu(){
+        this.pauseGameLoop();
+        if(Levels.nextLevelExists(this.currentLevel.name)){
+            this.setState({showGameMenu: true, gameMenuType: GameMenuType.NEXTLEVEL});
+        }else{
+            this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN});
+        }
     }
 
     private updateDimensions() {
@@ -110,7 +142,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     componentDidMount() {
         this.updateDimensions();
         window.addEventListener("resize", this.updateDimensions.bind(this));
-        this.showStartMenu();
     }
 
     componentWillUnmount() {
@@ -119,7 +150,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     private showStartMenu(){
         this.setState({
-            showGameMenuModal: true,
+            showGameMenu: true,
             gameMenuType: GameMenuType.START
         });
     }
@@ -141,12 +172,11 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
     
 
-    private startGame() {
+    private startNewGame() {
         Controls.registerKeyEvents()
-
+        this.currentLevel = Levels.levels[0];
         this.initializeLevel(this.currentLevel);
-        clearInterval(Config.gameInterval);
-        Config.gameInterval = setInterval(this.gameLoop, 1000 / Config.fps);
+        this.startGameLoop();
     }
 
     private initializeLevel(level: Level){
@@ -180,6 +210,23 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         if (this.player.isDead()){ this.gameOver() };
         
         this.updateState();
+        this.checkIfPausedEvent();
+    }
+
+    private checkIfPausedEvent(){
+        if(Controls.Escape){
+            this.pauseGameLoop();
+            this.setState({showGameMenu: true, gameMenuType: GameMenuType.PAUSE});
+        } 
+    }
+
+    private pauseGameLoop(){
+        clearInterval(Config.gameInterval);
+    }
+
+    private startGameLoop(){
+        clearInterval(Config.gameInterval);
+        Config.gameInterval = setInterval(this.gameLoop, 1000 / Config.fps);
     }
 
     private checkEctsRequirement(){
@@ -356,7 +403,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     CollisionMap.processPlayerItemCollision(this.player, collisionObject as Item, collides);
                 }
                 if(specialCollisionEvent.levelEnd){
-                    this.endLevel();
+                    this.showNextLevelMenu();
                 }
             }
 
@@ -412,23 +459,21 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private endLevel(){
-
-        let currentLevelIndex = Levels.levels.findIndex(l => l.name === this.currentLevel.name);
-        if(Levels.levels.length === currentLevelIndex+1){
-            this.gameEnd();
+        if(Levels.nextLevelExists(this.currentLevel.name)){
+            this.initializeLevel(Levels.levels[Levels.getLevelIndex(this.currentLevel.name)+1]);
         } else{
-            this.initializeLevel(Levels.levels[currentLevelIndex+1]);
+            this.gameEnd(); 
         }
     }
 
     private gameOver(){
-        //TODO implement
-        alert("you lost!");
+        this.pauseGameLoop();
+        this.setState({showGameMenu: true, gameMenuType: GameMenuType.LOOSE});
     }
 
     private gameEnd(){
-        //TODO implement
-        alert("you won!");
+        this.pauseGameLoop();
+        this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN});
     }
 
 }

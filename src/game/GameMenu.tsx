@@ -1,18 +1,32 @@
 import React from 'react';
 import './GameUI.css';
 import { Modal, Button } from 'react-bootstrap';
-import Level from './Levels/Level';
+import GameUI from './GameUI';
+import KeyBindingMenu from './KeyBindingMenu';
 
 interface IGameMenuProps{
     show: boolean;
     gameMenuType: GameMenuType;
-    currentLevel: Level;
-    onModalCloseHandler: () => void;
+    onGameStartHandler: () => void;
+    onGameResumeHandler: () => void;
+    onGameNextLevelHandler: () => void;
+    onGameRestartHandler: () => void;
+    currentLevelName: string;
+    currentEctsScore: number;
+    currentLives: number;
+    maxLives: number;
 }
 
 interface IGameMenuState{
 }
 
+export enum GameMenuType{
+    START,
+    PAUSE,
+    NEXTLEVEL,
+    WIN,
+    LOOSE
+}
 export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuState> {
 
     private modalRef: React.RefObject<Modal>;
@@ -25,24 +39,90 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
 
 
     }
+    
 
     render(){
 
-        return (
-            <Modal ref={this.modalRef} show={this.props.show} onShow={this.handleModalShown}>
-                <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Welcome to Life of PiBS!
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={this.props.onModalCloseHandler}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        );
+        switch (this.props.gameMenuType) {
+            case GameMenuType.START:
+                return(
+                    <div id="gameMenu">
+                        <h1>Welcome to Life of PiBS!</h1>
+                        <KeyBindingMenu/>
+                        <Button variant="primary" onClick={this.props.onGameStartHandler}>
+                                Start Game
+                            </Button>
+                    </div>
+                )
+
+            case GameMenuType.PAUSE:
+                return(
+                    <div id="gameMenu">
+                        <GameUI
+                            currentEctsScore = {this.props.currentEctsScore}
+                            currentLevelName = {this.props.currentLevelName}
+                            currentLives = {this.props.currentLives}
+                            maxLives = {this.props.maxLives}/>
+                        <KeyBindingMenu/>
+                        <Button variant="primary" onClick={this.props.onGameResumeHandler}>
+                                Resume Game
+                            </Button>
+                        <Button variant="primary" onClick={this.props.onGameRestartHandler}>
+                            Restart Game
+                        </Button>
+                    </div>
+                )
+            
+            case GameMenuType.NEXTLEVEL:
+                return(
+                    <div id="gameMenu">
+                        <GameUI
+                            currentEctsScore = {this.props.currentEctsScore}
+                            currentLevelName = {this.props.currentLevelName}
+                            currentLives = {this.props.currentLives}
+                            maxLives = {this.props.maxLives}/>
+                        <Button variant="primary" onClick={this.props.onGameNextLevelHandler}>
+                                Continue to next level
+                        </Button>
+                    </div>
+                )
+
+            case GameMenuType.WIN:
+                return(
+                    <div id="gameMenu">
+                        <h1>You won! Here is your certificate:</h1>
+                        TODO: img of certificate and text "now go and do yomething useful with your life"
+                        <GameUI
+                            currentEctsScore = {this.props.currentEctsScore}
+                            currentLevelName = {this.props.currentLevelName}
+                            currentLives = {this.props.currentLives}
+                            maxLives = {this.props.maxLives}/>
+                        <Button variant="primary" onClick={this.props.onGameRestartHandler}>
+                                Restart PiBS
+                        </Button>
+                        TODO: onButtonClick: alert "are you really sure, it's 4 years of your life"
+                    </div>
+                )
+
+                case GameMenuType.LOOSE:
+                    return(
+                        <div id="gameMenu">
+                            <h1>You lost! :(</h1>
+                            TODO: img of burned certificate
+                            <GameUI
+                                currentEctsScore = {this.props.currentEctsScore}
+                                currentLevelName = {this.props.currentLevelName}
+                                currentLives = {this.props.currentLives}
+                                maxLives = {this.props.maxLives}/>
+                            <Button variant="primary" onClick={this.props.onGameRestartHandler}>
+                                    Restart Game
+                            </Button>
+                        </div>
+                    )
+
+            default:
+                break;
+        }
     }
 
     handleModalShown(){
@@ -50,13 +130,6 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
         body.style.padding = "";
         body.classList.remove("modal-open");
     }
-
 }
 
-export enum GameMenuType{
-    START,
-    PAUSE,
-    NEXTLEVEL,
-    WIN,
-    LOOSE
-}
+

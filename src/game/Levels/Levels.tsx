@@ -104,9 +104,20 @@ class Levels {
 
     ];
 
+    public static nextLevelExists(levelName: string): boolean {
+        let currentLevelIndex = Levels.getLevelIndex(levelName);
+        return(Levels.levels.length > currentLevelIndex + 1);
+    }
+
+    public static getLevelIndex(levelName: string){
+        return(Levels.levels.findIndex(l => l.name === levelName));
+    }
+
     private static getCoordinateForRelativeMapPos(relativeMapPos: number): number{
         return MapTile.targetSize * relativeMapPos;
     }
+
+    
 
 }
 
