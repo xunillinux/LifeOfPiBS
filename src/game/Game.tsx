@@ -22,8 +22,6 @@ interface IGameProps{
 }
 
 interface IGameState{
-    canvasWidth: number;
-    canvasHeight: number;
     ticks: number;
     currentLevel: Level;
     levelPosX: number;
@@ -47,8 +45,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     constructor(props:IGameProps){
         super(props);
         this.state = {
-            canvasWidth: 0,
-            canvasHeight: 0,
             ticks: 0,
             currentLevel: Levels.levels[0],
             levelPosX: 0,
@@ -91,8 +87,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                         currentLives = {this.player.lives}
                         maxLives = {this.player.maxLives}/>
                     <GameCanvas
-                        canvasWidth = {this.state.canvasWidth}
-                        canvasHeight = {this.state.canvasHeight}
+                        canvasWidth = {Config.canvasSize.w}
+                        canvasHeight = {Config.canvasSize.h}
                         currentLevel = {this.state.currentLevel}
                         ticks = {this.state.ticks}
                         levelPosX = {this.state.levelPosX}
@@ -122,6 +118,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     onGameNextLevelHandler(){
         this.setState({showGameMenu: false})
         this.endLevel();
+        this.startGameLoop();
     }
     onGameRestartHandler(){
         this.setState({showGameMenu: false})
@@ -140,7 +137,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         this.player.resetPlayer();
         this.respawnPlayer()
         this.levelPosX = 0;
-        console.log(this.currentLevel);
 
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.items);
@@ -310,21 +306,22 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     private updateDimensions() {
         //TODO fix
-        Config.canvasSize.w = document.getElementById("gameCanvas")?.offsetWidth;
+        //Config.canvasSize.w = document.getElementById("gameCanvas")?.offsetWidth;
+        Config.canvasSize.w = window.innerWidth;
         Config.canvasSize.h = window.innerHeight-56;
-        this.centerLevelPosX();
 
-        this.setState({ canvasWidth: window.innerWidth, canvasHeight: Config.canvasSize.h});
+        this.centerLevelPosX(); //fix -> after setstate or give canvas width and height as params
+
     }
 
     private centerLevelPosX(){
         
         // no centering needed
-        if(this.state.canvasWidth > this.currentLevel.map.mapWidth){
+        if(Config.canvasSize.w > this.currentLevel.map.mapWidth){
             return;
         }
 
-        this.levelPosX = this.player.xPos + this.state.canvasWidth/2;
+        this.levelPosX = this.player.xPos + Config.canvasSize.w/2;
         
         //if player near end of level set levelPosX to max
         if(this.levelPosX >= this.currentLevel.map.mapWidth - Config.canvasSize.w && this.currentLevel.map.mapWidth > Config.canvasSize.w){
