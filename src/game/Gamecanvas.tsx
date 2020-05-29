@@ -3,7 +3,6 @@ import './Gamecanvas.css';
 import Level from './Levels/Level';
 import MapTile from './Map/MapTile';
 import Entity from './Entities/Entity';
-import Config from './Config';
 
 interface IGameCanvasProps{
     currentLevel: Level;

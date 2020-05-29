@@ -165,6 +165,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     private checkIfPausedEvent(){
         if(Controls.Escape){
+            Controls.Escape = false;
             this.pauseGameLoop();
             this.setState({showGameMenu: true, gameMenuType: GameMenuType.PAUSE});
         } 
