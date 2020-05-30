@@ -40,8 +40,8 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
     }
 
     componentDidUpdate(){
-            this.drawLevel(this.props.currentLevel, this.props.levelPosX);
-            this.drawEntities(this.props.entities, this.props.levelPosX);
+        this.drawLevel(this.props.currentLevel, this.props.levelPosX);
+        this.drawEntities(this.props.entities, this.props.levelPosX);
     }
 
     drawLevel(currentLevel: Level, levelPosX: number) {
@@ -70,7 +70,7 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
 
             let mapTile = mapTileLayer[indexCurrentTile];
             
-            if(mapTile){ //if map template smaller than canvas width map tiles not defined -> TODO refactor
+            if(mapTile){
                 mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
                 mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
                 this.ctx.drawImage(currentLevel.map.spriteMap,

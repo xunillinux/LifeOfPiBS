@@ -14,6 +14,8 @@ export default class KeyBindingMenu extends React.Component{
             <div id="keyBinding">
                 <h2 id="keyBinding_title">Key Binding</h2>
                 <table>
+                    <thead></thead>
+                    <tbody>
                     <tr>
                         <td><kbd>RIGHT</kbd></td>
                         <td className={`spacer`}></td>
@@ -44,6 +46,7 @@ export default class KeyBindingMenu extends React.Component{
                         <td className={`spacer`}></td>
                         <td>Pause</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
           );

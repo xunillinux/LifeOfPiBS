@@ -104,13 +104,21 @@ class Levels {
 
     ];
 
-    public static nextLevelExists(levelName: string): boolean {
-        let currentLevelIndex = Levels.getLevelIndex(levelName);
+    public static nextLevelExists(level: Level): boolean {
+        let currentLevelIndex = Levels.getLevelIndex(level);
         return(Levels.levels.length > currentLevelIndex + 1);
     }
 
-    public static getLevelIndex(levelName: string){
-        return(Levels.levels.findIndex(l => l.name === levelName));
+    public static getNextLevel(level: Level): Level | null{
+        if(Levels.nextLevelExists(level)){
+            return Levels.levels[Levels.getLevelIndex(level)+1];
+        } else{
+            return null;
+        }
+    }
+
+    private static getLevelIndex(level: Level){
+        return(Levels.levels.findIndex(l => l.id === level.id));
     }
 
     private static getCoordinateForRelativeMapPos(relativeMapPos: number): number{

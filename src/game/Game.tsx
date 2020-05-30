@@ -22,8 +22,6 @@ interface IGameProps{
 }
 
 interface IGameState{
-    canvasWidth: number;
-    canvasHeight: number;
     ticks: number;
     currentLevel: Level;
     levelPosX: number;
@@ -38,7 +36,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     private currentLevel: Level = Levels.levels[0];
     private levelPosX: number = 0;
     private entities: Entity[] = [];
-    private currentEctsScore: number = 0;
 
     private player: Player = new Player(0,0);
     private characters: Character[] = [];
@@ -48,8 +45,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     constructor(props:IGameProps){
         super(props);
         this.state = {
-            canvasWidth: 0,
-            canvasHeight: 0,
             ticks: 0,
             currentLevel: Levels.levels[0],
             levelPosX: 0,
@@ -93,21 +88,30 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         }else{
             return(
                 <div id="gameDiv" className={`Game col-lg-12`}>
-                <GameUI
-                    currentEctsScore = {this.state.currentEctsScore}
-                    currentLevelName = {this.state.currentLevel.name}
-                    currentLives = {this.player.lives}
-                    maxLives = {this.player.maxLives}/>
-                <GameCanvas
-                    canvasWidth = {this.state.canvasWidth}
-                    canvasHeight = {this.state.canvasHeight}
-                    currentLevel = {this.state.currentLevel}
-                    ticks = {this.state.ticks}
-                    levelPosX = {this.state.levelPosX}
-                    entities = {this.state.entities}/>
-                    </div>
+                    <GameUI
+                        currentEctsScore = {this.state.currentEctsScore}
+                        currentLevelName = {this.state.currentLevel.name}
+                        currentLives = {this.player.lives}
+                        maxLives = {this.player.maxLives}/>
+                    <GameCanvas
+                        canvasWidth = {Config.canvasSize.w}
+                        canvasHeight = {Config.canvasSize.h}
+                        currentLevel = {this.state.currentLevel}
+                        ticks = {this.state.ticks}
+                        levelPosX = {this.state.levelPosX}
+                        entities = {this.state.entities} />
+                </div>
             )
         }
+    }
+
+    componentDidMount() {
+        this.updateDimensions();
+        window.addEventListener("resize", this.updateDimensions.bind(this));
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateDimensions.bind(this));
     }
 
     onGameStartHandler(){
@@ -121,67 +125,16 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     onGameNextLevelHandler(){
         this.setState({showGameMenu: false})
         this.endLevel();
+        this.startGameLoop();
     }
     onGameRestartHandler(){
         this.setState({showGameMenu: false})
         this.startNewGame();
     }
 
-    private showNextLevelMenu(){
-        this.pauseGameLoop();
-        if(Levels.nextLevelExists(this.currentLevel.name)){
-            this.setState({showGameMenu: true, gameMenuType: GameMenuType.NEXTLEVEL});
-        }else{
-            this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN});
-        }
-    }
-
-    private updateDimensions() {
-        //TODO fix
-        Config.canvasSize.w = document.getElementById("gameCanvas")?.offsetWidth;
-        Config.canvasSize.h = window.innerHeight-56;
-        this.centerLevelPosX();
-
-        this.setState({ canvasWidth: window.innerWidth, canvasHeight: Config.canvasSize.h});
-    }
-
-    componentDidMount() {
-        this.updateDimensions();
-        window.addEventListener("resize", this.updateDimensions.bind(this));
-    }
-
-    componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions.bind(this));
-    }
-
-    private showStartMenu(){
-        this.setState({
-            showGameMenu: true,
-            gameMenuType: GameMenuType.START
-        });
-    }
-
-    private centerLevelPosX(){
-        
-        // no centering needed
-        if(this.state.canvasWidth > this.currentLevel.map.mapWidth){
-            return;
-        }
-
-        this.levelPosX = this.player.xPos + this.state.canvasWidth/2;
-        
-        //if player near end of level set levelPosX to max
-        if(this.levelPosX >= this.currentLevel.map.mapWidth - Config.canvasSize.w && this.currentLevel.map.mapWidth > Config.canvasSize.w){
-            this.levelPosX = this.currentLevel.map.mapWidth - Config.canvasSize.w;
-        }
-        
-    }
-    
-
     private startNewGame() {
         Controls.registerKeyEvents()
-        this.currentLevel = Levels.levels[0];
-        this.initializeLevel(this.currentLevel);
+        this.initializeLevel(Levels.levels[0]);
         this.startGameLoop();
     }
 
@@ -191,8 +144,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         this.player.resetPlayer();
         this.respawnPlayer()
         this.levelPosX = 0;
-        this.characters = this.currentLevel.enemies.slice();
-        this.characters.push(this.player);
+        Config.canvasSize.h = this.currentLevel.map.mapHeight;
 
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.enemies);
         this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(this.currentLevel.items);
@@ -221,6 +173,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     private checkIfPausedEvent(){
         if(Controls.Escape){
+            Controls.Escape = false;
             this.pauseGameLoop();
             this.setState({showGameMenu: true, gameMenuType: GameMenuType.PAUSE});
         } 
@@ -233,20 +186,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     private startGameLoop(){
         clearInterval(Config.gameInterval);
         Config.gameInterval = setInterval(this.gameLoop, 1000 / Config.fps);
-    }
-
-    private checkEctsRequirement(){
-        if(this.state.currentEctsScore >= this.currentLevel.requiredEcts && !this.currentLevel.exitIsOpen){
-            this.openLevelExit();
-        }
-    }
-
-    private openLevelExit(){
-        this.currentLevel.map.mapTiles.forEach(layer => {
-            layer = layer.map(mapTile => mapTile.type === MapTileType.CLOSEDEXIT ? mapTile.replaceWithOpenExitMapTile() : mapTile);
-            this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(layer.filter(mapTile => mapTile.type === MapTileType.EXIT));
-        });
-        this.currentLevel.exitIsOpen = true;
     }
 
     private updateState(){
@@ -364,7 +303,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         });
         
     }
-
     
     private checkLevelEdgeCollision(entity: Entity){
         entity.handleLevelEdgeCollision(this.currentLevel.map);
@@ -373,6 +311,47 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         if (entity.yPos > this.currentLevel.map.mapHeight - MapTile.targetSize) {
             entity.fellOutOfMap();
         }
+    }
+
+    private updateDimensions() {
+
+        Config.canvasSize.w = window.innerWidth;
+
+        this.centerLevelPosX();
+
+    }
+
+    private centerLevelPosX(){
+        console.log("canvassize: "+Config.canvasSize.w);
+        console.log("mapwidth: "+this.currentLevel.map.mapWidth);
+        console.log("playerxpos: "+this.player.xPos);
+        // no centering needed
+        if(Config.canvasSize.w > this.currentLevel.map.mapWidth){
+            return;
+        }
+
+        this.levelPosX = this.player.xPos - Config.canvasSize.w/2;
+
+        this.levelPosX = this.levelPosX < 0 ? 0 : this.levelPosX; //if at left edge of level set levelposx to 0
+        //if player near end of level set levelPosX to max
+        if(this.levelPosX >= this.currentLevel.map.mapWidth - Config.canvasSize.w && this.currentLevel.map.mapWidth > Config.canvasSize.w){
+            this.levelPosX = this.currentLevel.map.mapWidth - Config.canvasSize.w;
+        }
+        
+    }
+
+    private checkEctsRequirement(){
+        if(this.state.currentEctsScore >= this.currentLevel.requiredEcts && !this.currentLevel.exitIsOpen){
+            this.openLevelExit();
+        }
+    }
+
+    private openLevelExit(){
+        this.currentLevel.map.mapTiles.forEach(layer => {
+            layer = layer.map(mapTile => mapTile.type === MapTileType.CLOSEDEXIT ? mapTile.replaceWithOpenExitMapTile() : mapTile);
+            this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(layer.filter(mapTile => mapTile.type === MapTileType.EXIT));
+        });
+        this.currentLevel.exitIsOpen = true;
     }
 
     private updateMapPosition(player: Player){
@@ -455,6 +434,15 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         });
     }
 
+    private showNextLevelMenu(){
+        this.pauseGameLoop();
+        if(Levels.nextLevelExists(this.currentLevel)){
+            this.setState({showGameMenu: true, gameMenuType: GameMenuType.NEXTLEVEL});
+        }else{
+            this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN});
+        }
+    }
+
     private respawnPlayer(){
         this.player.xPos = 0;
         this.player.yPos = this.currentLevel.map.getGroundLevel()-10;
@@ -465,10 +453,12 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private endLevel(){
-        if(Levels.nextLevelExists(this.currentLevel.name)){
-            this.initializeLevel(Levels.levels[Levels.getLevelIndex(this.currentLevel.name)+1]);
+
+        let nextLevel = Levels.getNextLevel(this.currentLevel);
+        if(nextLevel){
+            this.initializeLevel(nextLevel);
         } else{
-            this.gameEnd(); 
+            this.gameEnd();
         }
     }
 

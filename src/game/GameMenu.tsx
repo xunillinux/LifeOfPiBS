@@ -1,6 +1,6 @@
 import React from 'react';
 import './GameUI.css';
-import { Modal, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import GameUI from './GameUI';
 import KeyBindingMenu from './KeyBindingMenu';
 
@@ -29,15 +29,10 @@ export enum GameMenuType{
 }
 export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuState> {
 
-    private modalRef: React.RefObject<Modal>;
 
     // eslint-disable-next-line
     constructor(props:IGameMenuProps){
         super(props);
-
-        this.modalRef = React.createRef();
-
-
     }
     
 

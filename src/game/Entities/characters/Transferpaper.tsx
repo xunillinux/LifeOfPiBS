@@ -45,7 +45,6 @@ export default class Transferpaper extends Npc {
     }
 
     public animate(ticks: number) {
-        //TODO: update sprite and animation here
         if(this.movingRight){
             this.spritePos.tileY = 0;
         }else{
