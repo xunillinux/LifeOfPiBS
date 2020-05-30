@@ -12,30 +12,36 @@ export default class KeyBindingMenu extends React.Component{
     render(){
         return (
             <div id="keyBinding">
-                <h2>Key Binding</h2>
+                <h2 id="keyBinding_title">Key Binding</h2>
                 <table>
                     <tr>
                         <td><kbd>RIGHT</kbd></td>
+                        <td className={`spacer`}></td>
                         <td>Move right</td>
                     </tr>
                     <tr>
                         <td><kbd>LEFT</kbd></td>
+                        <td className={`spacer`}></td>
                         <td>Move left</td>
                     </tr>
                     <tr>
                         <td><kbd>SPACE</kbd></td>
+                        <td className={`spacer`}></td>
                         <td>Jump</td>
                     </tr>
                     <tr>
                         <td><kbd>UP</kbd></td>
+                        <td className={`spacer`}></td>
                         <td>Jump</td>
                     </tr>
                     <tr>
                         <td><kbd>E</kbd></td>
+                        <td className={`spacer`}></td>
                         <td>Shoot</td>
                     </tr>
                     <tr>
                         <td><kbd>ESC</kbd></td>
+                        <td className={`spacer`}></td>
                         <td>Pause</td>
                     </tr>
                 </table>

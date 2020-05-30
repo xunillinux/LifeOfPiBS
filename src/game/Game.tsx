@@ -69,7 +69,10 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     render(){
         if(this.state.showGameMenu){
             return(
-                <div id="gameDiv" className={`Game col-lg-12`}>
+                <div id="wrapper" className={`Game row align-items-start`}>
+                <div id="gameDiv1" className={`Game col-lg-4`}></div>
+                    <div id="gameDiv" className={`col-lg-4`}>
+                    
                     <GameMenu
                     show = {this.state.showGameMenu}
                     gameMenuType = {this.state.gameMenuType}
@@ -82,7 +85,10 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                     onGameResumeHandler = {this.onGameResumeHandler}
                     onGameStartHandler = {this.onGameStartHandler}
                     />
-                </div>
+                    </div>
+                    <div id="gameDiv2" className={`Game col-lg-4`}></div>
+                </div>   
+                
             )
         }else{
             return(
