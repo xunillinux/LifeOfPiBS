@@ -307,23 +307,25 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private updateDimensions() {
-        //TODO fix
-        //Config.canvasSize.w = document.getElementById("gameCanvas")?.offsetWidth;
+
         Config.canvasSize.w = window.innerWidth;
 
-        this.centerLevelPosX(); //fix -> after setstate or give canvas width and height as params
+        this.centerLevelPosX();
 
     }
 
     private centerLevelPosX(){
-        
+        console.log("canvassize: "+Config.canvasSize.w);
+        console.log("mapwidth: "+this.currentLevel.map.mapWidth);
+        console.log("playerxpos: "+this.player.xPos);
         // no centering needed
         if(Config.canvasSize.w > this.currentLevel.map.mapWidth){
             return;
         }
 
-        this.levelPosX = this.player.xPos + Config.canvasSize.w/2;
-        
+        this.levelPosX = this.player.xPos - Config.canvasSize.w/2;
+
+        this.levelPosX = this.levelPosX < 0 ? 0 : this.levelPosX; //if at left edge of level set levelposx to 0
         //if player near end of level set levelPosX to max
         if(this.levelPosX >= this.currentLevel.map.mapWidth - Config.canvasSize.w && this.currentLevel.map.mapWidth > Config.canvasSize.w){
             this.levelPosX = this.currentLevel.map.mapWidth - Config.canvasSize.w;
