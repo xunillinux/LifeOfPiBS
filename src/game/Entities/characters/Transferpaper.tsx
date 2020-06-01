@@ -4,7 +4,7 @@ import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Character from './Character';
 import Player from './Player';
-import Projectile from '../projectiles/Projectile';
+import Projectile, { ProjectileDirection } from '../projectiles/Projectile';
 
 export default class Transferpaper extends Npc {
     
@@ -152,11 +152,11 @@ export default class Transferpaper extends Npc {
         let shootDirectionRight = (directionRight) ? directionRight : Math.random() >= 0.5;
 
         if(shootDirectionRight){
-            let projectile = new Projectile(0, 0, true, this);
+            let projectile = new Projectile(0, 0, ProjectileDirection.RIGHT, this);
             projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }else{
-            let projectile = new Projectile(0, 0, false, this);
+            let projectile = new Projectile(0, 0, ProjectileDirection.LEFT, this);
             projectile.updatePos(this.xPos-projectile.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }

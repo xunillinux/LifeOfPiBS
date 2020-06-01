@@ -4,7 +4,7 @@ import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Character from './Character';
 import Player from './Player';
-import Projectile from '../projectiles/Projectile';
+import Projectile, { ProjectileDirection } from '../projectiles/Projectile';
 
 export default class Bachelorthesis extends Npc {
     
@@ -147,19 +147,28 @@ export default class Bachelorthesis extends Npc {
 
     }
 
-    public shoot(directionRight?:boolean): Projectile{
+    public shoot(shootDirection?:ProjectileDirection): Projectile{
         this._shootCooldown = this._shootCooldownTime;
-        let shootDirectionRight = (directionRight) ? directionRight : Math.random() >= 0.5;
 
-        if(shootDirectionRight){
-            let projectile = new Projectile(0, 0, true, this);
-            projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
-            return projectile;
-        }else{
-            let projectile = new Projectile(0, 0, false, this);
-            projectile.updatePos(this.xPos-projectile.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
-            return projectile;
+        if(!shootDirection){
+            shootDirection = Math.random() >= 0.5 ? ProjectileDirection.RIGHT : ProjectileDirection.LEFT;
+            shootDirection = Math.random() >= 0.5 ? ProjectileDirection.UP : shootDirection;
         }
+
+        let projectile = new Projectile(0, 0, shootDirection, this);
+        switch (shootDirection) {
+            case ProjectileDirection.RIGHT:
+                projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
+                break;
+            case ProjectileDirection.LEFT:
+                projectile.updatePos(this.xPos-this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
+                break;
+            case ProjectileDirection.UP:
+                projectile.updatePos(this.xPos+this.targetSize/2, this.yPos-this.targetSize - projectile.targetSize/2);
+                break;
+        }
+
+        return projectile;
     }
 
     public updateShootCooldown(){
@@ -186,8 +195,9 @@ export default class Bachelorthesis extends Npc {
         let projectileArray:Projectile[] = [];
         if(this.lives !== this.maxLives){
             this.lives++;
-            projectileArray.push(this.shoot(true));
-            projectileArray.push(this.shoot(false));
+            projectileArray.push(this.shoot(ProjectileDirection.RIGHT));
+            projectileArray.push(this.shoot(ProjectileDirection.LEFT));
+            projectileArray.push(this.shoot(ProjectileDirection.UP));
             this._regenerateCooldown = this._regenerateCooldownTime;
         }
         return projectileArray;

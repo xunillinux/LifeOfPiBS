@@ -2,7 +2,7 @@ import Character from './Character';
 import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
-import Projectile from '../projectiles/Projectile';
+import Projectile, { ProjectileDirection } from '../projectiles/Projectile';
 
 export default class Player extends Character{
 
@@ -173,11 +173,11 @@ export default class Player extends Character{
         this._shootCooldown = this._shootCooldownTime;
 
         if(this._facingRight){
-            let projectile = new Projectile(0, 0, true, this);
+            let projectile = new Projectile(0, 0, ProjectileDirection.RIGHT, this);
             projectile.updatePos(this.xPos+this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }else{
-            let projectile = new Projectile(0, 0, false, this);
+            let projectile = new Projectile(0, 0, ProjectileDirection.LEFT, this);
             projectile.updatePos(this.xPos-projectile.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }
