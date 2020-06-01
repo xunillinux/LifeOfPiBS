@@ -42,9 +42,11 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
             case GameMenuType.START:
                 return(
                     <div id="gameMenu">
-                        <h1>Welcome to Life of PiBS!</h1>
+                        <h1 id="welcome_text">Welcome to Life of PiBS!</h1>
                         <KeyBindingMenu/>
-                        <Button variant="primary" onClick={this.props.onGameStartHandler}>
+                        <br/>
+                        <h4 id="ready_text">Are you ready to start studying?</h4>
+                        <Button id="startGameButton" variant="primary" onClick={this.props.onGameStartHandler}>
                                 Start Game
                             </Button>
                     </div>
@@ -59,10 +61,10 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             currentLives = {this.props.currentLives}
                             maxLives = {this.props.maxLives}/>
                         <KeyBindingMenu/>
-                        <Button variant="primary" onClick={this.props.onGameResumeHandler}>
+                        <Button id="resumeGameButton" variant="primary" onClick={this.props.onGameResumeHandler}>
                                 Resume Game
                             </Button>
-                        <Button variant="primary" onClick={this.props.onGameRestartHandler}>
+                        <Button id="restartGameButton" variant="primary" onClick={this.props.onGameRestartHandler}>
                             Restart Game
                         </Button>
                     </div>
@@ -76,7 +78,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             currentLevelName = {this.props.currentLevelName}
                             currentLives = {this.props.currentLives}
                             maxLives = {this.props.maxLives}/>
-                        <Button variant="primary" onClick={this.props.onGameNextLevelHandler}>
+                        <Button id="continueToLevelButton"variant="primary" onClick={this.props.onGameNextLevelHandler}>
                                 Continue to next level
                         </Button>
                     </div>
@@ -86,13 +88,14 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                 return(
                     <div id="gameMenu">
                         <h1>You won! Here is your certificate:</h1>
-                        TODO: img of certificate and text "now go and do yomething useful with your life"
+                        TODO: img of certificate and text "now go and do something useful with your life"
+                        <h4 id="useful_text">Now go and do something useful with your life</h4>
                         <GameUI
                             currentEctsScore = {this.props.currentEctsScore}
                             currentLevelName = {this.props.currentLevelName}
                             currentLives = {this.props.currentLives}
                             maxLives = {this.props.maxLives}/>
-                        <Button variant="primary" onClick={this.props.onGameRestartHandler}>
+                        <Button id="restartPiBSButton" variant="primary" onClick={this.props.onGameRestartHandler}>
                                 Restart PiBS
                         </Button>
                         TODO: onButtonClick: alert "are you really sure, it's 4 years of your life"
@@ -109,14 +112,11 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                                 currentLevelName = {this.props.currentLevelName}
                                 currentLives = {this.props.currentLives}
                                 maxLives = {this.props.maxLives}/>
-                            <Button variant="primary" onClick={this.props.onGameRestartHandler}>
+                            <Button id="restartButton" variant="primary" onClick={this.props.onGameRestartHandler}>
                                     Restart Game
                             </Button>
                         </div>
                     )
-
-            default:
-                break;
         }
     }
 
