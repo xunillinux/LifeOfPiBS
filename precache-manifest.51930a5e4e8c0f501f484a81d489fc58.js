@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "6e4f6711a7e905bceeb4109556a6c400",
+    "revision": "14ad2f9e06b2f08fb622299cf840b82c",
     "url": "/LifeOfPiBS/index.html"
   },
   {
-    "revision": "84e195161bcd2d5325b2",
+    "revision": "327e8e769cd834408db8",
     "url": "/LifeOfPiBS/static/css/main.8a7c95cf.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/LifeOfPiBS/static/js/2.0160b1dc.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "84e195161bcd2d5325b2",
-    "url": "/LifeOfPiBS/static/js/main.116f8d21.chunk.js"
+    "revision": "327e8e769cd834408db8",
+    "url": "/LifeOfPiBS/static/js/main.744e5bb6.chunk.js"
   },
   {
     "revision": "aae0cfffd2b09063039b",
@@ -26,5 +26,13 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "e913ebdcde950d8e9b9ecd221ba646a4",
     "url": "/LifeOfPiBS/static/media/ARCADE_R.e913ebdc.TTF"
+  },
+  {
+    "revision": "d71120f8e115da6d45173c2b89460fb5",
+    "url": "/LifeOfPiBS/static/media/bachelorcert_big.d71120f8.jpg"
+  },
+  {
+    "revision": "ebce645cbe7a24cf7b746fe32cea25e9",
+    "url": "/LifeOfPiBS/static/media/bachelorcert_burned_big.ebce645c.jpg"
   }
 ]);
