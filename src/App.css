@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'ArcadeFont';
+  src: url(./game/font/ARCADE_R.TTF);
+}
+
+#content{
+  font-family: ArcadeFont;
+}
+
 #content{
   background-color: #00616e;
   min-height: 100vh;
