@@ -7,6 +7,7 @@ import { MapTileType } from "../Map/MapTileType";
 import Item from "../Entities/items/Item";
 import SpecialCollisionEvents from "./SpecialCollisionEvents";
 import Ects from "../Entities/items/Ects";
+import Heart from "../Entities/items/Heart";
 
 export default class CollisionMap{
 
@@ -148,6 +149,10 @@ export default class CollisionMap{
     public static processPlayerItemCollision(player: Player, item: Item, collides: Collision){
         if(item instanceof Ects){
             player.addEcts();
+            item.isCollected = true;
+        }
+        if(item instanceof Heart){
+            player.addLife();
             item.isCollected = true;
         }
     }

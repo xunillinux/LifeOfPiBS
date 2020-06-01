@@ -5,6 +5,7 @@ import Map from '../Map/Map';
 import MapTile from '../Map/MapTile';
 import Transferpaper from '../Entities/characters/Transferpaper';
 import Bachelorthesis from '../Entities/characters/Bachelorthesis';
+import Heart from '../Entities/items/Heart';
 
 class Levels {
 
@@ -35,7 +36,8 @@ class Levels {
             new Ects( Levels.getCoordinateForRelativeMapPos(30), Levels.getCoordinateForRelativeMapPos(6) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(80), Levels.getCoordinateForRelativeMapPos(7) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(45), Levels.getCoordinateForRelativeMapPos(5) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(60), Levels.getCoordinateForRelativeMapPos(5) )
+            new Ects( Levels.getCoordinateForRelativeMapPos(60), Levels.getCoordinateForRelativeMapPos(5) ),
+            new Heart( Levels.getCoordinateForRelativeMapPos(50), Levels.getCoordinateForRelativeMapPos(4) ),
         ]
         ),
 
@@ -93,6 +95,8 @@ class Levels {
             new Ects( Levels.getCoordinateForRelativeMapPos(66), Levels.getCoordinateForRelativeMapPos(5) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(42), Levels.getCoordinateForRelativeMapPos(8) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(75), Levels.getCoordinateForRelativeMapPos(6) ),
+            new Heart( Levels.getCoordinateForRelativeMapPos(22), Levels.getCoordinateForRelativeMapPos(5) ),
+            new Heart( Levels.getCoordinateForRelativeMapPos(70), Levels.getCoordinateForRelativeMapPos(4) ),
         ]
         ),
 
@@ -151,6 +155,7 @@ class Levels {
             new Ects( Levels.getCoordinateForRelativeMapPos(66), Levels.getCoordinateForRelativeMapPos(5) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(42), Levels.getCoordinateForRelativeMapPos(8) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(75), Levels.getCoordinateForRelativeMapPos(6) ),
+            new Heart( Levels.getCoordinateForRelativeMapPos(42), Levels.getCoordinateForRelativeMapPos(2) ),
         ]
         ),
 
@@ -203,10 +208,12 @@ class Levels {
         ],
         [
             new Ects( Levels.getCoordinateForRelativeMapPos(15), Levels.getCoordinateForRelativeMapPos(7) ),
-            new Ects( Levels.getCoordinateForRelativeMapPos(25), Levels.getCoordinateForRelativeMapPos(6) ),
+            new Ects( Levels.getCoordinateForRelativeMapPos(25), Levels.getCoordinateForRelativeMapPos(5) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(66), Levels.getCoordinateForRelativeMapPos(5) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(42), Levels.getCoordinateForRelativeMapPos(8) ),
             new Ects( Levels.getCoordinateForRelativeMapPos(75), Levels.getCoordinateForRelativeMapPos(6) ),
+            new Heart( Levels.getCoordinateForRelativeMapPos(2), Levels.getCoordinateForRelativeMapPos(4) ),
+            new Heart( Levels.getCoordinateForRelativeMapPos(72), Levels.getCoordinateForRelativeMapPos(1) ),
         ]
         ),
 

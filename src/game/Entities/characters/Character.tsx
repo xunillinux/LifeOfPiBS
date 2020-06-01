@@ -11,7 +11,6 @@ export default abstract class Character extends Entity{
     private _xVelocityJump: number;
     private _yVelocity: number;
     private _friction: number;
-    
 
     private _lives: number;
     

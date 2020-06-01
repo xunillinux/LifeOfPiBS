@@ -197,6 +197,12 @@ export default class Player extends Character{
         return (this._shootCooldown <= 0);
     }
 
+    public addLife(){
+        if(this.lives < this.maxLives){
+            this.lives += 1;
+        }
+    }
+
 
     public get maxLives(): number {
         return this._maxLives;

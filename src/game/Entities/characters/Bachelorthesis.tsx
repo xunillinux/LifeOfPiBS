@@ -29,16 +29,16 @@ export default class Bachelorthesis extends Npc {
         let yVelocity = 25;
         let speedLimitY = 25;
         let friction = 0.4;
-        let lives = 10;
+        let lives = 20;
         let collision = true;
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity,speedLimitY, friction, lives, collision);
         this.xSpeed = 4;
         this.movingLeft = true;
         this.ectsKillReward = 5;
         this._shootCooldown = 0;
-        this._shootCooldownTime = 50;
+        this._shootCooldownTime = 75;
         this._regenerateCooldown = 0;
-        this._regenerateCooldownTime = 60;
+        this._regenerateCooldownTime = 75;
         this.maxLives = lives;
 
         this.movingRight = !this.movingLeft;
@@ -51,21 +51,22 @@ export default class Bachelorthesis extends Npc {
             this.spritePos.tileY = 1;
         }
         if (ticks % 4 === 0) {
+            let relativeLives = Math.floor(this.lives/2);
             switch (this.spritePos.tileX % 4) {
                 case 0:
-                    this.spritePos.tileX = 1 + 4 * this.lives; // 4 * lives -> take sprite that corresponds to current health state
+                    this.spritePos.tileX = 1 + 4 * relativeLives; // 4 * lives -> take sprite that corresponds to current health state
                     break;
                 case 1:
-                    this.spritePos.tileX = 2 + 4 * this.lives; // 4 * lives -> take sprite that corresponds to current health state
+                    this.spritePos.tileX = 2 + 4 * relativeLives; // 4 * lives -> take sprite that corresponds to current health state
                     break;
                 case 2:
-                    this.spritePos.tileX = 3 + 4 * this.lives; // 4 * lives -> take sprite that corresponds to current health state
+                    this.spritePos.tileX = 3 + 4 * relativeLives; // 4 * lives -> take sprite that corresponds to current health state
                     break;
                 case 3:
-                    this.spritePos.tileX = 0 + 4 * this.lives; // 4 * lives -> take sprite that corresponds to current health state
+                    this.spritePos.tileX = 0 + 4 * relativeLives; // 4 * lives -> take sprite that corresponds to current health state
                     break;
                 default:
-                    this.spritePos.tileX = 0 + 4 * this.lives; // 4 * lives -> take sprite that corresponds to current health state
+                    this.spritePos.tileX = 0 + 4 * relativeLives; // 4 * lives -> take sprite that corresponds to current health state
                     break;
             }
         }
