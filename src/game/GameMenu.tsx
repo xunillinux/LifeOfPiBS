@@ -1,5 +1,5 @@
 import React from 'react';
-import './GameUI.css';
+import './GameMenu.css';
 import { Button, Container, Row, Col } from 'react-bootstrap';
 import GameUI from './GameUI';
 import KeyBindingMenu from './KeyBindingMenu';

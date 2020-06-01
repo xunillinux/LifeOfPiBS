@@ -95,6 +95,10 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                                 currentLevelName = {this.state.currentLevel.name}
                                 currentLives = {this.player.lives}
                                 maxLives = {this.player.maxLives}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
                             <GameCanvas
                                 canvasWidth = {Config.canvasSize.w}
                                 canvasHeight = {Config.canvasSize.h}
