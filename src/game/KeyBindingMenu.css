@@ -4,3 +4,13 @@
     align-content: center;
 
 }
+
+#keyBinding div{
+    padding: 2px;
+}
+
+#keyBinding div .col{
+    padding-right: 12px;
+    padding-left: 12px;
+}
+

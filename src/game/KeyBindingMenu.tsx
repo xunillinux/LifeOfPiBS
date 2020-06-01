@@ -19,40 +19,47 @@ export default class KeyBindingMenu extends React.Component{
                     </Col>
                 </Row>
                 <Row>
-                    <Col>
-                        <table>
-                            <thead></thead>
-                            <tbody>
-                            <tr>
-                                <td><kbd>RIGHT</kbd></td>
-                                <td>Move right</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>LEFT</kbd></td>
-                                <td>Move left</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>SPACE</kbd></td>
-                                <td>Jump</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>UP</kbd></td>
-                                <td>Jump</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>E</kbd></td>
-                                <td>Shoot</td>
-                            </tr>
-                            <tr>
-                                <td><kbd>ESC</kbd></td>
-                                <td>Pause</td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <Col className="text-right">
+                        <kbd>RIGHT</kbd>
+                    </Col>
+                    <Col className="text-left">
+                        Move right
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-right">
+                    <kbd>LEFT</kbd>
+                    </Col>
+                    <Col className="text-left">
+                        Move left
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-right">
+                        <kbd>SPACE</kbd>,
+                        <kbd>UP</kbd>
+                    </Col>
+                    <Col className="text-left">
+                        Jump
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-right">
+                        <kbd>E</kbd>
+                    </Col>
+                    <Col className="text-left">
+                        Shoot
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="text-right">
+                        <kbd>ESC</kbd>
+                    </Col>
+                    <Col className="text-left">
+                        Pause
                     </Col>
                 </Row>
             </Container>
-                
           );
     }
 
