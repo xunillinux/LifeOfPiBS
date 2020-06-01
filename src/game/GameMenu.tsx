@@ -56,6 +56,9 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             <Col> <h4>Are you ready to start studying?</h4> </Col>
                         </Row>
                         <Row>
+                            <Col> <h6>Be careful tough... There are evil profs lurking around on your path!</h6></Col>
+                        </Row>
+                        <Row>
                             <Col>
                                 <Button id="startGameButton" variant="primary" onClick={this.props.onGameStartHandler}> Press <kbd>SPACE</kbd> to start </Button>
                             </Col>
