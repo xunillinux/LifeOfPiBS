@@ -3,6 +3,7 @@ import './GameUI.css';
 import ectsCoin from '../game/images/ects_UI.jpg';
 import fullHeart from '../game/images/full_heart.jpg';
 import emptyHeart from '../game/images/empty_heart.jpg';
+import { Row, Col, Container } from 'react-bootstrap';
 
 interface IGameUIProps{
     currentLevelName: string;
@@ -39,24 +40,17 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
       }
 
         return (
-            <div className="GameUI row">
-                <div className="col-sm-6">
+          <Container fluid>
+            <Row>
+              <Col sm={12}>
                 <strong>Level: {this.props.currentLevelName} </strong>
-                </div>
-                <div className="col-sm-3">
-                  <img
-                      alt="logo"
-                      src={ectsCoin}
-                      width="30"
-                      height="30"
-                      className="d-inline-block align-top"
-                    /> <strong> : {this.props.currentEctsScore} </strong>
-                </div>
-                <div className="col-sm-3">
-                  {lifeImages}
-                </div>
-            </div>
-          );
+                <img alt="logo" src={ectsCoin} width="30" height="30" className="d-inline-block align-top" />
+                <strong> : {this.props.currentEctsScore} </strong>
+                {lifeImages}
+              </Col>
+            </Row>
+          </Container>
+        );
     }
 
 }

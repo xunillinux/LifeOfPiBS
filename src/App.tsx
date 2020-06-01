@@ -30,9 +30,7 @@ function App() {
 
         <div id="gameContent">
 
-          <Container fluid>
             <Game/>
-          </Container>
 
         </div>
 
