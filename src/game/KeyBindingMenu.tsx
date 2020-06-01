@@ -11,7 +11,7 @@ export default class KeyBindingMenu extends React.Component{
 
     render(){
         return (
-            <div id="keyBinding">
+            <div id="keyBinding" className="info-box col-md-12">
                 <h2 id="keyBinding_title">Key Binding</h2>
                 <table>
                     <thead></thead>

@@ -1,20 +1,6 @@
 
-.modal-backdrop {
-    position: absolute !important;
-}
-
-#gameDiv {
-    position: relative;
-    
-}
-
-#gameDivContent{
-    float: center;
-}
-
-#keyBinding{
+.info-box{
     background-color: rgb(63, 204, 223);
-    margin-top: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
@@ -35,33 +21,27 @@
 
 #startGameButton{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 10px;
 }
 
 #resumeGameButton{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     margin-top: 20px;
-    margin-right: 30px;
 }
 
 #restartGameButton{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 20px;
 }
 
 #continueToLevelButton{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 10px;
 }
 
 #restartPiBSButton{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 10px;
 }
 
 #restartButton{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 10px;
 }
 
 #ready_text{

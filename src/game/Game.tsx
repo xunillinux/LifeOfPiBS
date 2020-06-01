@@ -17,6 +17,7 @@ import Npc from './Entities/characters/Npc';
 import Item from './Entities/items/Item';
 import { MapTileType } from './Map/MapTileType';
 import GameMenu, { GameMenuType } from './GameMenu';
+import { Row, Col } from 'react-bootstrap';
 
 interface IGameProps{
 }
@@ -64,31 +65,29 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     render(){
         if(this.state.showGameMenu){
             return(
-                <div id="wrapper" className={`Game row align-items-start`}>
-                <div id="gameDiv1" className={`Game col-lg-4`}></div>
-                    <div id="gameDiv" className={`col-lg-4`}>
-                    
-                    <GameMenu
-                    show = {this.state.showGameMenu}
-                    gameMenuType = {this.state.gameMenuType}
-                    currentEctsScore = {this.state.currentEctsScore}
-                    currentLevelName = {this.state.currentLevel.name}
-                    currentLives = {this.player.lives}
-                    maxLives = {this.player.maxLives}
-                    onGameNextLevelHandler = {this.onGameNextLevelHandler}
-                    onGameRestartHandler = {this.onGameRestartHandler}
-                    onGameResumeHandler = {this.onGameResumeHandler}
-                    onGameStartHandler = {this.onGameStartHandler}
-                    />
-                    </div>
-                    <div id="gameDiv2" className={`Game col-lg-4`}></div>
-                </div>   
-                
+                <Row>
+                    <Col/>
+                    <Col>
+                        <GameMenu
+                        show = {this.state.showGameMenu}
+                        gameMenuType = {this.state.gameMenuType}
+                        currentEctsScore = {this.state.currentEctsScore}
+                        currentLevelName = {this.state.currentLevel.name}
+                        currentLives = {this.player.lives}
+                        maxLives = {this.player.maxLives}
+                        onGameNextLevelHandler = {this.onGameNextLevelHandler}
+                        onGameRestartHandler = {this.onGameRestartHandler}
+                        onGameResumeHandler = {this.onGameResumeHandler}
+                        onGameStartHandler = {this.onGameStartHandler}
+                        />
+                    </Col>
+                    <Col/>
+                </Row>
             )
         }else{
             return(
-                <div id="gameDiv" className={`Game col-lg-12`}>
-                    <GameUI
+                <Col>
+                <GameUI
                         currentEctsScore = {this.state.currentEctsScore}
                         currentLevelName = {this.state.currentLevel.name}
                         currentLives = {this.player.lives}
@@ -100,7 +99,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                         ticks = {this.state.ticks}
                         levelPosX = {this.state.levelPosX}
                         entities = {this.state.entities} />
-                </div>
+                </Col>
             )
         }
     }

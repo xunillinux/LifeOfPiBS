@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Game from './game/Game';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Container } from 'react-bootstrap';
 import Logo from './game/images/logo.jpg';
 
 function App() {
@@ -20,20 +20,24 @@ function App() {
       </header>
 
       <div id="content">
+
         <Navbar className="navbar" bg="dark" variant="dark">
-          <Navbar.Brand><img
-          alt="logo"
-          src={Logo}
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-        />{' '}
-        <strong>Life of PiBS</strong></Navbar.Brand>
+          <Navbar.Brand>
+            <img alt="logo" src={Logo} width="30" height="30" className="d-inline-block align-top"/>
+            <strong>Life of PiBS</strong>
+          </Navbar.Brand>
         </Navbar>
-        <div id="gameContent" className="col-lg-12">
-          <Game/>
+
+        <div id="gameContent">
+
+          <Container fluid>
+            <Game/>
+          </Container>
+
         </div>
+
       </div>
+
     </div>
   );
 }

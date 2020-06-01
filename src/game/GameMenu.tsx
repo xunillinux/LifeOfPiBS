@@ -3,6 +3,7 @@ import './GameUI.css';
 import { Button } from 'react-bootstrap';
 import GameUI from './GameUI';
 import KeyBindingMenu from './KeyBindingMenu';
+import Controls from './Controls';
 
 interface IGameMenuProps{
     show: boolean;
@@ -41,14 +42,32 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
         switch (this.props.gameMenuType) {
             case GameMenuType.START:
                 return(
-                    <div id="gameMenu">
-                        <h1 id="welcome_text">Welcome to Life of PiBS!</h1>
+                    <div id="gameMenu" className="row col-md-12">
+
+                        <div className="col-md-12">
+                            <h1 id="welcome_text">Welcome to Life of PiBS!</h1>
+                        </div>
+                        
                         <KeyBindingMenu/>
-                        <br/>
-                        <h4 id="ready_text">Are you ready to start studying?</h4>
-                        <Button id="startGameButton" variant="primary" onClick={this.props.onGameStartHandler}>
-                                Start Game
-                            </Button>
+
+                        <div className="col-md-12">
+                            <h4 id="ready_text">Are you ready to start studying?</h4>
+                        </div>
+
+                        <div className="row col-md-12">
+
+                            <div className="col-md-4">
+                                <Button id="startGameButton" variant="primary" onClick={this.props.onGameStartHandler}>
+                                        Start Game
+                                </Button>
+                            </div>
+                            
+                            <div className="info-box col-md-8">
+                                or press space to start...
+                            </div>
+
+                        </div>
+                        
                     </div>
                 )
 
@@ -118,6 +137,33 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                         </div>
                     )
         }
+    }
+
+    componentDidMount(){
+        let props = this.props;
+        window.onkeydown = function (e: any) {
+            switch (e.keyCode) {
+                case 32: // space
+                    e.preventDefault();
+                    
+                    switch (props.gameMenuType) {
+                        case GameMenuType.START:
+                            props.onGameStartHandler();
+                            break;
+                        case GameMenuType.PAUSE:
+                            props.onGameResumeHandler();
+                            break;
+                        case GameMenuType.NEXTLEVEL:
+                            props.onGameNextLevelHandler();
+                            break;
+                    }
+                    break;
+            }
+        }
+    }
+
+    componentWillUnmount(){
+        Controls.registerKeyEvents();
     }
 
     handleModalShown(){

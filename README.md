@@ -20,7 +20,7 @@ The final boss will be the "bachelor thesis".
 3) The user can move the player backward by pressing the <- or the "A" key.
 4) The user can move the player upward (jump) by pressing the "up" or the "W" key.
 5) The user can make the player shoot by pressing the "space" key.
-6) The user can abort the game by clicking on the button "Stop Game".
+6) The user can pause the game by pressing the "Esc" key.
 7) The count of lives is displayed in the top right corner.
 8) The count of ECTS is displayed in the top right corner.
 9) The current level is displayed in the top left corner.
