@@ -2,6 +2,7 @@ import Npc from "../Entities/characters/Npc";
 import Item from "../Entities/items/Item";
 import Map from "../Map/Map";
 import { v4 as uuidv4 } from 'uuid';
+import { cloneDeep } from 'lodash';
 
 export default class Level {
 
@@ -33,8 +34,16 @@ export default class Level {
 
     }
 
+    public copyLevel(): Level{
+        let levelCopy: Level = cloneDeep(this as Level);
+        return levelCopy;
+    };
+
     public get id(): string {
         return this._id;
+    }
+    public set id(value: string){
+        this.id = value;
     }
 
     public get name(): string {
@@ -51,6 +60,9 @@ export default class Level {
 
     public get enemies(): Npc[] {
         return this._enemies;
+    }
+    public set enemies(value: Npc[]) {
+        this._enemies = value;
     }
 
     public get items(): Item[] {

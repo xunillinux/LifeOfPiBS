@@ -33,7 +33,7 @@ interface IGameState{
 
 export default class Game extends React.Component<IGameProps, IGameState> {
     private ticks: number = 0;
-    private currentLevel: Level = Levels.levels[0];
+    private currentLevel: Level = Levels.getFirstLevel();
     private levelPosX: number = 0;
     private entities: Entity[] = [];
 
@@ -46,7 +46,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         super(props);
         this.state = {
             ticks: 0,
-            currentLevel: Levels.levels[0],
+            currentLevel: Levels.getFirstLevel(),
             levelPosX: 0,
             entities: [],
             currentEctsScore: 0,
@@ -127,7 +127,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     private startNewGame() {
         Controls.registerKeyEvents()
-        this.initializeLevel(Levels.levels[0]);
+        this.initializeLevel(Levels.getFirstLevel());
         this.startGameLoop();
     }
 
@@ -315,9 +315,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private centerLevelPosX(){
-        console.log("canvassize: "+Config.canvasSize.w);
-        console.log("mapwidth: "+this.currentLevel.map.mapWidth);
-        console.log("playerxpos: "+this.player.xPos);
         // no centering needed
         if(Config.canvasSize.w > this.currentLevel.map.mapWidth){
             return;

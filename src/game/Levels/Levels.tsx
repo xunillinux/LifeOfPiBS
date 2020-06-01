@@ -8,7 +8,7 @@ import Bachelorthesis from '../Entities/characters/Bachelorthesis';
 
 class Levels {
 
-    static levels: Level[] = [
+    private static levels: Level[] = [
 
         new Level("1", "grey", 5, new Map([
             "  .                             .                        .                             ",
@@ -208,10 +208,14 @@ class Levels {
 
     public static getNextLevel(level: Level): Level | null{
         if(Levels.nextLevelExists(level)){
-            return Levels.levels[Levels.getLevelIndex(level)+1];
+            return Levels.levels[Levels.getLevelIndex(level)+1].copyLevel();
         } else{
             return null;
         }
+    }
+
+    public static getFirstLevel(): Level{
+        return Levels.levels[0].copyLevel();
     }
 
     private static getLevelIndex(level: Level){
