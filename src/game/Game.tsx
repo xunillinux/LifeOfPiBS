@@ -415,7 +415,9 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             let collides = CollisionMap.checkCollision(projectile, collisionObject);
             if(collides.doesCollide()){
                 if(collisionObject instanceof MapTile){
-                    projectile.hasCollided = true;
+                    if (collisionObject.solid){
+                        projectile.hasCollided = true;
+                    }
                 }else if(collisionObject instanceof Npc){
                     if(projectile.owner instanceof Npc){
                         return;
