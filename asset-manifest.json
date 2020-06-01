@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/LifeOfPiBS/static/css/main.0afd4d38.chunk.css",
-    "main.js": "/LifeOfPiBS/static/js/main.941077f6.chunk.js",
-    "main.js.map": "/LifeOfPiBS/static/js/main.941077f6.chunk.js.map",
+    "main.js": "/LifeOfPiBS/static/js/main.9310e374.chunk.js",
+    "main.js.map": "/LifeOfPiBS/static/js/main.9310e374.chunk.js.map",
     "runtime-main.js": "/LifeOfPiBS/static/js/runtime-main.ab08a057.js",
     "runtime-main.js.map": "/LifeOfPiBS/static/js/runtime-main.ab08a057.js.map",
     "static/js/2.6855aa5d.chunk.js": "/LifeOfPiBS/static/js/2.6855aa5d.chunk.js",
     "static/js/2.6855aa5d.chunk.js.map": "/LifeOfPiBS/static/js/2.6855aa5d.chunk.js.map",
     "index.html": "/LifeOfPiBS/index.html",
-    "precache-manifest.b52f1f056f1176a41497fef62d13a9d0.js": "/LifeOfPiBS/precache-manifest.b52f1f056f1176a41497fef62d13a9d0.js",
+    "precache-manifest.f7e72369d4438e6fe7f1d6973d7a940f.js": "/LifeOfPiBS/precache-manifest.f7e72369d4438e6fe7f1d6973d7a940f.js",
     "service-worker.js": "/LifeOfPiBS/service-worker.js",
     "static/css/main.0afd4d38.chunk.css.map": "/LifeOfPiBS/static/css/main.0afd4d38.chunk.css.map",
     "static/js/2.6855aa5d.chunk.js.LICENSE.txt": "/LifeOfPiBS/static/js/2.6855aa5d.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.ab08a057.js",
     "static/js/2.6855aa5d.chunk.js",
     "static/css/main.0afd4d38.chunk.css",
-    "static/js/main.941077f6.chunk.js"
+    "static/js/main.9310e374.chunk.js"
   ]
 }
