@@ -36,7 +36,7 @@ export default class Bachelorthesis extends Npc {
         this.movingLeft = true;
         this.ectsKillReward = 5;
         this._shootCooldown = 0;
-        this._shootCooldownTime = 30;
+        this._shootCooldownTime = 50;
         this._regenerateCooldown = 0;
         this._regenerateCooldownTime = 60;
         this.maxLives = lives;
