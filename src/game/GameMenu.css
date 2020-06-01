@@ -15,13 +15,13 @@
 }
 
 #gameMenu h1{
-    font-size: 1.5em;
+    font-size: x-large;
     padding-top: 25px;
     padding-bottom: 10px;
 }
 
 #gameMenu h4{
-    font-size: 1em;
+    font-size: large;
     padding-top: 20px;
     padding-bottom: 10px;
 }

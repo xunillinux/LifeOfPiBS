@@ -67,8 +67,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             return(
                 <Container fluid>
                     <Row>
-                        <Col lg={4} md={3}/>
-                        <Col lg={4}  md={6}>
+                        <Col lg={4} md={2}/>
+                        <Col lg={4}  md={8}>
                             <GameMenu
                                 show = {this.state.showGameMenu}
                                 gameMenuType = {this.state.gameMenuType}
@@ -81,7 +81,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                                 onGameResumeHandler = {this.onGameResumeHandler}
                                 onGameStartHandler = {this.onGameStartHandler} />
                         </Col>
-                        <Col lg={4}  md={3}/>
+                        <Col lg={4}  md={2}/>
                     </Row>
                 </Container>
             )
