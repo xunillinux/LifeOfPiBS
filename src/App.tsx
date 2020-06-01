@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Game from './game/Game';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Nav } from 'react-bootstrap';
 import Logo from './game/images/logo.jpg';
 
 function App() {
@@ -22,10 +22,14 @@ function App() {
       <div id="content">
 
         <Navbar className="navbar" bg="dark" variant="dark">
-          <Navbar.Brand>
+          <Navbar.Brand className="col-md-6">
             <img alt="logo" src={Logo} width="30" height="30" className="d-inline-block align-top"/>
             <strong>Life of PiBS</strong>
           </Navbar.Brand>
+          <Navbar.Text className="authorsText col-md-6 text-right">
+            by Jonas Meise and Joel Rueegger
+          </Navbar.Text>
+          
         </Navbar>
 
         <div id="gameContent">

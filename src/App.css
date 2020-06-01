@@ -19,3 +19,7 @@
 #gameContent{
   height: calc(100% - 56px);
 }
+
+.authorsText{
+  font-size: x-small;
+}
