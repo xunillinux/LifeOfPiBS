@@ -23,7 +23,8 @@ export default class Prof extends Npc {
         let lives = 1;
         let collision = true;
         super(xPos, yPos, spriteMap, spritePos, sourceSize, targetSize, xVelocity, xVelocityJump, yVelocity,speedLimitY, friction, lives, collision);
-        this.xSpeed = 4;
+        this.xSpeed = 3;
+        this.xSpeed += Math.floor(Math.random() * Math.floor(5));
         this.movingLeft = true;
         this.movingRight = !this.movingLeft;
     }
