@@ -18,6 +18,7 @@ interface IGameMenuProps{
     currentEctsScore: number;
     currentLives: number;
     maxLives: number;
+    elapsedTimeS: number;
 }
 
 interface IGameMenuState{
@@ -132,7 +133,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             </Col>
                         </Row>
                         <Row>
-                            <Col> Now go and do something useful with your life! </Col>
+                            <Col> This PiBS run took you {this.props.elapsedTimeS} seconds... Now go and do something useful with your life! </Col>
                         </Row>
                         <Row>
                             <Col>

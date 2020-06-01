@@ -30,6 +30,7 @@ interface IGameState{
     currentEctsScore: number;
     showGameMenu: boolean;
     gameMenuType: GameMenuType;
+    elapsedTimeS: number;
 }
 
 export default class Game extends React.Component<IGameProps, IGameState> {
@@ -43,6 +44,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     private projectiles: Projectile[] = [];
     private collisionMap: CollisionMap = new CollisionMap();
 
+    private startTime: number = Date.now();
+
     constructor(props:IGameProps){
         super(props);
         this.state = {
@@ -52,7 +55,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             entities: [],
             currentEctsScore: 0,
             showGameMenu: true,
-            gameMenuType: GameMenuType.START
+            gameMenuType: GameMenuType.START,
+            elapsedTimeS: 0
         };
 
         this.gameLoop = this.gameLoop.bind(this);
@@ -76,6 +80,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
                                 currentLevelName = {this.state.currentLevel.name}
                                 currentLives = {this.player.lives}
                                 maxLives = {this.player.maxLives}
+                                elapsedTimeS = {this.state.elapsedTimeS}
                                 onGameNextLevelHandler = {this.onGameNextLevelHandler}
                                 onGameRestartHandler = {this.onGameRestartHandler}
                                 onGameResumeHandler = {this.onGameResumeHandler}
@@ -132,7 +137,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
     onGameNextLevelHandler(){
         this.setState({showGameMenu: false})
-        this.endLevel();
+        this.loadNextLevel();
         this.startGameLoop();
     }
     onGameRestartHandler(){
@@ -143,6 +148,9 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     private startNewGame() {
         Controls.registerKeyEvents()
         this.player.resetPlayer();
+        this.startTime = Date.now();
+        console.log(this.startTime);
+
         this.initializeLevel(Levels.getFirstLevel());
         this.startGameLoop();
     }
@@ -447,7 +455,8 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         if(Levels.nextLevelExists(this.currentLevel)){
             this.setState({showGameMenu: true, gameMenuType: GameMenuType.NEXTLEVEL});
         }else{
-            this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN});
+            let elapsedTime = Math.floor((Date.now() - this.startTime)/1000);
+            this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN, elapsedTimeS: elapsedTime});
         }
     }
 
@@ -460,24 +469,19 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         this.levelPosX = 0;
     }
 
-    private endLevel(){
+    private loadNextLevel(){
 
         let nextLevel = Levels.getNextLevel(this.currentLevel);
         if(nextLevel){
             this.initializeLevel(nextLevel);
         } else{
-            this.gameEnd();
+            throw new Error("There should be a new level if this is called");
         }
     }
 
     private gameOver(){
         this.pauseGameLoop();
         this.setState({showGameMenu: true, gameMenuType: GameMenuType.LOOSE});
-    }
-
-    private gameEnd(){
-        this.pauseGameLoop();
-        this.setState({showGameMenu: true, gameMenuType: GameMenuType.WIN});
     }
 
 }
