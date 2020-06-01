@@ -4,6 +4,8 @@ import { Button, Container, Row, Col } from 'react-bootstrap';
 import GameUI from './GameUI';
 import KeyBindingMenu from './KeyBindingMenu';
 import Controls from './Controls';
+import certImg from './images/bachelorcert.jpg'
+import burnedCertImg from './images/bachelorcert_burned.jpg'
 
 interface IGameMenuProps{
     show: boolean;
@@ -112,11 +114,12 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                 return(
                     <Container id="gameMenu" fluid>
                         <Row>
-                            <Col> <h1>You won! Here is your certificate:</h1> </Col>
+                            <Col> <h1>You did it! :) </h1> </Col>
                         </Row>
                         <Row>
                             <Col>
-                                TODO: img of certificate and text "now go and do something useful with your life"
+                                Here is your certificate:
+                                <img alt="certificate" src={certImg} width="100%" height="auto" />
                             </Col>
                         </Row>
                         <Row>
@@ -129,7 +132,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             </Col>
                         </Row>
                         <Row>
-                            <Col> <h4>Now go and do something useful with your life</h4> </Col>
+                            <Col> Now go and do something useful with your life! </Col>
                         </Row>
                         <Row>
                             <Col>
@@ -148,7 +151,8 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                         </Row>
                         <Row>
                             <Col>
-                                TODO: img of burned certificate
+                                Your certificate was burned...
+                                <img alt="certificate" src={burnedCertImg} width="100%" height="auto" />
                             </Col>
                         </Row>
                         <Row>
