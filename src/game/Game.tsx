@@ -142,6 +142,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     private startNewGame() {
         Controls.registerKeyEvents()
+        this.player.resetPlayer();
         this.initializeLevel(Levels.getFirstLevel());
         this.startGameLoop();
     }
@@ -149,7 +150,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     private initializeLevel(level: Level){
         this.currentLevel = level;
         this.collisionMap.collisionObjects = [];
-        this.player.resetPlayer();
+        this.player.softResetPlayer();
         this.respawnPlayer()
         this.levelPosX = 0;
         Config.canvasSize.h = this.currentLevel.map.mapHeight;

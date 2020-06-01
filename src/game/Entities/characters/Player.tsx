@@ -127,10 +127,14 @@ export default class Player extends Character{
         this.yPos += this.ySpeed;
     }
 
-    public resetPlayer() {
-        this.lives = 3;
+    public softResetPlayer() {
         this._tookDamage = false;
+    }
+
+    public resetPlayer(){
         this._ects = 0;
+        this._tookDamage = false;
+        this.lives = 3;
     }
 
     public fellOutOfMap(){
