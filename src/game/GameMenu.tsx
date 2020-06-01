@@ -4,8 +4,8 @@ import { Button, Container, Row, Col } from 'react-bootstrap';
 import GameUI from './GameUI';
 import KeyBindingMenu from './KeyBindingMenu';
 import Controls from './Controls';
-import certImg from './images/bachelorcert.jpg'
-import burnedCertImg from './images/bachelorcert_burned.jpg'
+import certImg from './images/bachelorcert_big.jpg'
+import burnedCertImg from './images/bachelorcert_burned_big.jpg'
 
 interface IGameMenuProps{
     show: boolean;
