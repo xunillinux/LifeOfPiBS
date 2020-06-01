@@ -118,7 +118,7 @@ class Levels {
 
         ]
         ),
-        new Level("3", "grey", 20, new Map([
+        new Level("3", "grey", 25, new Map([
             "                                                                                       ",
             "                                                                                       ",
             "                                                                                       ",
@@ -152,7 +152,7 @@ class Levels {
         ]
         ),
 
-        new Level("3: Boss - Transferpaper", "grey", 25, new Map([
+        new Level("3: Boss - Transferpaper", "grey", 30, new Map([
             "                               ",
             "                               ",
             "                               ",
@@ -174,7 +174,7 @@ class Levels {
 
         ]
         ),
-        new Level("4", "grey", 25, new Map([
+        new Level("4", "grey", 35, new Map([
             "                                                                                       ",
             "                                                                                       ",
             "                                                                                       ",
@@ -208,7 +208,7 @@ class Levels {
         ]
         ),
 
-        new Level("4: Boss - Bachelor Thesis", "grey", 25, new Map([
+        new Level("4: Boss - Bachelor Thesis", "grey", 40, new Map([
             "                               ",
             "                               ",
             "                               ",
