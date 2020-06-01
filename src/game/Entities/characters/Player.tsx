@@ -130,6 +130,7 @@ export default class Player extends Character{
     public resetPlayer() {
         this.lives = 3;
         this._tookDamage = false;
+        this._ects = 0;
     }
 
     public fellOutOfMap(){
