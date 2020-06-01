@@ -23,7 +23,7 @@ export default class Map {
     }
 
     public getNumberOfDisplayedTilesWidth(): number{
-        return Config.canvasSize.w / MapTile.targetSize; 
+        return Config.canvasSize.w / MapTile.targetSize + 1; 
     }
 
     public numberOfDisplayedTilesHeight(): number{

@@ -104,7 +104,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                         </Row>
                         <Row>
                             <Col>
-                                <Button id="continueToLevelButton"variant="primary" onClick={this.props.onGameNextLevelHandler}> Continue to next level </Button>
+                                <Button id="continueToLevelButton"variant="primary" onClick={this.props.onGameNextLevelHandler}> <kbd>SPACE</kbd> to Continue </Button>
                             </Col>
                         </Row>
                     </Container>
@@ -137,7 +137,6 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                         <Row>
                             <Col>
                                 <Button id="restartPiBSButton" variant="primary" onClick={this.props.onGameRestartHandler}> Restart PiBS </Button>
-                                TODO: onButtonClick: alert "are you really sure, it's 4 years of your life"
                             </Col>
                         </Row>
                     </Container>
