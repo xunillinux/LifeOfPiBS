@@ -5,42 +5,11 @@
     border-radius: 5px;
 }
 
+#gameMenu Button{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    width: 100%;
+}
 
-#welcome_text{
+#gameMenu h1,h4{
     color: #ffffff;
-    padding: 20px 0px;
-}
-
-#startGameButton{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-#resumeGameButton{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    margin-top: 20px;
-}
-
-#restartGameButton{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-#continueToLevelButton{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-#restartPiBSButton{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-#restartButton{
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-}
-
-#ready_text{
-    color: #ffffff;
-}
-
-#useful_text{
-    color: #ffffff;
-    padding: 20px 0px;
 }

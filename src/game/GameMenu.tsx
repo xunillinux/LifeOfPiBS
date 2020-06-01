@@ -42,22 +42,19 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                 return(
                     <Container id="gameMenu" fluid>
                         <Row>
+                            <Col> <h1>Welcome to Life of PiBS!</h1> </Col>
+                        </Row>
+                        <Row>
                             <Col>
-                                <h1 id="welcome_text">Welcome to Life of PiBS!</h1>
+                                <KeyBindingMenu/>
                             </Col>
                         </Row>
                         <Row>
-                            <KeyBindingMenu/>
+                            <Col> <h4>Are you ready to start studying?</h4> </Col>
                         </Row>
                         <Row>
-                            <h4 id="ready_text">Are you ready to start studying?</h4>
-                        </Row>
-                        <Row>
-                            <Col md={6}>
-                                <Button id="startGameButton" variant="primary" onClick={this.props.onGameStartHandler}> Start Game </Button>
-                            </Col>
-                            <Col md={6}>
-                                or press space to start...
+                            <Col>
+                                <Button id="startGameButton" variant="primary" onClick={this.props.onGameStartHandler}> Press <kbd>SPACE</kbd> to start </Button>
                             </Col>
                         </Row>
                     </Container>
@@ -84,8 +81,6 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             <Col>
                                 <Button id="resumeGameButton" variant="primary" onClick={this.props.onGameResumeHandler}> Resume Game </Button>
                             </Col>
-                        </Row>
-                        <Row>
                             <Col>
                                 <Button id="restartGameButton" variant="primary" onClick={this.props.onGameRestartHandler}> Restart Game </Button>
                             </Col>
@@ -117,9 +112,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                 return(
                     <Container id="gameMenu" fluid>
                         <Row>
-                            <Col>
-                                <h1>You won! Here is your certificate:</h1>
-                            </Col>
+                            <Col> <h1>You won! Here is your certificate:</h1> </Col>
                         </Row>
                         <Row>
                             <Col>
@@ -127,9 +120,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             </Col>
                         </Row>
                         <Row>
-                            <Col>
-                                <h4 id="useful_text">Now go and do something useful with your life</h4>
-                            </Col>
+                            <Col> <h4>Now go and do something useful with your life</h4> </Col>
                         </Row>
                         <Row>
                             <Col>
@@ -149,35 +140,33 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                     </Container>
                 )
 
-                case GameMenuType.LOOSE:
-                    return(
-                        <Container id="gameMenu" fluid>
-                            <Row>
-                                <Col>
-                                    <h1>You lost! :(</h1>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    TODO: img of burned certificate
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <GameUI
-                                        currentEctsScore = {this.props.currentEctsScore}
-                                        currentLevelName = {this.props.currentLevelName}
-                                        currentLives = {this.props.currentLives}
-                                        maxLives = {this.props.maxLives}/>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col>
-                                    <Button id="restartButton" variant="primary" onClick={this.props.onGameRestartHandler}> Restart Game </Button>
-                                </Col>
-                            </Row>
-                        </Container>
-                    )
+            case GameMenuType.LOOSE:
+                return(
+                    <Container id="gameMenu" fluid>
+                        <Row>
+                            <Col> <h1>You lost! :(</h1> </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                TODO: img of burned certificate
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <GameUI
+                                    currentEctsScore = {this.props.currentEctsScore}
+                                    currentLevelName = {this.props.currentLevelName}
+                                    currentLives = {this.props.currentLives}
+                                    maxLives = {this.props.maxLives}/>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
+                                <Button id="restartButton" variant="primary" onClick={this.props.onGameRestartHandler}> Restart Game </Button>
+                            </Col>
+                        </Row>
+                    </Container>
+                )
         }
     }
 
