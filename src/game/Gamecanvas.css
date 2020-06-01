@@ -3,6 +3,10 @@
     display: none;
 }
 
+#gameCanvas{
+  background-color: rgba(255, 255, 255, 0.137);
+}
+
 canvas {
   width: 100%;
 }

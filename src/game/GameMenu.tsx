@@ -79,7 +79,7 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                         </Row>
                         <Row>
                             <Col>
-                                <Button id="resumeGameButton" variant="primary" onClick={this.props.onGameResumeHandler}> Resume Game </Button>
+                                <Button id="resumeGameButton" variant="primary" onClick={this.props.onGameResumeHandler}> <kbd>SPACE</kbd> to Resume </Button>
                             </Col>
                             <Col>
                                 <Button id="restartGameButton" variant="primary" onClick={this.props.onGameRestartHandler}> Restart Game </Button>
@@ -120,9 +120,6 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                             </Col>
                         </Row>
                         <Row>
-                            <Col> <h4>Now go and do something useful with your life</h4> </Col>
-                        </Row>
-                        <Row>
                             <Col>
                                 <GameUI
                                     currentEctsScore = {this.props.currentEctsScore}
@@ -130,6 +127,9 @@ export default class GameMenu extends React.Component<IGameMenuProps, IGameMenuS
                                     currentLives = {this.props.currentLives}
                                     maxLives = {this.props.maxLives}/>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col> <h4>Now go and do something useful with your life</h4> </Col>
                         </Row>
                         <Row>
                             <Col>

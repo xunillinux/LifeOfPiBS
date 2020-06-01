@@ -39,12 +39,14 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
       }
 
         return (
-          <Container fluid>
+          <Container id="gameUIContainer" fluid>
             <Row>
-              <Col sm={12}>
-                <strong>Level: {this.props.currentLevelName} </strong>
+              <Col>
+                <strong>Lvl {this.props.currentLevelName} </strong>
+              </Col>
+              <Col className="text-right">
                 <img alt="logo" src={ectsCoin} width="30" height="30" className="d-inline-block align-top" />
-                <strong> : {this.props.currentEctsScore} </strong>
+                <strong> {this.props.currentEctsScore} </strong>
                 {lifeImages}
               </Col>
             </Row>

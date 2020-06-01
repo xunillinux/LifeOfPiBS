@@ -8,6 +8,8 @@
 #gameMenu Button{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     width: 100%;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 #gameMenu h1,h4{
@@ -23,5 +25,4 @@
 #gameMenu h4{
     font-size: large;
     padding-top: 20px;
-    padding-bottom: 10px;
 }
