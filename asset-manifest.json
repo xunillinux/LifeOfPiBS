@@ -1,25 +1,32 @@
 {
   "files": {
     "main.css": "/LifeOfPiBS/static/css/main.8a7c95cf.chunk.css",
-    "main.js": "/LifeOfPiBS/static/js/main.744e5bb6.chunk.js",
-    "main.js.map": "/LifeOfPiBS/static/js/main.744e5bb6.chunk.js.map",
+    "main.js": "/LifeOfPiBS/static/js/main.2ab1f467.chunk.js",
+    "main.js.map": "/LifeOfPiBS/static/js/main.2ab1f467.chunk.js.map",
     "runtime-main.js": "/LifeOfPiBS/static/js/runtime-main.ab08a057.js",
     "runtime-main.js.map": "/LifeOfPiBS/static/js/runtime-main.ab08a057.js.map",
-    "static/js/2.0160b1dc.chunk.js": "/LifeOfPiBS/static/js/2.0160b1dc.chunk.js",
-    "static/js/2.0160b1dc.chunk.js.map": "/LifeOfPiBS/static/js/2.0160b1dc.chunk.js.map",
+    "static/js/2.468a4b12.chunk.js": "/LifeOfPiBS/static/js/2.468a4b12.chunk.js",
+    "static/js/2.468a4b12.chunk.js.map": "/LifeOfPiBS/static/js/2.468a4b12.chunk.js.map",
     "index.html": "/LifeOfPiBS/index.html",
-    "precache-manifest.51930a5e4e8c0f501f484a81d489fc58.js": "/LifeOfPiBS/precache-manifest.51930a5e4e8c0f501f484a81d489fc58.js",
+    "precache-manifest.4a1bf1bb7486aa6c0d6f4648014d4744.js": "/LifeOfPiBS/precache-manifest.4a1bf1bb7486aa6c0d6f4648014d4744.js",
     "service-worker.js": "/LifeOfPiBS/service-worker.js",
     "static/css/main.8a7c95cf.chunk.css.map": "/LifeOfPiBS/static/css/main.8a7c95cf.chunk.css.map",
-    "static/js/2.0160b1dc.chunk.js.LICENSE.txt": "/LifeOfPiBS/static/js/2.0160b1dc.chunk.js.LICENSE.txt",
+    "static/js/2.468a4b12.chunk.js.LICENSE.txt": "/LifeOfPiBS/static/js/2.468a4b12.chunk.js.LICENSE.txt",
     "static/media/App.css": "/LifeOfPiBS/static/media/ARCADE_R.e913ebdc.TTF",
     "static/media/bachelorcert_big.jpg": "/LifeOfPiBS/static/media/bachelorcert_big.d71120f8.jpg",
-    "static/media/bachelorcert_burned_big.jpg": "/LifeOfPiBS/static/media/bachelorcert_burned_big.ebce645c.jpg"
+    "static/media/bachelorcert_burned_big.jpg": "/LifeOfPiBS/static/media/bachelorcert_burned_big.ebce645c.jpg",
+    "static/media/door.m4a": "/LifeOfPiBS/static/media/door.2243247b.m4a",
+    "static/media/ects.m4a": "/LifeOfPiBS/static/media/ects.009438f2.m4a",
+    "static/media/fellOutOfMap.m4a": "/LifeOfPiBS/static/media/fellOutOfMap.9d9330e4.m4a",
+    "static/media/gameOver.m4a": "/LifeOfPiBS/static/media/gameOver.358a8e2b.m4a",
+    "static/media/jump.m4a": "/LifeOfPiBS/static/media/jump.3cf41aa6.m4a",
+    "static/media/shoot.m4a": "/LifeOfPiBS/static/media/shoot.72eaebf3.m4a",
+    "static/media/smallJump.m4a": "/LifeOfPiBS/static/media/smallJump.f133898d.m4a"
   },
   "entrypoints": [
     "static/js/runtime-main.ab08a057.js",
-    "static/js/2.0160b1dc.chunk.js",
+    "static/js/2.468a4b12.chunk.js",
     "static/css/main.8a7c95cf.chunk.css",
-    "static/js/main.744e5bb6.chunk.js"
+    "static/js/main.2ab1f467.chunk.js"
   ]
 }
