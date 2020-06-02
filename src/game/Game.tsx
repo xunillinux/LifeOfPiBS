@@ -482,6 +482,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     private gameOver(){
+        Sound.playSound(Sounds.GAMEOVER);
         this.pauseGameLoop();
         this.setState({showGameMenu: true, gameMenuType: GameMenuType.LOOSE});
     }
