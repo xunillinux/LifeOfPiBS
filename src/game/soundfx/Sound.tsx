@@ -1,12 +1,20 @@
 import Config from "../Config";
 
 export enum Sounds{
-    SHOOT
+    SHOOT,
+    DOOR,
+    JUMP,
+    SMALLJUMP,
+    FELLOUTOFMAP
 }
 
 export default class Sound {
 
-    private static shootSoundFile = require("./shoot.m4a");
+    private static shootSound = require("./shoot.m4a");
+    private static doorSound = require("./door.m4a");
+    private static jumpSound = require("./jump.m4a");
+    private static smallJumpSound = require("./smallJump.m4a");
+    private static fellOutOfMapSound = require("./fellOutOfMap.m4a");
 
 
     static playSound(sound: Sounds){
@@ -18,7 +26,19 @@ export default class Sound {
         let audio;
         switch (sound) {
             case Sounds.SHOOT:
-                audio = new Audio(this.shootSoundFile);
+                audio = new Audio(this.shootSound);
+                break;
+            case Sounds.DOOR:
+                audio = new Audio(this.doorSound);
+                break;
+            case Sounds.JUMP:
+                audio = new Audio(this.jumpSound);
+                break;
+            case Sounds.SMALLJUMP:
+                audio = new Audio(this.smallJumpSound);
+                break;
+            case Sounds.FELLOUTOFMAP:
+                audio = new Audio(this.fellOutOfMapSound);
                 break;
         }
 

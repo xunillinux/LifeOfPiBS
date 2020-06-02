@@ -3,7 +3,7 @@ import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Projectile, { ProjectileDirection } from '../projectiles/Projectile';
-import Sound from '../../soundfx/Sound';
+import Sound, { Sounds } from '../../soundfx/Sound';
 
 export default class Player extends Character{
 
@@ -68,6 +68,7 @@ export default class Player extends Character{
 
         if(this.ySpeed === 0){
             this.ySpeed -= this.yVelocity; // - because y 0 is on top of canvas so -y means upwards
+            Sound.playSound(Sounds.JUMP);
         }
 
     }
@@ -75,6 +76,7 @@ export default class Player extends Character{
     public smallJump(){
         if(this.ySpeed === 0){
             this.ySpeed -= this.yVelocity/2; // - because y 0 is on top of canvas so -y means upwards
+            Sound.playSound(Sounds.SMALLJUMP);
         }
     }
 
@@ -140,6 +142,7 @@ export default class Player extends Character{
 
     public fellOutOfMap(){
         this.takeDamage();
+        Sound.playSound(Sounds.FELLOUTOFMAP);
     }
 
     public takeDamage(){

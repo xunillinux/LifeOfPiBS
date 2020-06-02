@@ -18,6 +18,7 @@ import Item from './Entities/items/Item';
 import { MapTileType } from './Map/MapTileType';
 import GameMenu, { GameMenuType } from './GameMenu';
 import { Row, Col, Container } from 'react-bootstrap';
+import Sound, { Sounds } from './soundfx/Sound';
 
 interface IGameProps{
 }
@@ -366,6 +367,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
             this.collisionMap.collisionObjects = this.collisionMap.collisionObjects.concat(layer.filter(mapTile => mapTile.type === MapTileType.EXIT));
         });
         this.currentLevel.exitIsOpen = true;
+        Sound.playSound(Sounds.DOOR);
     }
 
     private updateMapPosition(player: Player){
