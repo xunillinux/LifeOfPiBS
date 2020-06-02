@@ -129,19 +129,23 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
 
     onGameStartHandler(){
+        Sound.playSound(Sounds.BUTTONCLICK);
         this.setState({showGameMenu: false})
         this.startNewGame();
     }
     onGameResumeHandler(){
+        Sound.playSound(Sounds.BUTTONCLICK);
         this.setState({showGameMenu: false})
         this.startGameLoop();
     }
     onGameNextLevelHandler(){
+        Sound.playSound(Sounds.BUTTONCLICK);
         this.setState({showGameMenu: false})
         this.loadNextLevel();
         this.startGameLoop();
     }
     onGameRestartHandler(){
+        Sound.playSound(Sounds.BUTTONCLICK);
         this.setState({showGameMenu: false})
         this.startNewGame();
     }

@@ -7,7 +7,8 @@ export enum Sounds{
     SMALLJUMP,
     FELLOUTOFMAP,
     ECTS,
-    GAMEOVER
+    GAMEOVER,
+    BUTTONCLICK
 }
 
 export default class Sound {
@@ -19,6 +20,7 @@ export default class Sound {
     private static fellOutOfMapSound = require("./fellOutOfMap.m4a");
     private static ectsSound = require("./ects.m4a");
     private static gameOverSound = require("./gameOver.m4a");
+    private static buttonClickSound = require("./buttonClick.m4a");
 
 
     static playSound(sound: Sounds){
@@ -49,6 +51,9 @@ export default class Sound {
                 break;
             case Sounds.GAMEOVER:
                 audio = new Audio(this.gameOverSound);
+                break;
+            case Sounds.BUTTONCLICK:
+                audio = new Audio(this.buttonClickSound);
                 break;
         }
 
