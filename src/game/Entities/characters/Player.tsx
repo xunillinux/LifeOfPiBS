@@ -196,6 +196,7 @@ export default class Player extends Character{
 
     public addEcts(amount?: number) {
         this._ects = (amount) ? this.ects + amount : this.ects + 1;
+        Sound.playSound(Sounds.ECTS);
     }
 
     private canShoot(){

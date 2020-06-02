@@ -5,7 +5,8 @@ export enum Sounds{
     DOOR,
     JUMP,
     SMALLJUMP,
-    FELLOUTOFMAP
+    FELLOUTOFMAP,
+    ECTS
 }
 
 export default class Sound {
@@ -15,6 +16,7 @@ export default class Sound {
     private static jumpSound = require("./jump.m4a");
     private static smallJumpSound = require("./smallJump.m4a");
     private static fellOutOfMapSound = require("./fellOutOfMap.m4a");
+    private static ectsSound = require("./ects.m4a");
 
 
     static playSound(sound: Sounds){
@@ -39,6 +41,9 @@ export default class Sound {
                 break;
             case Sounds.FELLOUTOFMAP:
                 audio = new Audio(this.fellOutOfMapSound);
+                break;
+            case Sounds.ECTS:
+                audio = new Audio(this.ectsSound);
                 break;
         }
 
