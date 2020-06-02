@@ -4,6 +4,7 @@ import projectileSpriteImage from '../../images/projectileSpriteImage.jpg';
 import Map from "../../Map/Map";
 import MapTile from "../../Map/MapTile";
 import Character from "../characters/Character";
+import Sound, { Sounds } from "../../soundfx/Sound";
 
 export enum ProjectileDirection{
     UP,
@@ -39,6 +40,7 @@ export default class Projectile extends Entity{
         this.startYPos = 0;
         this._range = 10 * MapTile.targetSize;
         this._owner = owner;
+        Sound.playSound(Sounds.SHOOT);
     }
 
     public get hasCollided(): boolean {

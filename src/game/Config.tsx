@@ -4,5 +4,6 @@ export default class Config {
     static gravity: number = 2;
     static fps: number = 30;
     static gameInterval: any;
+    static soundsEnabled: boolean = true;
 
 }

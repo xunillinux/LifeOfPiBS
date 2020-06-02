@@ -3,6 +3,7 @@ import playerSpriteImage from '../../images/playerSprite.jpg';
 import SpritePosition from '../../SpritePosition';
 import Map from '../../Map/Map';
 import Projectile, { ProjectileDirection } from '../projectiles/Projectile';
+import Sound from '../../soundfx/Sound';
 
 export default class Player extends Character{
 
@@ -181,6 +182,7 @@ export default class Player extends Character{
             projectile.updatePos(this.xPos-projectile.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
             return projectile;
         }
+
     }
 
     public updateShootCooldown(){
