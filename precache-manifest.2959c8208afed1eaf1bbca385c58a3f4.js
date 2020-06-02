@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2e09db0ae64143c935a082322a100e5b",
+    "revision": "2c20a1869bd932cdacb35ec56d5515fb",
     "url": "/LifeOfPiBS/index.html"
   },
   {
-    "revision": "ada9033265470b831b39",
+    "revision": "565196b414febcc4adef",
     "url": "/LifeOfPiBS/static/css/main.8a7c95cf.chunk.css"
   },
   {
-    "revision": "a3f720fffcdcf40b1d22",
-    "url": "/LifeOfPiBS/static/js/2.468a4b12.chunk.js"
+    "revision": "c064e66fb414b11bde28",
+    "url": "/LifeOfPiBS/static/js/2.c6ebd456.chunk.js"
   },
   {
     "revision": "c836aaadfe43dfd9fcb8ddeddfd61e18",
-    "url": "/LifeOfPiBS/static/js/2.468a4b12.chunk.js.LICENSE.txt"
+    "url": "/LifeOfPiBS/static/js/2.c6ebd456.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "ada9033265470b831b39",
-    "url": "/LifeOfPiBS/static/js/main.2ab1f467.chunk.js"
+    "revision": "565196b414febcc4adef",
+    "url": "/LifeOfPiBS/static/js/main.0a13279c.chunk.js"
   },
   {
     "revision": "aae0cfffd2b09063039b",
@@ -34,6 +34,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "ebce645cbe7a24cf7b746fe32cea25e9",
     "url": "/LifeOfPiBS/static/media/bachelorcert_burned_big.ebce645c.jpg"
+  },
+  {
+    "revision": "e8b6dadef4d0b4eda4a664e1a5ca822d",
+    "url": "/LifeOfPiBS/static/media/buttonClick.e8b6dade.m4a"
   },
   {
     "revision": "2243247b9bb4b20d44a9e155c51a01b9",
