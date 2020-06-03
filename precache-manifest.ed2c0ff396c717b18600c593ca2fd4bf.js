@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2c20a1869bd932cdacb35ec56d5515fb",
+    "revision": "6d4e4ebb0aad14b8a39107c59ff4f23d",
     "url": "/LifeOfPiBS/index.html"
   },
   {
-    "revision": "565196b414febcc4adef",
-    "url": "/LifeOfPiBS/static/css/main.8a7c95cf.chunk.css"
+    "revision": "379c859bde4b3ed73cdd",
+    "url": "/LifeOfPiBS/static/css/main.a0bbec3e.chunk.css"
   },
   {
-    "revision": "c064e66fb414b11bde28",
-    "url": "/LifeOfPiBS/static/js/2.c6ebd456.chunk.js"
+    "revision": "1e788f63ea1b4f3822b1",
+    "url": "/LifeOfPiBS/static/js/2.a20b090b.chunk.js"
   },
   {
     "revision": "c836aaadfe43dfd9fcb8ddeddfd61e18",
-    "url": "/LifeOfPiBS/static/js/2.c6ebd456.chunk.js.LICENSE.txt"
+    "url": "/LifeOfPiBS/static/js/2.a20b090b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "565196b414febcc4adef",
-    "url": "/LifeOfPiBS/static/js/main.0a13279c.chunk.js"
+    "revision": "379c859bde4b3ed73cdd",
+    "url": "/LifeOfPiBS/static/js/main.3b1dbd87.chunk.js"
   },
   {
     "revision": "aae0cfffd2b09063039b",
@@ -66,5 +66,13 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "f133898d5ab84a97f77c616538334df4",
     "url": "/LifeOfPiBS/static/media/smallJump.f133898d.m4a"
+  },
+  {
+    "revision": "f99fbe48636fc6e639e4033df67a894b",
+    "url": "/LifeOfPiBS/static/media/volume-mute.f99fbe48.svg"
+  },
+  {
+    "revision": "c2cc50ac5ee1884c6acb656bfff67b62",
+    "url": "/LifeOfPiBS/static/media/volume-up.c2cc50ac.svg"
   }
 ]);
