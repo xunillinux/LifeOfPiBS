@@ -61,5 +61,9 @@ export default class Sound {
 
     }
 
+    public static toggleSound(){
+        Config.soundsEnabled = !Config.soundsEnabled;
+    }
+
 
 }
