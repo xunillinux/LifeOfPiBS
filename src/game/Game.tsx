@@ -130,7 +130,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
     onGameStartHandler(){
         Sound.playSound(Sounds.BUTTONCLICK);
-        this.setState({showGameMenu: false})
+        this.setState({showGameMenu: false, currentEctsScore: 0, ticks: 0})
         this.startNewGame();
     }
     onGameResumeHandler(){
@@ -146,7 +146,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
     }
     onGameRestartHandler(){
         Sound.playSound(Sounds.BUTTONCLICK);
-        this.setState({showGameMenu: false})
+        this.setState({showGameMenu: false, currentEctsScore: 0, ticks: 0})
         this.startNewGame();
     }
 
@@ -154,7 +154,6 @@ export default class Game extends React.Component<IGameProps, IGameState> {
         Controls.registerKeyEvents()
         this.player.resetPlayer();
         this.startTime = Date.now();
-        console.log(this.startTime);
 
         this.initializeLevel(Levels.getFirstLevel());
         this.startGameLoop();
