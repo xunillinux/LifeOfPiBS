@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Game from './game/Game';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar } from 'react-bootstrap';
 import Logo from './game/images/logo.jpg';
 
 function App() {

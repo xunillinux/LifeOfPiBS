@@ -53,7 +53,7 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
         // first tile to display:
         let indexFirstTile = Math.trunc(levelPosX / MapTile.targetSize);
         let offset_x = levelPosX % MapTile.targetSize;
-
+        
         // last tile to show
         let indexLastTile = indexFirstTile + currentLevel.map.getNumberOfDisplayedTilesWidth();
     
@@ -69,15 +69,15 @@ export default class Canvas extends React.Component<IGameCanvasProps, IGameCanva
         for (let indexCurrentTile = indexFirstTile; indexCurrentTile < indexLastTile; indexCurrentTile++) {
 
             let mapTile = mapTileLayer[indexCurrentTile];
-            
+
             if(mapTile){
                 mapTile.xPosCanvas = indexCurrentTile * MapTile.targetSize - offset_x;
                 mapTile.yPosCanvas = currentLayerIndex * MapTile.targetSize;
                 this.ctx.drawImage(currentLevel.map.spriteMap,
-                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize),
+                    mapTile.spritePos.getXPosForSpriteWidth(MapTile.sourceSize)+0.2, //maaagic numbers for the win (this fixes some maptile seams)
                     mapTile.spritePos.getYPosForSpriteHeight(MapTile.sourceSize),
-                    MapTile.sourceSize,
-                    MapTile.sourceSize,
+                    MapTile.sourceSize-1,
+                    MapTile.sourceSize-1,
                     mapTile.xPosCanvas - (indexFirstTile * MapTile.targetSize),
                     mapTile.yPosCanvas,
                     MapTile.targetSize,
