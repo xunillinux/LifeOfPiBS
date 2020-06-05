@@ -20,7 +20,6 @@ function App() {
       </header>
 
       <div id="content">
-
         <Navbar className="navbar" bg="dark" variant="dark">
           <Navbar.Brand className="col-md-6">
             <img alt="logo" src={Logo} width="30" height="30" className="d-inline-block align-top"/>

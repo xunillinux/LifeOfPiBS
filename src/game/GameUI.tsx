@@ -38,7 +38,7 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
             src={ (i < this.props.currentLives) ? fullHeart : emptyHeart}
             width="30"
             height="30"
-            className="d-inline-block align-top" />
+            className="d-inline-block align-top lifeImg" />
         );
       }
 

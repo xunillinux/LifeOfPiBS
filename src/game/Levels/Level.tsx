@@ -9,8 +9,6 @@ export default class Level {
     private _id: string;
     private _name: string;
     
-    private _backgroundColor: string;
-    
     private _map: Map;
      
     private _enemies: Npc[];
@@ -21,11 +19,10 @@ export default class Level {
 
     private _requiredEcts: number;
     
-    constructor(name: string, backgroundColor: string, requiredEcts: number, map: Map, enemies: Npc[], ects: Item[]) {
+    constructor(name: string, requiredEcts: number, map: Map, enemies: Npc[], ects: Item[]) {
 
         this._exitIsOpen = false;
         this._name = name;
-        this._backgroundColor = backgroundColor;
         this._map = map;
         this._enemies = enemies;
         this._items = ects;
@@ -48,10 +45,6 @@ export default class Level {
 
     public get name(): string {
         return this._name;
-    }
-
-    public get backgroundColor(): string {
-        return this._backgroundColor;
     }
 
     public get map(): Map {
