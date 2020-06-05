@@ -7,7 +7,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { ReactComponent as VolumeUp } from '../game/images/volume-up.svg';
 import { ReactComponent as VolumeMute } from '../game/images/volume-mute.svg';
 import Config from './Config';
-import Sound, { Sounds } from './soundfx/Sound';
+import Sound from './soundfx/Sound';
 
 interface IGameUIProps{
     currentLevelName: string;
