@@ -165,7 +165,7 @@ export default class Bachelorthesis extends Npc {
                 projectile.updatePos(this.xPos-this.targetSize, this.yPos+this.targetSize/2 - projectile.targetSize/2);
                 break;
             case ProjectileDirection.UP:
-                projectile.updatePos(this.xPos+this.targetSize/2, this.yPos-this.targetSize - projectile.targetSize/2);
+                projectile.updatePos(this.xPos+this.targetSize/2, this.yPos - projectile.targetSize);
                 break;
         }
 
