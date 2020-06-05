@@ -25,4 +25,9 @@ build
 
 .vscode/
 
+### Enzyme Reports
+
+report.*.json
+
+
 # End of https://www.gitignore.io/api/react
