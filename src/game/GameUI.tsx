@@ -7,7 +7,7 @@ import { Row, Col, Container } from 'react-bootstrap';
 import { ReactComponent as VolumeUp } from '../game/images/volume-up.svg';
 import { ReactComponent as VolumeMute } from '../game/images/volume-mute.svg';
 import Config from './Config';
-import Sound from './soundfx/Sound';
+import Sound, { Sounds } from './soundfx/Sound';
 
 interface IGameUIProps{
     currentLevelName: string;
@@ -17,6 +17,7 @@ interface IGameUIProps{
 }
 
 interface IGameUIState{
+  soundsEnabled: boolean;
 }
 
 export default class GameUI extends React.Component<IGameUIProps, IGameUIState> {
@@ -24,6 +25,11 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
     // eslint-disable-next-line
     constructor(props:IGameUIProps){
         super(props);
+        this.state = {
+          soundsEnabled: Config.soundsEnabled
+      };
+
+      this.toggleSound = this.toggleSound.bind(this);
     }
 
     render(){
@@ -44,10 +50,10 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
 
       let volumeImg;
 
-      if(Config.soundsEnabled){
-        volumeImg = <VolumeUp width="30px" height="30px" className="volumeSvg" onClick={Sound.toggleSound}/>;
+      if(this.state.soundsEnabled){
+        volumeImg = <VolumeUp width="30px" height="30px" className="volumeSvg" onClick={this.toggleSound}/>;
       } else{
-        volumeImg = <VolumeMute width="30px" height="30px" className="volumeSvg" onClick={Sound.toggleSound}/>;
+        volumeImg = <VolumeMute width="30px" height="30px" className="volumeSvg" onClick={this.toggleSound}/>;
       }
 
         return (
@@ -65,6 +71,11 @@ export default class GameUI extends React.Component<IGameUIProps, IGameUIState> 
             </Row>
           </Container>
         );
+    }
+
+    private toggleSound(){
+      Sound.toggleSound();
+      this.setState({soundsEnabled: Config.soundsEnabled});
     }
 
 }
