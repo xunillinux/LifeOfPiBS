@@ -24,10 +24,9 @@ The final boss will be the "bachelor thesis".
 7) The count of lives is displayed in the top right corner.
 8) The count of ECTS is displayed in the top right corner.
 9) The current level is displayed in the top left corner.
-10) The exit of the level is blocked until all ECTS of the level have been gathered and the "boss" of the level has been defeated (life = 0).
+10) The exit of the level is blocked until all ECTS of the level have been gathered or the "boss" of the level has been defeated (life = 0).
 11) The count of lives decreases by one if the player touches an enemy or falls out of the frame.
 12) The count of ECTS increases by one if the player touches an ECTS-instance.
-13) When the exit of the level enters the frame and all ECTS of the level have been gathered, the "boss" of the level appears.
 
 
 ### Non Functional Requirements
