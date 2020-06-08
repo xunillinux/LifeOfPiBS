@@ -256,6 +256,7 @@ export default class Game extends React.Component<IGameProps, IGameState> {
 
         this.player.updatePos();
         this.player.updateShootCooldown();
+        this.player.updateDamageCooldown();
 
         this.checkLevelEdgeCollision(this.player);
         this.updateMapPosition(this.player);

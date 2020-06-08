@@ -15,6 +15,8 @@ export default class Player extends Character{
     private _shootCooldown: number;
     private _shootCooldownTime: number;
     private _maxLives: number;
+    private _damageCooldown: number;
+    private _damageCooldownTime: number;
     
     constructor(xPos:number, yPos:number) {
         let spriteMap = new Image();
@@ -36,6 +38,8 @@ export default class Player extends Character{
         this._facingRight = true;
         this._shootCooldown = 0;
         this._shootCooldownTime = 15;
+        this._damageCooldown = 0;
+        this._damageCooldownTime = 15;
         this._maxLives = maxLives;
     }
 
@@ -146,15 +150,19 @@ export default class Player extends Character{
     }
 
     public takeDamage(){
-        super.takeDamage()
-        this._tookDamage = true;
+        if(this.canBeDamaged()){
+            this._damageCooldown = this._damageCooldownTime;
+            super.takeDamage()
+            this._tookDamage = true;
+        }
     }
 
     public takeDamageFrom(character: Character){
-
-        super.takeDamage()
-        this._tookDamage = true;
-
+        if(this.canBeDamaged()){
+            this._damageCooldown = this._damageCooldownTime;
+            super.takeDamage()
+            this._tookDamage = true;
+        }
     }
 
     public handleLevelEdgeCollision(map: Map){
@@ -194,6 +202,12 @@ export default class Player extends Character{
         }
     }
 
+    public updateDamageCooldown(){
+        if(this._damageCooldown > 0){
+            this._damageCooldown--;
+        }
+    }
+
     public addEcts(amount?: number) {
         this._ects = (amount) ? this.ects + amount : this.ects + 1;
         Sound.playSound(Sounds.ECTS);
@@ -201,6 +215,10 @@ export default class Player extends Character{
 
     private canShoot(){
         return (this._shootCooldown <= 0);
+    }
+
+    private canBeDamaged(){
+        return (this._damageCooldown <= 0);
     }
 
     public addLife(){
